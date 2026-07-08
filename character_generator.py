@@ -6,8 +6,11 @@ from dice import
 def generate_character():
     character = FatalModel(player_name="Abomination")
 
-    character = add_race(character)
     # abilities, race, gender
+
+
+    # Note this needs to be done after gender and abilities
+    character = add_race(character)
 
     # body, disposition, mind
 

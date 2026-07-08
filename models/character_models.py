@@ -500,23 +500,26 @@ class FatalModel(BaseModel):
     wrestling: SkillModel = SkillModel(related_abilities = ['strength', 'agility'])
 
     """Body Parts"""
-    head: BodyModel = None
-    face: BodyModel = None
-    upper_torso: BodyModel = None
-    lower_torso: BodyModel = None
-    groin: BodyModel = None
-    upper_right_arm: BodyModel = None
-    lower_right_arm: BodyModel = None
-    right_hand: BodyModel = None
-    upper_left_arm: BodyModel = None
-    lower_left_arm: BodyModel = None
-    left_hand: BodyModel = None
-    upper_right_leg: BodyModel = None
-    lower_right_leg: BodyModel = None
-    right_foot: BodyModel = None
-    upper_left_leg: BodyModel = None
-    lower_left_leg: BodyModel = None
-    left_foot: BodyModel = None
+    head: BodyModel = BodyModel()
+    face: BodyModel = BodyModel()
+    upper_torso: BodyModel = BodyModel()
+    lower_torso: BodyModel = BodyModel()
+    groin: BodyModel = BodyModel()
+    upper_right_arm: BodyModel = BodyModel()
+    lower_right_arm: BodyModel = BodyModel()
+    right_hand: BodyModel = BodyModel()
+    upper_left_arm: BodyModel = BodyModel()
+    lower_left_arm: BodyModel = BodyModel()
+    left_hand: BodyModel = BodyModel()
+    upper_right_leg: BodyModel = BodyModel()
+    lower_right_leg: BodyModel = BodyModel()
+    right_foot: BodyModel = BodyModel()
+    upper_left_leg: BodyModel = BodyModel()
+    lower_left_leg: BodyModel = BodyModel()
+    left_foot: BodyModel = BodyModel()
+
+    tail: BodyModel = BodyModel()
+    wings: BodyModel = BodyModel()
 
     """Spells"""
     spells_known: List[int] = None
