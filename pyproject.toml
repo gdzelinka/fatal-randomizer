@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = [""]
+
+[project]
+name = "fatal-randomizer"
+version = "0.1.0"
+description = "Generate random FATAL character"
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "pydantic"
+]
