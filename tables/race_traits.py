@@ -27,7 +27,7 @@ anakim_traits = {
          "Coordination and Agility until the requisite number of creatures are murdered."),),
     11: (("The anakim may cast Call Maggots once per day. Casting requires no chant, ingredient, or ritual."),),
     12: (("The anakim's veins are all visible near the surface of their skin, causing penalties of 1d10 to both "
-         "Bodily Attractiveness and Facial Charisma."),{"bodily_attractiveness_modifer": -1 *d10(), "facial_charisma_modifier": -1*d10()}),
+         "Bodily Attractiveness and Facial Charisma."),{"bodily_attractiveness_modifer": -1 *d10(), "facial_charisma": -1*d10()}),
     13: (("The anakim has a fiendish hunger, and must eat 6 full meals daily to live"),),
     14: (("The anakim is addicted to vaginal or penile carrion. Once per week, the anakim has the urge to kill "
          "the first member of the opposite sex in sight and feed on the previously stated remains. The anakim may "
@@ -42,7 +42,7 @@ anakim_traits = {
     20: (("The anakim is accompanied by an odor of feces that extends 1d6 feet from their body."),),
     21: (("The anakim has very pale skin, decreasing Facial Charisma by 1d10 because of their likeness to a "
          "corpse. The anakim prefers to avoid sunlight. No matter how much time the anakim spends in the sun, "
-         "their skin will not tan."),{"facial_charisma_modifier": -1 *d10()}),
+         "their skin will not tan."),{"facial_charisma": -1 *d10()}),
     22: (("The anakim has a 2%% chance of waking with bloodthirst. If so, then the anakim must murder a creature "
          "and drink its blood within 24 hours. If the anakim fails to fulfill its bloodthirst, then all characters "
          "within 1d100 feet will dream that night that the anakim dismembers and eats them."),),
@@ -57,20 +57,20 @@ anakim_traits = {
     28: (("The anakim is accompanied by whispering voices that may be heard 1d10 feet away."),),
     29: (("The anakim has white eyes, apparently with no pupil or iris, decreasing Facial Charisma by 2d10, "
          "since this trait is clearly inhuman. It is impossible to observe this anakim and determine exactly where "
-         "they are looking at any given moment."),{"facial_charisma_modifier": -1*(d10() + d10())}),
+         "they are looking at any given moment."),{"facial_charisma": -1*(d10() + d10())}),
     30: (("The anakim has abnormal hatred for males. Whenever within 1d100 feet of one, the anakim must pass a "
          "Drive sub-ability check at TH 17 or attack with intent to kill."),),
     31: (("The anakim may cast Frosty Touch once per day. Casting requires no chant, ingredient, or ritual."),),
     32: (("The anakim causes grass to die where they walk. Dead grass is yellow"),),
     33: (("The anakim has abnormally recessed eyes, decreasing Facial Charisma by 1d10, since they look more "
-         "immoral, dead, and less innocent."),{"facial_charisma_modifier": -1*d10()}),
+         "immoral, dead, and less innocent."),{"facial_charisma": -1*d10()}),
     34: (("The anakim has abnormal hatred for females. Whenever within 1d100 feet of one, the anakim must pass "
          "a Drive sub-ability check at TH 17 or attack with intent to kill."),),
     35: (("The anakim may cast Acidic Touch once per day. Casting requires no chant, ingredient, or ritual."),),
     36: (("The anakim is always accompanied by the gathering of 1d10 black birds near and above them."),),
     37: (("The anakim has a 3rd eye in the middle of their forehead, decreasing Facial Charisma by 3d10. Having 3 "
          "eyes improves Vision by 1d20 points. Since 50 Vision points is perfect Vision, these points are applied "
-         "in this direction."),{"facial_charisma_modifier": -1*(d10() + d10()+d10()), "vision_modifier": d20()}),
+         "in this direction."),{"facial_charisma": -1*(d10() + d10()+d10()), "vision": d20()}),
     38: (("The anakim has abnormal hatred for humans. Whenever within 1d100 feet of one, the anakim must pass "
          "a Drive sub-ability check at TH 17 or attack with intent to kill."),),
     39: (("The anakim may cast Force Slumber once per day. Casting requires no chant, ingredient, or ritual."),),
@@ -93,8 +93,8 @@ anakim_traits = {
     51: (("The anakim may cast Bestow Virus once per day. Casting requires no chant, ingredient, or ritual."),),
     52: (("The anakim has a touch that withers flowers"),),
     53: (("The anakim has a robust jaw that is able to crush bone. However, it is so robust that the anakim loses "
-         "1d10 Facial Charisma if male, 2d10 if female."),{"facial_charisma_modifier": (["AND", ("bool", "gender", "male")], -1*(d10() + d10())),
-                                                           "facial_charisma_modifier": (["AND", ("bool", "gender", "female")], -1*(d10() + d10()))}),
+         "1d10 Facial Charisma if male, 2d10 if female."),{"facial_charisma": (["AND", ("bool", "gender", "male")], -1*(d10() + d10())),
+                                                           "facial_charisma": (["AND", ("bool", "gender", "female")], -1*(d10() + d10()))}),
     54: (("The anakim has abnormal hatred for ogres. Whenever within 1d100 feet of one, the anakim must pass a "
          "Drive sub-ability check at TH 17 or attack with intent to kill."),),
     55: (("The anakim may cast Seal Orifice once per day. Casting requires no chant, ingredient, or ritual."),),
@@ -114,10 +114,10 @@ anakim_traits = {
          "Charisma, Enunciation, and Language are above 90, then this anakim has increased Persuasion and "
          "Trickery skill checks by 1d10. If not, then this anakim receives a penalty of 1d10 to said skills."),
          {
-            "rhetorical_modifier": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
-            "charisma_modifier": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
-            "ennunciation_modifier": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
-            "language_modifier": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
+            "rhetorical": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
+            "charisma": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
+            "ennunciation": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
+            "language": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10)),
             "persuasion.skill_modifier": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10)),
             "trickery.skill_modifier": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10)),
          }),
@@ -147,15 +147,15 @@ anakim_traits = {
     73: (("The anakim has an abnormally thick skull, decreasing Facial Charisma and each sub-ability of "
          "Intelligence by 1d10, as well as adding 1d4 BPP to the head. They receive only 50%% of damage from "
          "physical head wounds such as hacking, pounding, or stabbing."),
-         {"facial_charisma_modifier": -1*(d10()),
-          "language_modifier": -1*(d10()),
-          "math_modifier": -1*(d10()),
-          "analytic_modifier": -1*(d10()),
-          "spatial_modifier": -1*(d10()),
+         {"facial_charisma": -1*(d10()),
+          "language": -1*(d10()),
+          "math": -1*(d10()),
+          "analytic": -1*(d10()),
+          "spatial": -1*(d10()),
           "head.bpp": d4()
          }),
     74: (("The anakim is able to speak backwards at will, increasing their Enunciation sub-ability by 1d100."),
-         {"ennunciation_modifier": d100()}),
+         {"ennunciation": d100()}),
     75: (("The anakim has skin that reduces damage due to cold by 50%%. The skin does not seem abnormal when "
          "examined."),),
     76: (("The anakim is able to bellow as loud as a lion"),),
@@ -173,10 +173,10 @@ anakim_traits = {
          "has a penalty of 2d10 to Kinetic Charisma."),),
     82: (("The anakim has demonic Wisdom. Therefore, this anakim gains 1d20 points into each sub-ability of "
          "Wisdom, rolled separately."),
-         {"drive_modifier": d20(),
-          "intuition_modifier": d20(),
-          "common_sense_modifier": d20(),
-          "reflection_modifier": d20()
+         {"drive": d20(),
+          "intuition": d20(),
+          "common_sense": d20(),
+          "reflection": d20()
          }),
     83: (("The anakim may use any magical device, regardless of requirements"),),
     84: (("The anakim is able to refract, instead of reflect, any type of light, magical or natural, bestowing "
@@ -198,15 +198,15 @@ anakim_traits = {
     89: (("The anakim has 1-inch spikes of bone protruding from its knuckles, causing 50%% more base Brawling "
          "damage when punching."),),
     90: (("The anakim knows how to speak Demonic, increasing their Language sub-ability by 1d100."),
-         {"language_modifier": d100(), "number_of_languages": 1, "languages": ("Demonic",)}),
+         {"language": d100(), "number_of_languages": 1, "languages": ("Demonic",)}),
     91: (("The anakim may \"swallow the souls\" of other anakim corpses. For each \"soul swallowed,\" the anakim "
          "has the power to cure 1, randomly determined mental illness inflicting himself or another character "
          "touched at the time of \"soul-swallowing.\""),),
     92: (("The anakim heals BPP and LP at twice the daily rate (see Natural Healing in Chapter 10: Combat)."),),
     93: (("The anakim is amazingly agile, increasing their sub-ability score for Agility by 1d20."),
-         {"agility_modifier": d20()}),
+         {"agility": d20()}),
     94: (("The anakim knows how to speak Underworld, increasing their Language sub-ability by 1d100."),
-         {"language_modifier": d100(), "number_of_languages": 1, "languages": ("Underworld",)}),
+         {"language": d100(), "number_of_languages": 1, "languages": ("Underworld",)}),
     95: (("Non-magical weapons cannot harm the anakim. Consult with the Aedile"),),
     96: (("The anakim has supernatural eyes. The anakim can see equally well in darkness as in bright light; "
          "brightness does not affect this anakim. This anakim cannot distinguish day from night."),),
@@ -222,4 +222,25 @@ anakim_traits = {
     100: (("The anakim has flame-breath. This anakim may breathe a stream of flames that is 1 inch in diameter "
           "and extends 1d4 feet in distance for up to 3 rounds. During this time the anakim may not take any "
           "other action. The flames cause 2d6 fire damage per round."),),
+}
+
+elf_lifespan = {
+    1: 250,
+    2: 500,
+    3: 750,
+    4: 1000,
+    5: 1500,
+    6: 2000,
+    7: 2500,
+    8: 3000
+}
+
+ogre_occupation = {
+    "Bandit": 16,
+    "Berserker": 16,
+    "Chieftan": 1,
+    "Gladiator": 17,
+    "Mercenary": 16,
+    "Ruffian": 16,
+    "Slave": 18
 }

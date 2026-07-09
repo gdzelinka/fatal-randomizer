@@ -369,7 +369,7 @@ class FatalModel(BaseModel):
     fletching: SkillModel = SkillModel(related_abilities = ['spatial'])
     foresting: SkillModel = SkillModel(related_abilities = ['common_sense'])
     forgery: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    gambling_math: SkillModel = SkillModel(related_abilities = ['common_sense'])
+    gambling: SkillModel = SkillModel(related_abilities = ['common_sense', 'math'])
     gemcutting: SkillModel = SkillModel(related_abilities = ['spatial'])
     genealogy: SkillModel = SkillModel(related_abilities = ['common_sense'])
     girdlemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
@@ -520,6 +520,8 @@ class FatalModel(BaseModel):
 
     tail: BodyModel = BodyModel()
     wings: BodyModel = BodyModel()
+
+    elf_lifespan: int = None
 
     """Spells"""
     spells_known: List[int] = None

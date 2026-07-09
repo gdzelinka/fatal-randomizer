@@ -1,7 +1,7 @@
 import random
 from models.character_models import FatalModel
-from dice import d10, d20, d100
-from race_traits import anakim_traits
+from dice import d8, d10, d20, d100
+from race_traits import anakim_traits, elf_lifespan, ogre_occupation
 
 race_dict = {
     "Anakim": 1,
@@ -23,7 +23,7 @@ race_dict = {
 }
 
 
-def handle_race_traits(character):
+def handle_anakim_traits(character):
     number_of_traits = d10()
 
     for _ in range(number_of_traits):
@@ -72,19 +72,23 @@ def add_race(character: FatalModel):
         k=1
     )[0]
 
+    return character
+
+def add_race_modifiers(character: FatalModel):
+
     if character.race == "Anakim":
-        character.strength_modifier += 100
-        character.hand_eye_coordination_modifier -= 30
-        character.agility_modifier -= 25
-        character.reaction_speed_modifier -= 20
-        character.language_modifier += 5
-        character.math_modifier += 5
-        character.analytic_modifier += 5
-        character.spatial_modifier += 5
-        character.drive_modifier -= 5
-        character.intuition_modifier -= 10
-        character.common_sense_modifier -= 20
-        character.reflection_modifier -= 10
+        character.strength += 100
+        character.hand_eye_coordination -= 30
+        character.agility -= 25
+        character.reaction_speed -= 20
+        character.language += 5
+        character.math += 5
+        character.analytic += 5
+        character.spatial += 5
+        character.drive -= 5
+        character.intuition -= 10
+        character.common_sense -= 20
+        character.reflection -= 10
 
         character.current_armor = 11
         character.life_points = 27
@@ -97,31 +101,31 @@ def add_race(character: FatalModel):
         character.languages_spoken.append("Sapian")
         character.number_of_languages += 1
 
-        character.brawling.skill_modifier += 3
-        character.intimidation.skill_modifier += 5
-        character.mangling.skill_modifier += 3
-        character.sexual_adeptness.skill_modifier += 5
-        character.trickery.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
-        character.wrestling.skill_modifier += 5
+        character.brawling.skill += 3
+        character.intimidation.skill += 5
+        character.mangling.skill += 3
+        character.sexual_adeptness.skill += 5
+        character.trickery.skill += 3
+        character.weapon_specific.skill += 5
+        character.wrestling.skill += 5
 
         character.piety_points += d20()
 
-        character = handle_race_traits(character)
+        character = handle_anakim_traits(character)
 
     elif character.race == "Bugbear":
-        character.strength_modifier += 100
-        character.bodily_attractiveness_modifier -= 20
-        character.facial_modifier -= 15
-        character.rhetorical_modifier -= 10
-        character.hand_eye_coordination_modifier -= 10
-        character.agility_modifier -= 10
-        character.ennunciation_modifier -= 10
-        character.language_modifier -= 10
-        character.math_modifier += 10
-        character.analytic_modifier -= 10
-        character.spatial_modifier += 5
-        character.drive_modifier += 10
+        character.strength += 100
+        character.bodily_attractiveness -= 20
+        character.facial -= 15
+        character.rhetorical -= 10
+        character.hand_eye_coordination -= 10
+        character.agility -= 10
+        character.ennunciation -= 10
+        character.language -= 10
+        character.math += 10
+        character.analytic -= 10
+        character.spatial += 5
+        character.drive += 10
 
         character.current_armor = 12
         character.life_points = 25
@@ -135,34 +139,528 @@ def add_race(character: FatalModel):
         character.languages_spoken.append("Kobold")
         character.number_of_languages += 1
 
-        character.brawling.skill_modifier += 3
-        character.delousing.skill_modifier += 5
-        character.divination_anthropomancy.skill_modifier += 3
-        character.divination_dririmancy.skill_modifier += 3
-        character.law.skill_modifier += 3
-        character.sailing.skill_modifier += 3
-        character.search.skill_modifier += 3
-        character.shipwright.skill_modifier += 3
-        character.surgery.skill_modifier += 3
-        character.tracking.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
-        character.wrestling.skill_modifier += 3
+        character.brawling.skill += 3
+        character.delousing.skill += 5
+        character.divination_anthropomancy.skill += 3
+        character.divination_dririmancy.skill += 3
+        character.law.skill += 3
+        character.sailing.skill += 3
+        character.search.skill += 3
+        character.shipwright.skill += 3
+        character.surgery.skill += 3
+        character.tracking.skill += 3
+        character.weapon_specific.skill += 5
+        character.wrestling.skill += 3
 
     elif character.race == "Black Dwarf":
+        character.physical_fitness -= 10
+        character.bodily_attractiveness -= 15
+        character.health += 10
+        character.facial -= 15
+        character.hand_eye_coordination += 50
+        character.agility -= 5
+        character.analytic += 5
+        character.spatial += 10
+        character.drive += 10
+        character.common_sense += 10
+
+        character.current_armor = 10
+        character.life_points = 20
+
+        character.moral_points -= 25
+        character.sanguine -= 25
+        character.choleric += 25
+
+        character.languages_spoken.append("Dwarven")
+        character.number_of_languages += 1
+
+        character.appraise.skill += 3
+        character.architecture.skill += 5
+        character.armorsmithing.skill += 3
+        character.blacksmithing.skill += 8
+        character.brass_smithing.skill += 3
+        character.climb.skill += 8
+        character.coppersmithing.skill += 3
+        character.direction_sense.skill += 3
+        character.divination_axinomancy.skill += 3
+        character.divination_cleromancy.skill += 3
+        character.gambling.skill += 3
+        character.gemcutting.skill += 5
+        character.goldsmithing.skill += 3
+        character.mining.skill += 3
+        character.mountaineering.skill += 3
+        character.pewtersmithing.skill += 3
+        character.silversmithing.skill += 3
+        character.stonemasonry.skill += 3
+        character.trickery.skill += 5
+        character.weaponsmithing.skill += 3
 
     elif character.race == "Brown Dwarf":
+        character.physical_fitness -= 10
+        character.bodily_attractiveness -= 10
+        character.health += 10
+        character.facial -= 5
+        character.hand_eye_coordination += 5
+        character.agility -= 5
+        character.analytic += 5
+        character.spatial += 10
+        character.drive += 10
+        character.common_sense += 10
+
+        character.current_armor = 10
+        character.life_points = 20
+
+        character.languages_spoken.append("Dwarven")
+        character.languages_spoken.append("Sapian")
+        character.number_of_languages += 2
+
+        character.appraise.skill += 3
+        character.architecture.skill += 5
+        character.armorsmithing.skill += 3
+        character.blacksmithing.skill += 8
+        character.brass_smithing.skill += 3
+        character.cleaning.skill += 8
+        character.climb.skill += 8
+        character.coppersmithing.skill += 3
+        character.dance.skill += 3
+        character.direction_sense.skill += 3
+        character.divination_axinomancy.skill += 3
+        character.gemcutting.skill += 5
+        character.goldsmithing.skill += 3
+        character.mining.skill += 3
+        character.mountaineering.skill += 3
+        character.pewtersmithing.skill += 3
+        character.silversmithing.skill += 3
+        character.stonemasonry.skill += 3
+        character.weaponsmithing.skill += 3
+
     elif character.race == "White Dwarf":
+        character.physical_fitness -= 10
+        character.bodily_attractiveness -= 10
+        character.health += 10
+        character.facial -= 5
+        character.hand_eye_coordination += 5
+        character.agility -= 5
+        character.analytic += 5
+        character.spatial += 10
+        character.drive += 10
+        character.common_sense += 10
+
+        character.current_armor = 10
+        character.life_points = 20
+
+        character.ethical_points += 25
+        character.moral_points += 25
+        character.sanguine += 25
+        character.choleric -= 25
+        character.melancholic -= 25
+
+        character.languages_spoken.append("Dwarven")
+        character.number_of_languages += 1
+
+        character.appraise.skill += 3
+        character.architecture.skill += 5
+        character.armorsmithing.skill += 3
+        character.blacksmithing.skill += 8
+        character.brass_smithing.skill += 3
+        character.climb.skill += 8
+        character.coppersmithing.skill += 3
+        character.dance.skill += 3
+        character.direction_sense.skill += 3
+        character.divination_axinomancy.skill += 3
+        character.gemcutting.skill += 5
+        character.goldsmithing.skill += 3
+        character.mining.skill += 3
+        character.mountaineering.skill += 3
+        character.pewtersmithing.skill += 3
+        character.silversmithing.skill += 3
+        character.stonemasonry.skill += 3
+        character.weaponsmithing.skill += 3
+
     elif character.race == "Dark Elf":
+        character.elf_lifespan = elf_lifespan[d8()+1]
+
+        character.physical_fitness += 5
+        character.strength -= 60
+        character.bodily_attractiveness -= 10
+        character.health += 10
+        character.facial -= 10
+        character.vocal += 10
+        character.kinetic += 10
+        character.hand_eye_coordination += 10
+        character.agility += 5
+        character.ennunciation += 5
+        character.drive += 5
+        character.intuition += 10
+        character.common_sense += 10
+        character.reflection += 5
+
+        character.current_armor = 10
+        character.life_points = 15
+
+        character.moral_points -= 25
+        character.sanguine -= 25
+        character.choleric += 25
+        character.melancholic += 25
+        character.phlegmatic -= 25
+
+        character.languages_spoken.append("Elven")
+        character.number_of_languages += 1
+
+        character.contortion.skill += 3
+        character.dance.skill += 3
+        character.etiquette.skill += 3
+        character.herbalism.skill += 3
+        character.musical_instrument.skill += 3
+        character.nature_plants.skill += 3
+        character.nature_trees.skill += 3
+        character.smell.skill += 3
+        character.tracking.skill += 3
+        character.trickery.skill += 3
+        character.tumble.skill += 3
+
     elif character.race == "Light Elf":
+        character.elf_lifespan = elf_lifespan[d8()+1]
+
+        character.physical_fitness += 5
+        character.strength -= 60
+        character.bodily_attractiveness += 10
+        character.health += 10
+        character.facial += 10
+        character.vocal += 10
+        character.kinetic += 10
+        character.hand_eye_coordination += 10
+        character.agility += 5
+        character.ennunciation += 5
+        character.drive += 5
+        character.intuition += 10
+        character.common_sense += 10
+        character.reflection += 5
+
+        character.current_armor = 10
+        character.life_points = 15
+
+        character.moral_points += 25
+        character.sanguine += 25
+        character.melancholic -= 25
+
+        character.languages_spoken.append("Elven")
+        character.number_of_languages += 1
+
+        character.climb.skill += 3
+        character.contortion.skill += 3
+        character.dance.skill += 3
+        character.etiquette.skill += 3
+        character.herbalism.skill += 3
+        character.musical_instrument.skill += 3
+        character.nature_plants.skill += 3
+        character.nature_trees.skill += 3
+        character.smell.skill += 3
+        character.tracking.skill += 3
+        character.tumble.skill += 3
+
     elif character.race == "Human":
+        character.current_armor = 10
+        character.life_points = 20
+
+        character.languages_spoken.append("Sapian")
+        character.number_of_languages += 1
+
     elif character.race == "Kobol":
+        character.strength -= 40
+        character.bodily_attractiveness -= 15
+        character.facial -= 15
+        character.vocal -= 15
+        character.kinetic += 15
+        character.hand_eye_coordination += 15
+        character.agility += 15
+        character.reaction_speed += 15
+        character.ennunciation += 15
+        character.language -= 10
+        character.analytic -= 10
+        character.spatial += 15
+        character.drive -= 15
+
+        character.current_armor = 10
+        character.life_points = 15
+
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+        character.phlegmatic += 25
+
+        character.languages_spoken.append("Kobold")
+        character.number_of_languages += 1
+
+        character.direction_sense.skill += 3
+        character.mining.skill += 3
+        character.trickery.skill += 3
+        character.weapon_specificea.skill += 5
+
     elif character.race == "Ogre":
+        character.physical_fitness -= 18
+        character.strength += 240
+        character.bodily_attractiveness -= 20
+        character.facial -= 20
+        character.kinetic -= 40
+        character.rhetorical -= 15
+        character.hand_eye_coordination -= 40
+        character.agility -= 30
+        character.reaction_speed -= 25
+        character.ennunciation -= 50
+        character.language -= 50
+        character.math -= 50
+        character.analytic -= 50
+        character.spatial -= 10
+        character.drive -= 15
+        character.intuition -= 20
+        character.common_sense -= 30
+
+        character.current_armor = 13
+        character.life_points = 30
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+        character.phlegmatic += 25
+
+        # TODO check gifted here
+        # character.languages_spoken.append("Cigan")
+        # character.number_of_languages += 1
+
+        character.occupation = random.choices(
+            population=ogre_occupation.keys(),
+            weights=ogre_occupation.values(),
+            k=1
+        )[0]
+
+        character.brawling.skill += 5
+        character.mangling.skill += 5
+        character.wrestling.skill += 3
+
     elif character.race == "Cliff Ogre":
+        character.strength += 200
+        character.bodily_attractiveness -= 20
+        character.facial -= 20
+        character.kinetic -= 20
+        character.rhetorical -= 15
+        character.hand_eye_coordination -= 10
+        character.agility -= 15
+        character.reaction_speed -= 25
+        character.ennunciation -= 50
+        character.language -= 50
+        character.math -= 10
+        character.analytic -= 25
+        character.drive -= 15
+        character.intuition -= 20
+        character.common_sense -= 30
+
+        character.current_armor = 13
+        character.life_points = 27
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+        character.melancholic += 25
+        character.phlegmatic -= 25
+
+        # TODO check gifted here
+        # character.languages_spoken.append("Cigan")
+        # character.number_of_languages += 1
+
+        character.occupation = random.choices(
+            population=ogre_occupation.keys(),
+            weights=ogre_occupation.values(),
+            k=1
+        )[0]
+
+        character.brawling.skill += 5
+        character.climb.skill += 8
+        character.hurl.skill += 5
+        character.mangling.skill += 5
+        character.wrestling.skill += 3
+
     elif character.race == "Gruagach Ogre":
+        character.physical_fitness -= 22
+        character.strength += 275
+        character.bodily_attractiveness -= 30
+        character.health -= 5
+        character.facial -= 35
+        character.kinetic -= 75
+        character.rhetorical -= 30
+        character.hand_eye_coordination -= 40
+        character.agility -= 45
+        character.reaction_speed -= 35
+        character.ennunciation -= 50
+        character.language -= 60
+        character.math -= 60
+        character.analytic -= 60
+        character.spatial -= 15
+        character.drive -= 30
+        character.intuition -= 20
+        character.common_sense -= 60
+
+        character.current_armor = 13
+        character.life_points = 35
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.melancholic -= 25
+        character.phlegmatic += 25
+
+        # TODO check gifted here
+        # character.languages_spoken.append("Gruagan")
+        # character.number_of_languages += 1
+
+        character.occupation = random.choices(
+            population=ogre_occupation.keys(),
+            weights=ogre_occupation.values(),
+            k=1
+        )[0]
+
+        character.brawling.skill += 5
+        character.mangling.skill += 5
+        character.smell.skill -= 5
+        character.wrestling.skill += 3
+
     elif character.race == "Kinder-fresser Ogre":
+        character.strength += 240
+        character.bodily_attractiveness -= 10
+        character.facial -= 12
+        character.kinetic -= 20
+        character.rhetorical += 15
+        character.hand_eye_coordination -= 40
+        character.agility -= 30
+        character.reaction_speed -= 25
+        character.ennunciation -= 10
+        character.language -= 10
+        character.math -= 50
+        character.analytic -= 50
+        character.spatial -= 10
+        character.drive -= 15
+        character.common_sense -= 30
+
+        character.current_armor = 13
+        character.life_points = 30
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+        character.phlegmatic += 25
+
+        character.languages_spoken.append("Sapian")
+        character.number_of_languages += 1
+
+        character.occupation = random.choice(
+            ["Bandit", "Berserker", "Gladiator", "Slave"]
+        )
+
+        character.hide.skill += 5
+        character.mangling.skill += 3
+        character.persuasion.skill += 8
+        character.silence.skill += 5
+        character.trickery.skill += 5
+
     elif character.race == "Borbytingarna Troll":
+        character.physical_fitness += 20
+        character.strength += 100
+        character.bodily_attractiveness -= 50
+        character.facial -= 40
+        character.kinetic -= 40
+        character.hand_eye_coordination -= 5
+        character.agility -= 25
+        character.reaction_speed -= 20
+        character.language -= 90
+        character.math -= 60
+        character.analytic -= 60
+        character.spatial -= 10
+
+        character.current_armor = 14
+        character.life_points = 27
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+
+        character.occupation = random.choice(
+            ["Bandit", "Berserker", "Gladiator", "Slave"]
+        )
+
+        character.blindfighting.skill += 5
+        character.brawling.skill += 5
+        character.direction_sense.skill += 5
+        character.disarm.skill += 3
+        character.mangling.skill += 5
+        character.wrestling.skill += 5
+
     elif character.race == "Hill Troll":
+        character.physical_fitness -= 25
+        character.strength += 100
+        character.bodily_attractiveness -= 70
+        character.facial -= 40
+        character.kinetic -= 40
+        character.hand_eye_coordination -= 20
+        character.agility -= 25
+        character.reaction_speed -= 20
+        character.language -= 90
+        character.math -= 60
+        character.analytic -= 60
+        character.spatial -= 10
+
+        character.current_armor = 14
+        character.life_points = 27
+
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
+
+        character.occupation = random.choice(
+            ["Bandit", "Berserker", "Gladiator", "Slave"]
+        )
+
+        character.blindfighting.skill += 5
+        character.brawling.skill += 5
+        character.climb.skill += 5
+        character.direction_sense.skill += 3
+        character.mangling.skill += 5
+        character.taste.skill += 3
+        character.weapon_specific.skill += 5
+        character.wrestling.skill += 3
+
     elif character.race == "Subterranean Troll":
+        character.physical_fitness += 5
+        character.strength += 100
+        if character.gender == 'male':
+            character.bodily_attractiveness -= 50
+            character.facial -= 40
+        character.kinetic -= 40
+        character.hand_eye_coordination -= 20
+        character.agility -= 25
+        character.reaction_speed -= 20
+        character.language += 10
+        character.math += 10
+        character.analytic += 10
+        character.spatial += 10
 
+        character.current_armor = 14
+        character.life_points = 27
 
+        character.ethical_points -= 50
+        character.moral_points -= 50
+        character.sanguine -= 25
+        character.choleric += 25
 
+        character.blindfighting.skill += 5
+        character.brawling.skill += 5
+        character.direction_sense.skill += 5
+        character.mangling.skill += 5
+        character.sound.skill += 3
+        character.trickery.skill += 3
+        character.wrestling.skill += 5
+
+    return character
