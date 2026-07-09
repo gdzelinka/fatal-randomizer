@@ -45,3 +45,5 @@ def add_gender_modifiers(character: FatalModel):
 
         character.sanguine += 2
         character.choleric -= 2
+    
+    return character

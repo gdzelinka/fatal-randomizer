@@ -1,10 +1,12 @@
 from models.character_models import FatalModel
-from dice import d10
+from dice import d100
 from math import floor
 
 def ability_dice():
-    tendten = d10() + d10() + d10() + d10() + d10() + d10() + d10() + d10() + d10() + d10()
-    return floor((tendten / 5) - 1)
+    tendhundred = 0
+    for _ in range(10):
+        tendhundred += d100()
+    return floor((tendhundred / 5) - 1)
 
 def calculate_sub_abilities(character : FatalModel):
     character.physical_fitness = ability_dice()

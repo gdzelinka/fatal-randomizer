@@ -112,7 +112,7 @@ class FatalModel(BaseModel):
     hair_length:int = 0 # in inches
     hair_type: str = ""
     birthday: str = ""
-    vision: str = ""
+    vision: int = 0
     most_attractive_feature: str = ""
     most_repulsive_feature: str = ""
     breadth: str = ""
@@ -249,8 +249,8 @@ class FatalModel(BaseModel):
     head_circumference: int = 0
     handedness: str = ""
 
-    languages_spoken: List[str] = None
-    languages_read_and_written: List[str] = None
+    languages_spoken: List[str] = []
+    languages_read_and_written: List[str] = []
 
     special_abilities: List[str] = None
 

@@ -1,7 +1,7 @@
 import random
 from models.character_models import FatalModel
 from dice import d8, d10, d20, d100
-from race_traits import anakim_traits, elf_lifespan, ogre_occupation
+from tables.race_traits import anakim_traits, elf_lifespan, ogre_occupation
 
 race_dict = {
     "Anakim": 1,
@@ -23,26 +23,40 @@ race_dict = {
 }
 
 
+def set_nested_attr(obj, path, value):
+    parts = path.split(".")
+    target = obj
+
+    # walk down to the second‑to‑last attribute
+    for part in parts[:-1]:
+        target = getattr(target, part)
+
+    # set the final attribute
+    value = value + getattr(target, parts[-1])
+    setattr(target, parts[-1], value)
+
 def handle_anakim_traits(character):
     number_of_traits = d10()
 
     for _ in range(number_of_traits):
-        trait_roll = d100()
+        trait_roll = d100() + 1
+        print(f"Roll: {trait_roll}")
         if character.race == "Anakim":
             trait = anakim_traits[trait_roll]
         character.traits += f" {trait[0]}, "
         # Handling random modifiers
         if len(trait) > 1:
-            for key, value in trait[1]:
+            for key, value in trait[1].items():
                 if not isinstance(value, (tuple)):
-                    setattr(character, key, getattr(character, key) + value)
+                    set_nested_attr(character, key, value)
                 else:
                     if isinstance(value[0], str):
                         setattr(character, key, getattr(character, key).append(value[0]))
                     elif isinstance(value[0], list):
+                        condition_list = value[0]
                         pass_fail = False
-                        and_or = value[0]
-                        for condition in value[1:]:
+                        and_or = condition_list[0]
+                        for condition in condition_list[1:]:
                             check = condition[1]
                             if condition[0] == "bool":
                                 if and_or == "OR" and getattr(character, check) == condition[2]:
@@ -60,15 +74,15 @@ def handle_anakim_traits(character):
                                 elif and_or == "AND" and getattr(character, check) < condition[2]:
                                     pass_fail = False
                         if pass_fail:
-                            setattr(character, key, getattr(character, key) + value[1])
+                            set_nested_attr(character, key, value[1])
     return character
 
 
 def add_race(character: FatalModel):
     # Race
     character.race = random.choices(
-        population=race_dict.keys(),
-        weights=race_dict.values(),
+        population=list(race_dict.keys()),
+        weights=list(race_dict.values()),
         k=1
     )[0]
 
@@ -101,13 +115,13 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Sapian")
         character.number_of_languages += 1
 
-        character.brawling.skill += 3
-        character.intimidation.skill += 5
-        character.mangling.skill += 3
-        character.sexual_adeptness.skill += 5
-        character.trickery.skill += 3
-        character.weapon_specific.skill += 5
-        character.wrestling.skill += 5
+        character.brawling.skill_modifier += 3
+        character.intimidation.skill_modifier += 5
+        character.mangling.skill_modifier += 3
+        character.sexual_adeptness.skill_modifier += 5
+        character.trickery.skill_modifier += 3
+        character.weapon_specific.skill_modifier += 5
+        character.wrestling.skill_modifier += 5
 
         character.piety_points += d20()
 
@@ -139,18 +153,18 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Kobold")
         character.number_of_languages += 1
 
-        character.brawling.skill += 3
-        character.delousing.skill += 5
-        character.divination_anthropomancy.skill += 3
-        character.divination_dririmancy.skill += 3
-        character.law.skill += 3
-        character.sailing.skill += 3
-        character.search.skill += 3
-        character.shipwright.skill += 3
-        character.surgery.skill += 3
-        character.tracking.skill += 3
-        character.weapon_specific.skill += 5
-        character.wrestling.skill += 3
+        character.brawling.skill_modifier += 3
+        character.delousing.skill_modifier += 5
+        character.divination_anthropomancy.skill_modifier += 3
+        character.divination_dririmancy.skill_modifier += 3
+        character.law.skill_modifier += 3
+        character.sailing.skill_modifier += 3
+        character.search.skill_modifier += 3
+        character.shipwright.skill_modifier += 3
+        character.surgery.skill_modifier += 3
+        character.tracking.skill_modifier += 3
+        character.weapon_specific.skill_modifier += 5
+        character.wrestling.skill_modifier += 3
 
     elif character.race == "Black Dwarf":
         character.physical_fitness -= 10
@@ -174,26 +188,26 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Dwarven")
         character.number_of_languages += 1
 
-        character.appraise.skill += 3
-        character.architecture.skill += 5
-        character.armorsmithing.skill += 3
-        character.blacksmithing.skill += 8
-        character.brass_smithing.skill += 3
-        character.climb.skill += 8
-        character.coppersmithing.skill += 3
-        character.direction_sense.skill += 3
-        character.divination_axinomancy.skill += 3
-        character.divination_cleromancy.skill += 3
-        character.gambling.skill += 3
-        character.gemcutting.skill += 5
-        character.goldsmithing.skill += 3
-        character.mining.skill += 3
-        character.mountaineering.skill += 3
-        character.pewtersmithing.skill += 3
-        character.silversmithing.skill += 3
-        character.stonemasonry.skill += 3
-        character.trickery.skill += 5
-        character.weaponsmithing.skill += 3
+        character.appraise.skill_modifier += 3
+        character.architecture.skill_modifier += 5
+        character.armorsmithing.skill_modifier += 3
+        character.blacksmithing.skill_modifier += 8
+        character.brass_smithing.skill_modifier += 3
+        character.climb.skill_modifier += 8
+        character.coppersmithing.skill_modifier += 3
+        character.direction_sense.skill_modifier += 3
+        character.divination_axinomancy.skill_modifier += 3
+        character.divination_cleromancy.skill_modifier += 3
+        character.gambling.skill_modifier += 3
+        character.gemcutting.skill_modifier += 5
+        character.goldsmithing.skill_modifier += 3
+        character.mining.skill_modifier += 3
+        character.mountaineering.skill_modifier += 3
+        character.pewtersmithing.skill_modifier += 3
+        character.silversmithing.skill_modifier += 3
+        character.stonemasonry.skill_modifier += 3
+        character.trickery.skill_modifier += 5
+        character.weaponsmithing.skill_modifier += 3
 
     elif character.race == "Brown Dwarf":
         character.physical_fitness -= 10
@@ -214,25 +228,25 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Sapian")
         character.number_of_languages += 2
 
-        character.appraise.skill += 3
-        character.architecture.skill += 5
-        character.armorsmithing.skill += 3
-        character.blacksmithing.skill += 8
-        character.brass_smithing.skill += 3
-        character.cleaning.skill += 8
-        character.climb.skill += 8
-        character.coppersmithing.skill += 3
-        character.dance.skill += 3
-        character.direction_sense.skill += 3
-        character.divination_axinomancy.skill += 3
-        character.gemcutting.skill += 5
-        character.goldsmithing.skill += 3
-        character.mining.skill += 3
-        character.mountaineering.skill += 3
-        character.pewtersmithing.skill += 3
-        character.silversmithing.skill += 3
-        character.stonemasonry.skill += 3
-        character.weaponsmithing.skill += 3
+        character.appraise.skill_modifier += 3
+        character.architecture.skill_modifier += 5
+        character.armorsmithing.skill_modifier += 3
+        character.blacksmithing.skill_modifier += 8
+        character.brass_smithing.skill_modifier += 3
+        character.cleaning.skill_modifier += 8
+        character.climb.skill_modifier += 8
+        character.coppersmithing.skill_modifier += 3
+        character.dance.skill_modifier += 3
+        character.direction_sense.skill_modifier += 3
+        character.divination_axinomancy.skill_modifier += 3
+        character.gemcutting.skill_modifier += 5
+        character.goldsmithing.skill_modifier += 3
+        character.mining.skill_modifier += 3
+        character.mountaineering.skill_modifier += 3
+        character.pewtersmithing.skill_modifier += 3
+        character.silversmithing.skill_modifier += 3
+        character.stonemasonry.skill_modifier += 3
+        character.weaponsmithing.skill_modifier += 3
 
     elif character.race == "White Dwarf":
         character.physical_fitness -= 10
@@ -258,24 +272,24 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Dwarven")
         character.number_of_languages += 1
 
-        character.appraise.skill += 3
-        character.architecture.skill += 5
-        character.armorsmithing.skill += 3
-        character.blacksmithing.skill += 8
-        character.brass_smithing.skill += 3
-        character.climb.skill += 8
-        character.coppersmithing.skill += 3
-        character.dance.skill += 3
-        character.direction_sense.skill += 3
-        character.divination_axinomancy.skill += 3
-        character.gemcutting.skill += 5
-        character.goldsmithing.skill += 3
-        character.mining.skill += 3
-        character.mountaineering.skill += 3
-        character.pewtersmithing.skill += 3
-        character.silversmithing.skill += 3
-        character.stonemasonry.skill += 3
-        character.weaponsmithing.skill += 3
+        character.appraise.skill_modifier += 3
+        character.architecture.skill_modifier += 5
+        character.armorsmithing.skill_modifier += 3
+        character.blacksmithing.skill_modifier += 8
+        character.brass_smithing.skill_modifier += 3
+        character.climb.skill_modifier += 8
+        character.coppersmithing.skill_modifier += 3
+        character.dance.skill_modifier += 3
+        character.direction_sense.skill_modifier += 3
+        character.divination_axinomancy.skill_modifier += 3
+        character.gemcutting.skill_modifier += 5
+        character.goldsmithing.skill_modifier += 3
+        character.mining.skill_modifier += 3
+        character.mountaineering.skill_modifier += 3
+        character.pewtersmithing.skill_modifier += 3
+        character.silversmithing.skill_modifier += 3
+        character.stonemasonry.skill_modifier += 3
+        character.weaponsmithing.skill_modifier += 3
 
     elif character.race == "Dark Elf":
         character.elf_lifespan = elf_lifespan[d8()+1]
@@ -307,17 +321,17 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Elven")
         character.number_of_languages += 1
 
-        character.contortion.skill += 3
-        character.dance.skill += 3
-        character.etiquette.skill += 3
-        character.herbalism.skill += 3
-        character.musical_instrument.skill += 3
-        character.nature_plants.skill += 3
-        character.nature_trees.skill += 3
-        character.smell.skill += 3
-        character.tracking.skill += 3
-        character.trickery.skill += 3
-        character.tumble.skill += 3
+        character.contortion.skill_modifier += 3
+        character.dance.skill_modifier += 3
+        character.etiquette.skill_modifier += 3
+        character.herbalism.skill_modifier += 3
+        character.musical_instrument.skill_modifier += 3
+        character.nature_plants.skill_modifier += 3
+        character.nature_trees.skill_modifier += 3
+        character.smell.skill_modifier += 3
+        character.tracking.skill_modifier += 3
+        character.trickery.skill_modifier += 3
+        character.tumble.skill_modifier += 3
 
     elif character.race == "Light Elf":
         character.elf_lifespan = elf_lifespan[d8()+1]
@@ -347,17 +361,17 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Elven")
         character.number_of_languages += 1
 
-        character.climb.skill += 3
-        character.contortion.skill += 3
-        character.dance.skill += 3
-        character.etiquette.skill += 3
-        character.herbalism.skill += 3
-        character.musical_instrument.skill += 3
-        character.nature_plants.skill += 3
-        character.nature_trees.skill += 3
-        character.smell.skill += 3
-        character.tracking.skill += 3
-        character.tumble.skill += 3
+        character.climb.skill_modifier += 3
+        character.contortion.skill_modifier += 3
+        character.dance.skill_modifier += 3
+        character.etiquette.skill_modifier += 3
+        character.herbalism.skill_modifier += 3
+        character.musical_instrument.skill_modifier += 3
+        character.nature_plants.skill_modifier += 3
+        character.nature_trees.skill_modifier += 3
+        character.smell.skill_modifier += 3
+        character.tracking.skill_modifier += 3
+        character.tumble.skill_modifier += 3
 
     elif character.race == "Human":
         character.current_armor = 10
@@ -392,10 +406,10 @@ def add_race_modifiers(character: FatalModel):
         character.languages_spoken.append("Kobold")
         character.number_of_languages += 1
 
-        character.direction_sense.skill += 3
-        character.mining.skill += 3
-        character.trickery.skill += 3
-        character.weapon_specificea.skill += 5
+        character.direction_sense.skill_modifier += 3
+        character.mining.skill_modifier += 3
+        character.trickery.skill_modifier += 3
+        character.weapon_specific.skill_modifier += 5
 
     elif character.race == "Ogre":
         character.physical_fitness -= 18
@@ -430,14 +444,14 @@ def add_race_modifiers(character: FatalModel):
         # character.number_of_languages += 1
 
         character.occupation = random.choices(
-            population=ogre_occupation.keys(),
-            weights=ogre_occupation.values(),
+            population=list(ogre_occupation.keys()),
+            weights=list(ogre_occupation.values()),
             k=1
         )[0]
 
-        character.brawling.skill += 5
-        character.mangling.skill += 5
-        character.wrestling.skill += 3
+        character.brawling.skill_modifier += 5
+        character.mangling.skill_modifier += 5
+        character.wrestling.skill_modifier += 3
 
     elif character.race == "Cliff Ogre":
         character.strength += 200
@@ -471,16 +485,16 @@ def add_race_modifiers(character: FatalModel):
         # character.number_of_languages += 1
 
         character.occupation = random.choices(
-            population=ogre_occupation.keys(),
-            weights=ogre_occupation.values(),
+            population=list(ogre_occupation.keys()),
+            weights=list(ogre_occupation.values()),
             k=1
         )[0]
 
-        character.brawling.skill += 5
-        character.climb.skill += 8
-        character.hurl.skill += 5
-        character.mangling.skill += 5
-        character.wrestling.skill += 3
+        character.brawling.skill_modifier += 5
+        character.climb.skill_modifier += 8
+        character.hurl.skill_modifier += 5
+        character.mangling.skill_modifier += 5
+        character.wrestling.skill_modifier += 3
 
     elif character.race == "Gruagach Ogre":
         character.physical_fitness -= 22
@@ -515,15 +529,15 @@ def add_race_modifiers(character: FatalModel):
         # character.number_of_languages += 1
 
         character.occupation = random.choices(
-            population=ogre_occupation.keys(),
-            weights=ogre_occupation.values(),
+            population=list(ogre_occupation.keys()),
+            weights=list(ogre_occupation.values()),
             k=1
         )[0]
 
-        character.brawling.skill += 5
-        character.mangling.skill += 5
-        character.smell.skill -= 5
-        character.wrestling.skill += 3
+        character.brawling.skill_modifier += 5
+        character.mangling.skill_modifier += 5
+        character.smell.skill_modifier -= 5
+        character.wrestling.skill_modifier += 3
 
     elif character.race == "Kinder-fresser Ogre":
         character.strength += 240
@@ -558,11 +572,11 @@ def add_race_modifiers(character: FatalModel):
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.hide.skill += 5
-        character.mangling.skill += 3
-        character.persuasion.skill += 8
-        character.silence.skill += 5
-        character.trickery.skill += 5
+        character.hide.skill_modifier += 5
+        character.mangling.skill_modifier += 3
+        character.persuasion.skill_modifier += 8
+        character.silence.skill_modifier += 5
+        character.trickery.skill_modifier += 5
 
     elif character.race == "Borbytingarna Troll":
         character.physical_fitness += 20
@@ -590,12 +604,12 @@ def add_race_modifiers(character: FatalModel):
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.skill += 5
-        character.brawling.skill += 5
-        character.direction_sense.skill += 5
-        character.disarm.skill += 3
-        character.mangling.skill += 5
-        character.wrestling.skill += 5
+        character.blindfighting.skill_modifier += 5
+        character.brawling.skill_modifier += 5
+        character.direction_sense.skill_modifier += 5
+        character.disarm.skill_modifier += 3
+        character.mangling.skill_modifier += 5
+        character.wrestling.skill_modifier += 5
 
     elif character.race == "Hill Troll":
         character.physical_fitness -= 25
@@ -623,14 +637,14 @@ def add_race_modifiers(character: FatalModel):
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.skill += 5
-        character.brawling.skill += 5
-        character.climb.skill += 5
-        character.direction_sense.skill += 3
-        character.mangling.skill += 5
-        character.taste.skill += 3
-        character.weapon_specific.skill += 5
-        character.wrestling.skill += 3
+        character.blindfighting.skill_modifier += 5
+        character.brawling.skill_modifier += 5
+        character.climb.skill_modifier += 5
+        character.direction_sense.skill_modifier += 3
+        character.mangling.skill_modifier += 5
+        character.taste.skill_modifier += 3
+        character.weapon_specific.skill_modifier += 5
+        character.wrestling.skill_modifier += 3
 
     elif character.race == "Subterranean Troll":
         character.physical_fitness += 5
@@ -655,12 +669,12 @@ def add_race_modifiers(character: FatalModel):
         character.sanguine -= 25
         character.choleric += 25
 
-        character.blindfighting.skill += 5
-        character.brawling.skill += 5
-        character.direction_sense.skill += 5
-        character.mangling.skill += 5
-        character.sound.skill += 3
-        character.trickery.skill += 3
-        character.wrestling.skill += 5
+        character.blindfighting.skill_modifier += 5
+        character.brawling.skill_modifier += 5
+        character.direction_sense.skill_modifier += 5
+        character.mangling.skill_modifier += 5
+        character.sound.skill_modifier += 3
+        character.trickery.skill_modifier += 3
+        character.wrestling.skill_modifier += 5
 
     return character
