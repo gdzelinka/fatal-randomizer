@@ -1,7 +1,7 @@
 import random
 from models.character_models import FatalModel
 from dice import d8, d10, d20, d100
-from tables.race_traits import anakim_traits, elf_lifespan, ogre_occupation
+from tables.race_traits import anakim_traits, elf_lifespan, ogre_occupation, racial_hatred
 
 race_dict = {
     "Anakim": 1,
@@ -39,7 +39,7 @@ def handle_anakim_traits(character):
     number_of_traits = d10()
 
     for _ in range(number_of_traits):
-        trait_roll = d100() + 1
+        trait_roll = d100()
         print(f"Roll: {trait_roll}")
         if character.race == "Anakim":
             trait = anakim_traits[trait_roll]
@@ -88,7 +88,88 @@ def add_race(character: FatalModel):
 
     return character
 
+def individual_racial_hatred(societal_hatred: int):
+    racism_roll = d10() + d10() + d10()
+
+    if societal_hatred == 1:
+        if racism_roll < 22:
+            return 1
+        if racism_roll < 27:
+            return 2
+        if racism_roll < 29:
+            return 3
+        if racism_roll < 30:
+            return 4
+        if racism_roll < 31:
+            return 5
+    elif societal_hatred == 2:
+        if racism_roll < 22:
+            return 1
+        if racism_roll < 27:
+            return 2
+        if racism_roll < 29:
+            return 3
+        if racism_roll < 30:
+            return 4
+        return 5
+    elif societal_hatred == 3:
+        if racism_roll < 5:
+            return 1
+        if racism_roll < 12:
+            return 2
+        if racism_roll < 22:
+            return 3
+        if racism_roll < 29:
+            return 4
+        return 5
+    elif societal_hatred == 4:
+        if racism_roll < 5:
+            return 1
+        if racism_roll < 8:
+            return 2
+        if racism_roll < 12:
+            return 3
+        if racism_roll < 22:
+            return 4
+        return 5
+    elif societal_hatred == 5:
+        if racism_roll < 4:
+            return 1
+        if racism_roll < 5:
+            return 2
+        if racism_roll < 7:
+            return 3
+        if racism_roll < 12:
+            return 4
+        return 5
+
+
+def add_racism(character: FatalModel):
+    default_racism = racial_hatred[character.race]
+
+    character.opinion_on_anakim = individual_racial_hatred(default_racism[0])
+    character.opinion_on_bugbear = individual_racial_hatred(default_racism[1])
+    character.opinion_on_black_dwarf = individual_racial_hatred(default_racism[2])
+    character.opinion_on_brown_dwarf = individual_racial_hatred(default_racism[3])
+    character.opinion_on_white_dwarf = individual_racial_hatred(default_racism[4])
+    character.opinion_on_dark_elf = individual_racial_hatred(default_racism[5])
+    character.opinion_on_light_elf = individual_racial_hatred(default_racism[6])
+    character.opinion_on_human = individual_racial_hatred(default_racism[7])
+    character.opinion_on_kobol = individual_racial_hatred(default_racism[8])
+    character.opinion_on_ogre = individual_racial_hatred(default_racism[9])
+    character.opinion_on_cliff_ogre = individual_racial_hatred(default_racism[10])
+    character.opinion_on_gruagach_ogre = individual_racial_hatred(default_racism[11])
+    character.opinion_on_kinder_fresser_ogre = individual_racial_hatred(default_racism[12])
+    character.opinion_on_borbytingarna_troll = individual_racial_hatred(default_racism[13])
+    character.opinion_on_hill_troll = individual_racial_hatred(default_racism[14])
+    character.opinion_on_subterranean_troll = individual_racial_hatred(default_racism[15])
+
+    return character
+
+
 def add_race_modifiers(character: FatalModel):
+
+    character = add_racism(character)
 
     if character.race == "Anakim":
         character.strength += 100
@@ -112,8 +193,9 @@ def add_race_modifiers(character: FatalModel):
         character.sanguine -= 25
         character.melancholic -= 25
 
-        character.languages_spoken.append("Sapian")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Sapian")
+            character.number_of_languages += 1
 
         character.brawling.skill_modifier += 3
         character.intimidation.skill_modifier += 5
@@ -150,8 +232,9 @@ def add_race_modifiers(character: FatalModel):
         character.choleric += 25
         character.melancholic += 25
 
-        character.languages_spoken.append("Kobold")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Kobold")
+            character.number_of_languages += 1
 
         character.brawling.skill_modifier += 3
         character.delousing.skill_modifier += 5
@@ -185,8 +268,9 @@ def add_race_modifiers(character: FatalModel):
         character.sanguine -= 25
         character.choleric += 25
 
-        character.languages_spoken.append("Dwarven")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Dwarven")
+            character.number_of_languages += 1
 
         character.appraise.skill_modifier += 3
         character.architecture.skill_modifier += 5
@@ -224,9 +308,12 @@ def add_race_modifiers(character: FatalModel):
         character.current_armor = 10
         character.life_points = 20
 
-        character.languages_spoken.append("Dwarven")
-        character.languages_spoken.append("Sapian")
-        character.number_of_languages += 2
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Dwarven")
+            character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Sapian")
+            character.number_of_languages += 1
 
         character.appraise.skill_modifier += 3
         character.architecture.skill_modifier += 5
@@ -269,8 +356,9 @@ def add_race_modifiers(character: FatalModel):
         character.choleric -= 25
         character.melancholic -= 25
 
-        character.languages_spoken.append("Dwarven")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Dwarven")
+            character.number_of_languages += 1
 
         character.appraise.skill_modifier += 3
         character.architecture.skill_modifier += 5
@@ -318,8 +406,9 @@ def add_race_modifiers(character: FatalModel):
         character.melancholic += 25
         character.phlegmatic -= 25
 
-        character.languages_spoken.append("Elven")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Elven")
+            character.number_of_languages += 1
 
         character.contortion.skill_modifier += 3
         character.dance.skill_modifier += 3
@@ -358,8 +447,9 @@ def add_race_modifiers(character: FatalModel):
         character.sanguine += 25
         character.melancholic -= 25
 
-        character.languages_spoken.append("Elven")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Elven")
+            character.number_of_languages += 1
 
         character.climb.skill_modifier += 3
         character.contortion.skill_modifier += 3
@@ -377,8 +467,9 @@ def add_race_modifiers(character: FatalModel):
         character.current_armor = 10
         character.life_points = 20
 
-        character.languages_spoken.append("Sapian")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Sapian")
+            character.number_of_languages += 1
 
     elif character.race == "Kobol":
         character.strength -= 40
@@ -403,8 +494,9 @@ def add_race_modifiers(character: FatalModel):
         character.choleric += 25
         character.phlegmatic += 25
 
-        character.languages_spoken.append("Kobold")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Kobold")
+            character.number_of_languages += 1
 
         character.direction_sense.skill_modifier += 3
         character.mining.skill_modifier += 3
@@ -439,9 +531,9 @@ def add_race_modifiers(character: FatalModel):
         character.choleric += 25
         character.phlegmatic += 25
 
-        # TODO check gifted here
-        # character.languages_spoken.append("Cigan")
-        # character.number_of_languages += 1
+        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Cigan")
+            character.number_of_languages += 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -480,9 +572,9 @@ def add_race_modifiers(character: FatalModel):
         character.melancholic += 25
         character.phlegmatic -= 25
 
-        # TODO check gifted here
-        # character.languages_spoken.append("Cigan")
-        # character.number_of_languages += 1
+        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Cigan")
+            character.number_of_languages += 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -524,9 +616,9 @@ def add_race_modifiers(character: FatalModel):
         character.melancholic -= 25
         character.phlegmatic += 25
 
-        # TODO check gifted here
-        # character.languages_spoken.append("Gruagan")
-        # character.number_of_languages += 1
+        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Gruagan")
+            character.number_of_languages += 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -565,8 +657,9 @@ def add_race_modifiers(character: FatalModel):
         character.choleric += 25
         character.phlegmatic += 25
 
-        character.languages_spoken.append("Sapian")
-        character.number_of_languages += 1
+        if character.number_of_languages < character.max_num_of_languages:
+            character.languages_spoken.append("Sapian")
+            character.number_of_languages += 1
 
         character.occupation = random.choice(
             ["Bandit", "Berserker", "Gladiator", "Slave"]

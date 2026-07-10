@@ -1,22 +1,22 @@
 import random
 
 def d3():
-    return random.randint(0, 2)
+    return random.randint(1, 3)
 
 def d4():
-    return random.randint(0, 3)
+    return random.randint(1, 4)
 
 def d8():
-    return random.randint(0, 7)
+    return random.randint(1, 8)
 
 def d10():
-    return random.randint(0, 9)
+    return random.randint(1, 10)
 
 def d12():
-    return random.randint(0, 11)
+    return random.randint(1, 12)
 
 def d20():
-    return random.randint(0, 19)
+    return random.randint(1, 20)
 
 def d100():
-    return random.randint(0, 99)
+    return random.randint(1, 100)

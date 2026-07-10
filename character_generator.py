@@ -8,6 +8,8 @@ def generate_character():
 
     # abilities, race, gender
     character = calculate_sub_abilities(character)
+    # When do people choose to reroll, let's say occupations
+
     character = add_race(character)
     character = add_gender(character)
     character = add_race_modifiers(character)

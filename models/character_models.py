@@ -173,12 +173,14 @@ class FatalModel(BaseModel):
     ennunciation: int = 0
     ennunciation_modifier: int = 0
     maximum_speech_rate: int = 0
-    casting: int = 0
+    casting: str = ""
 
     intelligence: int = 0
     intelligence_modifier: int = 0
+    intelligence_range: int = 0
     language: int = 0
     language_modifier: int = 0
+    max_num_of_languages: int = 0
     number_of_languages: int = 0
     vocabulary: str = ""
     math: int = 0
@@ -194,7 +196,7 @@ class FatalModel(BaseModel):
     wisdom_modifier: int = 0
     drive: int = 0
     drive_modifier: int = 0
-    unconscioness: int = 0
+    unconscioness: str = ''
     hours_resting: int = 0
     intuition: int = 0
     intuition_modifier: int = 0
@@ -276,10 +278,30 @@ class FatalModel(BaseModel):
     heavy_load: int = 0
     pull_push: int = 0
 
+    """Racism"""
+    opinion_on_anakim: int = 0
+    opinion_on_bugbear: int = 0
+    opinion_on_black_dwarf: int = 0
+    opinion_on_brown_dwarf: int = 0
+    opinion_on_white_dwarf: int = 0
+    opinion_on_dark_elf: int = 0
+    opinion_on_light_elf: int = 0
+    opinion_on_human: int = 0
+    opinion_on_kobol: int = 0
+    opinion_on_ogre: int = 0
+    opinion_on_cliff_ogre: int = 0
+    opinion_on_gruagach_ogre: int = 0
+    opinion_on_kinder_fresser_ogre: int = 0
+    opinion_on_borbytingarna_troll: int = 0
+    opinion_on_hill_troll: int = 0
+    opinion_on_subterranean_troll: int = 0
+
     """Misc"""
     allergies: List[str] = None
+    illness_immunity: int = None
     mental_illnesses: List[str] = None
     misc_notes: str = ""
+    num_skill_rerolls: int = 0
 
     """Skills"""
     acting_drama: SkillModel = SkillModel(related_abilities = ['charisma', 'intelligence'])
