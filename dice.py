@@ -6,6 +6,9 @@ def d3():
 def d4():
     return random.randint(1, 4)
 
+def d6():
+    return random.randint(1, 6)
+
 def d8():
     return random.randint(1, 8)
 
@@ -20,3 +23,6 @@ def d20():
 
 def d100():
     return random.randint(1, 100)
+
+def d1000():
+    return random.randint(1, 1000)

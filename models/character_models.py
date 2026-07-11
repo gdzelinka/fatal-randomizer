@@ -98,6 +98,7 @@ class FatalModel(BaseModel):
     siblings: int = 0
     social_class: str = ""
     age: int = 0
+    stage_of_life: str = ''
     eyes: str = ""
     skin_color: str = ""
     birth_rank: str = ""
@@ -109,13 +110,13 @@ class FatalModel(BaseModel):
     hair_thickness: str = ""
     facial_feature: str = ""
     birthplace: str = ""
-    hair_length:int = 0 # in inches
+    hair_length: str = ''
     hair_type: str = ""
     birthday: str = ""
     vision: int = 0
     most_attractive_feature: str = ""
     most_repulsive_feature: str = ""
-    breadth: str = ""
+    breadth: int = 0
     bmi: str = ""
     appearance: str = ""
     traits: str = ""
