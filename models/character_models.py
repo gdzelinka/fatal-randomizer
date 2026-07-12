@@ -36,6 +36,7 @@ class HenchModel(BaseModel):
     sprint: int = 0
     drive: int = 0
 
+
 class WeaponModel(BaseModel):
     weapon: str = ""
     skill_modifier: int = 0
@@ -50,6 +51,7 @@ class WeaponModel(BaseModel):
     l: int = 0
     m: int = 0
     h: int = 0
+
 
 class ArmorModel(BaseModel):
     armor: str = ""
@@ -113,13 +115,13 @@ class FatalModel(BaseModel):
     hair_length: str = ''
     hair_type: str = ""
     birthday: str = ""
-    vision: int = 0
+    vision: str = ''
     most_attractive_feature: str = ""
     most_repulsive_feature: str = ""
     breadth: int = 0
     bmi: str = ""
     appearance: str = ""
-    traits: str = ""
+    traits: list[str] = []
 
     """Abilities"""
     physique: int = 0
@@ -238,19 +240,25 @@ class FatalModel(BaseModel):
     horn_length: int = 0
     manhood_length: int = 0
     manhood_circumference: int = 0
-    anal_circumference_potential: int = 0
+    anal_circumference_potential: str = ''
+    anal_depth_potential: float = ''
     vaginal_circumference_potential: int = 0
     vaginal_depth_potential: int = 0
-    areola_diameter: int = 0
-    nipple_length: int = 0
-    cup_size: int = 0
-    tongue_size: int = 0
+    areola_diameter: float = 0
+    areola_hue: str = ''
+    nipple_length: float = 0
+    cup_size: str = ''
+    tongue_size: float = 0
     hymen_resistance: int = 0
     areola_hue: str = ""
-    foot_size: int = 0
-    fist_circumference: int = 0
-    head_circumference: int = 0
+    foot_size: str = ''
+    fist_circumference: str = ''
+    head_circumference: float = 0
     handedness: str = ""
+    is_pregnant: bool = False
+    is_fat: bool = False
+    is_skinny: bool = False
+    is_parent: bool = False
 
     languages_spoken: List[str] = []
     languages_read_and_written: List[str] = []

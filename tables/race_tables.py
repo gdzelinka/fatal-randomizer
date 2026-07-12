@@ -43,7 +43,7 @@ def handle_anakim_traits(character):
         print(f"Roll: {trait_roll}")
         if character.race == "Anakim":
             trait = anakim_traits[trait_roll]
-        character.traits += f" {trait[0]}, "
+        character.traits.append(trait[0])
         # Handling random modifiers
         if len(trait) > 1:
             for key, value in trait[1].items():

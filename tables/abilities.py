@@ -1,7 +1,7 @@
 from models.character_models import FatalModel
-from dice import d10, d100
+from dice import d8, d10, d100
 from math import floor, ceil
-from ability_tables import (
+from tables.ability_tables import (
     fitness_table,
     strength_table,
     health_table,
@@ -20,7 +20,7 @@ from ability_tables import (
     common_sense_descriptions,
     earliest_memory_at
 )
-from allergies import allergy_table
+from tables.body_tables import allergies
 
 def ability_dice():
     tendhundred = 0
@@ -61,30 +61,40 @@ def calculate_main_abilities(character: FatalModel):
                                 character.strength + \
                                 character.bodily_attractiveness + \
                                 character.health) / 4)
+    if character.physique < 1:
+        character.physique = 1
     character.physique_modifier = fitness_table[ceil((character.physique / 6))][0]
 
     character.charisma = floor((character.facial + \
                                 character.vocal + \
                                 character.kinetic + \
                                 character.rhetorical) / 4)
+    if character.charisma < 1:
+        character.charisma = 1
     character.charisma_modifier = fitness_table[ceil((character.charisma / 6))][0]
     
     character.dexterity = floor((character.hand_eye_coordination + \
                                 character.agility + \
                                 character.reaction_speed + \
                                 character.ennunciation) / 4)
+    if character.dexterity < 1:
+        character.dexterity = 1
     character.dexterity_modifer = fitness_table[ceil((character.dexterity / 6))][0]
 
     character.intelligence = floor((character.language + \
                                 character.math + \
                                 character.analytic + \
                                 character.spatial) / 4)
+    if character.intelligence < 1:
+        character.intelligence = 1
     character.intelligence_modifier = fitness_table[ceil((character.intelligence / 6))][0]
     
     character.wisdom = floor((character.drive + \
                                 character.intuition + \
                                 character.common_sense + \
                                 character.reflection) / 4)
+    if character.wisdom < 1:
+        character.wisdom = 1
     character.wisdom_modifier = fitness_table[ceil((character.wisdom / 6))][0]
 
     return character
@@ -131,8 +141,8 @@ def apply_subability_modifiers(character: FatalModel):
     character.life_points += health_table[health_mod][0]
     num_allergies = health_table[health_mod][1]
     for _ in range(num_allergies):
-        allergy_roll = d100 # TODO fix this roll
-        new_allergy = allergy_table[allergy_roll]
+        allergy_roll = d8()
+        new_allergy = allergies[allergy_roll]
         if new_allergy in character.allergies:
             num_allergies  = num_allergies + 1
             continue
@@ -288,7 +298,7 @@ def determine_int_range(character: FatalModel):
             return character
         character.intelligence_range = 4
         return character
-    if character.race == "Kobold":
+    if character.race == "Kobol":
         if intelligence < 69:
             character.intelligence_range = 0
             character = determine_r_strength(character, intelligence, 69)

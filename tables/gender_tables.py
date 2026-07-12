@@ -16,6 +16,9 @@ def add_gender(character: FatalModel):
     return character
 
 def add_gender_modifiers(character: FatalModel):
+    if "Hermaphrodite" in character.traits:
+        return character
+
     if character.gender == "male":
         character.physical_fitness = floor(character.physical_fitness * 1.05)
         character.strength = floor(character.strength * 1.3)

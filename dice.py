@@ -1,10 +1,16 @@
 import random
 
+def d2():
+    return random.randint(1,2)
+
 def d3():
     return random.randint(1, 3)
 
 def d4():
     return random.randint(1, 4)
+
+def d5():
+    return random.randint(1, 5)
 
 def d6():
     return random.randint(1, 6)
@@ -26,3 +32,6 @@ def d100():
 
 def d1000():
     return random.randint(1, 1000)
+
+def d1000000():
+    return random.randint(1, 1000000)
