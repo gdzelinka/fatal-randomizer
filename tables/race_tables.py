@@ -12,7 +12,7 @@ race_dict = {
     "Dark Elf": 1,
     "Light Elf": 1,
     "Human": 30,
-    "Kobol": 20,
+    "Kobold": 20,
     "Ogre": 6,
     "Cliff Ogre": 2,
     "Gruagach Ogre": 3, 
@@ -40,7 +40,6 @@ def handle_anakim_traits(character):
 
     for _ in range(number_of_traits):
         trait_roll = d100()
-        print(f"Roll: {trait_roll}")
         if character.race == "Anakim":
             trait = anakim_traits[trait_roll]
         character.traits.append(trait[0])
@@ -155,7 +154,7 @@ def add_racism(character: FatalModel):
     character.opinion_on_dark_elf = individual_racial_hatred(default_racism[5])
     character.opinion_on_light_elf = individual_racial_hatred(default_racism[6])
     character.opinion_on_human = individual_racial_hatred(default_racism[7])
-    character.opinion_on_kobol = individual_racial_hatred(default_racism[8])
+    character.opinion_on_kobold = individual_racial_hatred(default_racism[8])
     character.opinion_on_ogre = individual_racial_hatred(default_racism[9])
     character.opinion_on_cliff_ogre = individual_racial_hatred(default_racism[10])
     character.opinion_on_gruagach_ogre = individual_racial_hatred(default_racism[11])
@@ -172,296 +171,294 @@ def add_race_modifiers(character: FatalModel):
     character = add_racism(character)
 
     if character.race == "Anakim":
-        character.strength += 100
-        character.hand_eye_coordination -= 30
-        character.agility -= 25
-        character.reaction_speed -= 20
-        character.language += 5
-        character.math += 5
-        character.analytic += 5
-        character.spatial += 5
-        character.drive -= 5
-        character.intuition -= 10
-        character.common_sense -= 20
-        character.reflection -= 10
+        character.strength = character.strength + 100
+        character.hand_eye_coordination = character.hand_eye_coordination - 30
+        character.agility = character.agility - 25
+        character.reaction_speed = character.reaction_speed - 20
+        character.language = character.language + 5
+        character.math = character.math + 5
+        character.analytic = character.analytic + 5
+        character.spatial = character.spatial + 5
+        character.drive = character.drive - 5
+        character.intuition = character.intuition - 10
+        character.common_sense = character.common_sense - 20
+        character.reflection = character.reflection - 10
 
         character.current_armor = 11
         character.life_points = 27
 
-        character.ethical_points -= 25
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.melancholic -= 25
+        character.ethical_points = character.ethical_points - 25
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.melancholic = character.melancholic - 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Sapian")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling.skill_modifier += 3
-        character.intimidation.skill_modifier += 5
-        character.mangling.skill_modifier += 3
-        character.sexual_adeptness.skill_modifier += 5
-        character.trickery.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
-        character.wrestling.skill_modifier += 5
-
-        character.piety_points += d20()
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 3
+        character.intimidation.skill_modifier = character.intimidation.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 3
+        character.sexual_adeptness.skill_modifier = character.sexual_adeptness.skill_modifier + 5
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 3
+        character.weapon_specific.skill_modifier = character.weapon_specific.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 5
 
         character = handle_anakim_traits(character)
 
     elif character.race == "Bugbear":
-        character.strength += 100
-        character.bodily_attractiveness -= 20
-        character.facial -= 15
-        character.rhetorical -= 10
-        character.hand_eye_coordination -= 10
-        character.agility -= 10
-        character.ennunciation -= 10
-        character.language -= 10
-        character.math += 10
-        character.analytic -= 10
-        character.spatial += 5
-        character.drive += 10
+        character.strength = character.strength + 100
+        character.bodily_attractiveness = character.bodily_attractiveness - 20
+        character.facial = character.facial - 15
+        character.rhetorical = character.rhetorical - 10
+        character.hand_eye_coordination = character.hand_eye_coordination - 10
+        character.agility = character.agility - 10
+        character.ennunciation = character.ennunciation - 10
+        character.language = character.language - 10
+        character.math = character.math + 10
+        character.analytic = character.analytic - 10
+        character.spatial = character.spatial + 5
+        character.drive = character.drive + 10
 
         character.current_armor = 12
         character.life_points = 25
 
-        character.ethical_points += 25
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
-        character.melancholic += 25
+        character.ethical_points = character.ethical_points + 25
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.melancholic = character.melancholic + 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Kobold")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling.skill_modifier += 3
-        character.delousing.skill_modifier += 5
-        character.divination_anthropomancy.skill_modifier += 3
-        character.divination_dririmancy.skill_modifier += 3
-        character.law.skill_modifier += 3
-        character.sailing.skill_modifier += 3
-        character.search.skill_modifier += 3
-        character.shipwright.skill_modifier += 3
-        character.surgery.skill_modifier += 3
-        character.tracking.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
-        character.wrestling.skill_modifier += 3
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 3
+        character.delousing.skill_modifier = character.delousing.skill_modifier + 5
+        character.divination_anthropomancy.skill_modifier = character.divination_anthropomancy.skill_modifier + 3
+        character.divination_dririmancy.skill_modifier = character.divination_dririmancy.skill_modifier + 3
+        character.law.skill_modifier = character.law.skill_modifier + 3
+        character.sailing.skill_modifier = character.sailing.skill_modifier + 3
+        character.search.skill_modifier = character.search.skill_modifier + 3
+        character.shipwright.skill_modifier = character.shipwright.skill_modifier + 3
+        character.surgery.skill_modifier = character.surgery.skill_modifier + 3
+        character.tracking.skill_modifier = character.tracking.skill_modifier + 3
+        character.weapon_specific.skill_modifier = character.weapon_specific.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
     elif character.race == "Black Dwarf":
-        character.physical_fitness -= 10
-        character.bodily_attractiveness -= 15
-        character.health += 10
-        character.facial -= 15
-        character.hand_eye_coordination += 50
-        character.agility -= 5
-        character.analytic += 5
-        character.spatial += 10
-        character.drive += 10
-        character.common_sense += 10
+        character.physical_fitness = character.physical_fitness - 10
+        character.bodily_attractiveness = character.bodily_attractiveness - 15
+        character.health = character.health + 10
+        character.facial = character.facial - 15
+        character.hand_eye_coordination = character.hand_eye_coordination + 50
+        character.agility = character.agility - 5
+        character.analytic = character.analytic + 5
+        character.spatial = character.spatial + 10
+        character.drive = character.drive + 10
+        character.common_sense = character.common_sense + 10
 
         character.current_armor = 10
         character.life_points = 20
 
-        character.moral_points -= 25
-        character.sanguine -= 25
-        character.choleric += 25
+        character.moral_points = character.moral_points - 25
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Dwarven")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.appraise.skill_modifier += 3
-        character.architecture.skill_modifier += 5
-        character.armorsmithing.skill_modifier += 3
-        character.blacksmithing.skill_modifier += 8
-        character.brass_smithing.skill_modifier += 3
-        character.climb.skill_modifier += 8
-        character.coppersmithing.skill_modifier += 3
-        character.direction_sense.skill_modifier += 3
-        character.divination_axinomancy.skill_modifier += 3
-        character.divination_cleromancy.skill_modifier += 3
-        character.gambling.skill_modifier += 3
-        character.gemcutting.skill_modifier += 5
-        character.goldsmithing.skill_modifier += 3
-        character.mining.skill_modifier += 3
-        character.mountaineering.skill_modifier += 3
-        character.pewtersmithing.skill_modifier += 3
-        character.silversmithing.skill_modifier += 3
-        character.stonemasonry.skill_modifier += 3
-        character.trickery.skill_modifier += 5
-        character.weaponsmithing.skill_modifier += 3
+        character.appraise.skill_modifier = character.appraise.skill_modifier + 3
+        character.architecture.skill_modifier = character.architecture.skill_modifier + 5
+        character.armorsmithing.skill_modifier = character.armorsmithing.skill_modifier + 3
+        character.blacksmithing.skill_modifier = character.blacksmithing.skill_modifier + 8
+        character.brass_smithing.skill_modifier = character.brass_smithing.skill_modifier + 3
+        character.climb.skill_modifier = character.climb.skill_modifier + 8
+        character.coppersmithing.skill_modifier = character.coppersmithing.skill_modifier + 3
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
+        character.divination_axinomancy.skill_modifier = character.divination_axinomancy.skill_modifier + 3
+        character.divination_cleromancy.skill_modifier = character.divination_cleromancy.skill_modifier + 3
+        character.gambling.skill_modifier = character.gambling.skill_modifier + 3
+        character.gemcutting.skill_modifier = character.gemcutting.skill_modifier + 5
+        character.goldsmithing.skill_modifier = character.goldsmithing.skill_modifier + 3
+        character.mining.skill_modifier = character.mining.skill_modifier + 3
+        character.mountaineering.skill_modifier = character.mountaineering.skill_modifier + 3
+        character.pewtersmithing.skill_modifier = character.pewtersmithing.skill_modifier + 3
+        character.silversmithing.skill_modifier = character.silversmithing.skill_modifier + 3
+        character.stonemasonry.skill_modifier = character.stonemasonry.skill_modifier + 3
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 5
+        character.weaponsmithing.skill_modifier = character.weaponsmithing.skill_modifier + 3
 
     elif character.race == "Brown Dwarf":
-        character.physical_fitness -= 10
-        character.bodily_attractiveness -= 10
-        character.health += 10
-        character.facial -= 5
-        character.hand_eye_coordination += 5
-        character.agility -= 5
-        character.analytic += 5
-        character.spatial += 10
-        character.drive += 10
-        character.common_sense += 10
+        character.physical_fitness = character.physical_fitness - 10
+        character.bodily_attractiveness = character.bodily_attractiveness - 10
+        character.health = character.health + 10
+        character.facial = character.facial - 5
+        character.hand_eye_coordination = character.hand_eye_coordination + 5
+        character.agility = character.agility - 5
+        character.analytic = character.analytic + 5
+        character.spatial = character.spatial + 10
+        character.drive = character.drive + 10
+        character.common_sense = character.common_sense + 10
 
         character.current_armor = 10
         character.life_points = 20
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Dwarven")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Sapian")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.appraise.skill_modifier += 3
-        character.architecture.skill_modifier += 5
-        character.armorsmithing.skill_modifier += 3
-        character.blacksmithing.skill_modifier += 8
-        character.brass_smithing.skill_modifier += 3
-        character.cleaning.skill_modifier += 8
-        character.climb.skill_modifier += 8
-        character.coppersmithing.skill_modifier += 3
-        character.dance.skill_modifier += 3
-        character.direction_sense.skill_modifier += 3
-        character.divination_axinomancy.skill_modifier += 3
-        character.gemcutting.skill_modifier += 5
-        character.goldsmithing.skill_modifier += 3
-        character.mining.skill_modifier += 3
-        character.mountaineering.skill_modifier += 3
-        character.pewtersmithing.skill_modifier += 3
-        character.silversmithing.skill_modifier += 3
-        character.stonemasonry.skill_modifier += 3
-        character.weaponsmithing.skill_modifier += 3
+        character.appraise.skill_modifier = character.appraise.skill_modifier + 3
+        character.architecture.skill_modifier = character.architecture.skill_modifier + 5
+        character.armorsmithing.skill_modifier = character.armorsmithing.skill_modifier + 3
+        character.blacksmithing.skill_modifier = character.blacksmithing.skill_modifier + 8
+        character.brass_smithing.skill_modifier = character.brass_smithing.skill_modifier + 3
+        character.cleaning.skill_modifier = character.cleaning.skill_modifier + 8
+        character.climb.skill_modifier = character.climb.skill_modifier + 8
+        character.coppersmithing.skill_modifier = character.coppersmithing.skill_modifier + 3
+        character.dance.skill_modifier = character.dance.skill_modifier + 3
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
+        character.divination_axinomancy.skill_modifier = character.divination_axinomancy.skill_modifier + 3
+        character.gemcutting.skill_modifier = character.gemcutting.skill_modifier + 5
+        character.goldsmithing.skill_modifier = character.goldsmithing.skill_modifier + 3
+        character.mining.skill_modifier = character.mining.skill_modifier + 3
+        character.mountaineering.skill_modifier = character.mountaineering.skill_modifier + 3
+        character.pewtersmithing.skill_modifier = character.pewtersmithing.skill_modifier + 3
+        character.silversmithing.skill_modifier = character.silversmithing.skill_modifier + 3
+        character.stonemasonry.skill_modifier = character.stonemasonry.skill_modifier + 3
+        character.weaponsmithing.skill_modifier = character.weaponsmithing.skill_modifier + 3
 
     elif character.race == "White Dwarf":
-        character.physical_fitness -= 10
-        character.bodily_attractiveness -= 10
-        character.health += 10
-        character.facial -= 5
-        character.hand_eye_coordination += 5
-        character.agility -= 5
-        character.analytic += 5
-        character.spatial += 10
-        character.drive += 10
-        character.common_sense += 10
+        character.physical_fitness = character.physical_fitness - 10
+        character.bodily_attractiveness = character.bodily_attractiveness - 10
+        character.health = character.health + 10
+        character.facial = character.facial - 5
+        character.hand_eye_coordination = character.hand_eye_coordination + 5
+        character.agility = character.agility - 5
+        character.analytic = character.analytic + 5
+        character.spatial = character.spatial + 10
+        character.drive = character.drive + 10
+        character.common_sense = character.common_sense + 10
 
         character.current_armor = 10
         character.life_points = 20
 
-        character.ethical_points += 25
-        character.moral_points += 25
-        character.sanguine += 25
-        character.choleric -= 25
-        character.melancholic -= 25
+        character.ethical_points = character.ethical_points + 25
+        character.moral_points = character.moral_points + 25
+        character.sanguine = character.sanguine + 25
+        character.choleric = character.choleric - 25
+        character.melancholic = character.melancholic - 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Dwarven")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.appraise.skill_modifier += 3
-        character.architecture.skill_modifier += 5
-        character.armorsmithing.skill_modifier += 3
-        character.blacksmithing.skill_modifier += 8
-        character.brass_smithing.skill_modifier += 3
-        character.climb.skill_modifier += 8
-        character.coppersmithing.skill_modifier += 3
-        character.dance.skill_modifier += 3
-        character.direction_sense.skill_modifier += 3
-        character.divination_axinomancy.skill_modifier += 3
-        character.gemcutting.skill_modifier += 5
-        character.goldsmithing.skill_modifier += 3
-        character.mining.skill_modifier += 3
-        character.mountaineering.skill_modifier += 3
-        character.pewtersmithing.skill_modifier += 3
-        character.silversmithing.skill_modifier += 3
-        character.stonemasonry.skill_modifier += 3
-        character.weaponsmithing.skill_modifier += 3
+        character.appraise.skill_modifier = character.appraise.skill_modifier + 3
+        character.architecture.skill_modifier = character.architecture.skill_modifier + 5
+        character.armorsmithing.skill_modifier = character.armorsmithing.skill_modifier + 3
+        character.blacksmithing.skill_modifier = character.blacksmithing.skill_modifier + 8
+        character.brass_smithing.skill_modifier = character.brass_smithing.skill_modifier + 3
+        character.climb.skill_modifier = character.climb.skill_modifier + 8
+        character.coppersmithing.skill_modifier = character.coppersmithing.skill_modifier + 3
+        character.dance.skill_modifier = character.dance.skill_modifier + 3
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
+        character.divination_axinomancy.skill_modifier = character.divination_axinomancy.skill_modifier + 3
+        character.gemcutting.skill_modifier = character.gemcutting.skill_modifier + 5
+        character.goldsmithing.skill_modifier = character.goldsmithing.skill_modifier + 3
+        character.mining.skill_modifier = character.mining.skill_modifier + 3
+        character.mountaineering.skill_modifier = character.mountaineering.skill_modifier + 3
+        character.pewtersmithing.skill_modifier = character.pewtersmithing.skill_modifier + 3
+        character.silversmithing.skill_modifier = character.silversmithing.skill_modifier + 3
+        character.stonemasonry.skill_modifier = character.stonemasonry.skill_modifier + 3
+        character.weaponsmithing.skill_modifier = character.weaponsmithing.skill_modifier + 3
 
     elif character.race == "Dark Elf":
         character.elf_lifespan = elf_lifespan[d8()+1]
 
-        character.physical_fitness += 5
-        character.strength -= 60
-        character.bodily_attractiveness -= 10
-        character.health += 10
-        character.facial -= 10
-        character.vocal += 10
-        character.kinetic += 10
-        character.hand_eye_coordination += 10
-        character.agility += 5
-        character.ennunciation += 5
-        character.drive += 5
-        character.intuition += 10
-        character.common_sense += 10
-        character.reflection += 5
+        character.physical_fitness = character.physical_fitness + 5
+        character.strength = character.strength - 60
+        character.bodily_attractiveness = character.bodily_attractiveness - 10
+        character.health = character.health + 10
+        character.facial = character.facial - 10
+        character.vocal = character.vocal + 10
+        character.kinetic = character.kinetic + 10
+        character.hand_eye_coordination = character.hand_eye_coordination + 10
+        character.agility = character.agility + 5
+        character.ennunciation = character.ennunciation + 5
+        character.drive = character.drive + 5
+        character.intuition = character.intuition + 10
+        character.common_sense = character.common_sense + 10
+        character.reflection = character.reflection + 5
 
         character.current_armor = 10
         character.life_points = 15
 
-        character.moral_points -= 25
-        character.sanguine -= 25
-        character.choleric += 25
-        character.melancholic += 25
-        character.phlegmatic -= 25
+        character.moral_points = character.moral_points - 25
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.melancholic = character.melancholic + 25
+        character.phlegmatic = character.phlegmatic - 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Elven")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.contortion.skill_modifier += 3
-        character.dance.skill_modifier += 3
-        character.etiquette.skill_modifier += 3
-        character.herbalism.skill_modifier += 3
-        character.musical_instrument.skill_modifier += 3
-        character.nature_plants.skill_modifier += 3
-        character.nature_trees.skill_modifier += 3
-        character.smell.skill_modifier += 3
-        character.tracking.skill_modifier += 3
-        character.trickery.skill_modifier += 3
-        character.tumble.skill_modifier += 3
+        character.contortion.skill_modifier = character.contortion.skill_modifier + 3
+        character.dance.skill_modifier = character.dance.skill_modifier + 3
+        character.etiquette.skill_modifier = character.etiquette.skill_modifier + 3
+        character.herbalism.skill_modifier = character.herbalism.skill_modifier + 3
+        character.musical_instrument.skill_modifier = character.musical_instrument.skill_modifier + 3
+        character.nature_plants.skill_modifier = character.nature_plants.skill_modifier + 3
+        character.nature_trees.skill_modifier = character.nature_trees.skill_modifier + 3
+        character.smell.skill_modifier = character.smell.skill_modifier + 3
+        character.tracking.skill_modifier = character.tracking.skill_modifier + 3
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 3
+        character.tumble.skill_modifier = character.tumble.skill_modifier + 3
 
     elif character.race == "Light Elf":
         character.elf_lifespan = elf_lifespan[d8()+1]
 
-        character.physical_fitness += 5
-        character.strength -= 60
-        character.bodily_attractiveness += 10
-        character.health += 10
-        character.facial += 10
-        character.vocal += 10
-        character.kinetic += 10
-        character.hand_eye_coordination += 10
-        character.agility += 5
-        character.ennunciation += 5
-        character.drive += 5
-        character.intuition += 10
-        character.common_sense += 10
-        character.reflection += 5
+        character.physical_fitness = character.physical_fitness + 5
+        character.strength = character.strength - 60
+        character.bodily_attractiveness = character.bodily_attractiveness + 10
+        character.health = character.health + 10
+        character.facial = character.facial + 10
+        character.vocal = character.vocal + 10
+        character.kinetic = character.kinetic + 10
+        character.hand_eye_coordination = character.hand_eye_coordination + 10
+        character.agility = character.agility + 5
+        character.ennunciation = character.ennunciation + 5
+        character.drive = character.drive + 5
+        character.intuition = character.intuition + 10
+        character.common_sense = character.common_sense + 10
+        character.reflection = character.reflection + 5
 
         character.current_armor = 10
         character.life_points = 15
 
-        character.moral_points += 25
-        character.sanguine += 25
-        character.melancholic -= 25
+        character.moral_points = character.moral_points + 25
+        character.sanguine = character.sanguine + 25
+        character.melancholic = character.melancholic - 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Elven")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.climb.skill_modifier += 3
-        character.contortion.skill_modifier += 3
-        character.dance.skill_modifier += 3
-        character.etiquette.skill_modifier += 3
-        character.herbalism.skill_modifier += 3
-        character.musical_instrument.skill_modifier += 3
-        character.nature_plants.skill_modifier += 3
-        character.nature_trees.skill_modifier += 3
-        character.smell.skill_modifier += 3
-        character.tracking.skill_modifier += 3
-        character.tumble.skill_modifier += 3
+        character.climb.skill_modifier = character.climb.skill_modifier + 3
+        character.contortion.skill_modifier = character.contortion.skill_modifier + 3
+        character.dance.skill_modifier = character.dance.skill_modifier + 3
+        character.etiquette.skill_modifier = character.etiquette.skill_modifier + 3
+        character.herbalism.skill_modifier = character.herbalism.skill_modifier + 3
+        character.musical_instrument.skill_modifier = character.musical_instrument.skill_modifier + 3
+        character.nature_plants.skill_modifier = character.nature_plants.skill_modifier + 3
+        character.nature_trees.skill_modifier = character.nature_trees.skill_modifier + 3
+        character.smell.skill_modifier = character.smell.skill_modifier + 3
+        character.tracking.skill_modifier = character.tracking.skill_modifier + 3
+        character.tumble.skill_modifier = character.tumble.skill_modifier + 3
 
     elif character.race == "Human":
         character.current_armor = 10
@@ -469,71 +466,71 @@ def add_race_modifiers(character: FatalModel):
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Sapian")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-    elif character.race == "Kobol":
-        character.strength -= 40
-        character.bodily_attractiveness -= 15
-        character.facial -= 15
-        character.vocal -= 15
-        character.kinetic += 15
-        character.hand_eye_coordination += 15
-        character.agility += 15
-        character.reaction_speed += 15
-        character.ennunciation += 15
-        character.language -= 10
-        character.analytic -= 10
-        character.spatial += 15
-        character.drive -= 15
+    elif character.race == "Kobold":
+        character.strength = character.strength - 40
+        character.bodily_attractiveness = character.bodily_attractiveness - 15
+        character.facial = character.facial - 15
+        character.vocal = character.vocal - 15
+        character.kinetic = character.kinetic + 15
+        character.hand_eye_coordination = character.hand_eye_coordination + 15
+        character.agility = character.agility + 15
+        character.reaction_speed = character.reaction_speed + 15
+        character.ennunciation = character.ennunciation + 15
+        character.language = character.language - 10
+        character.analytic = character.analytic - 10
+        character.spatial = character.spatial + 15
+        character.drive = character.drive - 15
 
         character.current_armor = 10
         character.life_points = 15
 
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
-        character.phlegmatic += 25
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.phlegmatic = character.phlegmatic + 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Kobold")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
-        character.direction_sense.skill_modifier += 3
-        character.mining.skill_modifier += 3
-        character.trickery.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
+        character.mining.skill_modifier = character.mining.skill_modifier + 3
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 3
+        character.weapon_specific.skill_modifier = character.weapon_specific.skill_modifier + 5
 
     elif character.race == "Ogre":
-        character.physical_fitness -= 18
-        character.strength += 240
-        character.bodily_attractiveness -= 20
-        character.facial -= 20
-        character.kinetic -= 40
-        character.rhetorical -= 15
-        character.hand_eye_coordination -= 40
-        character.agility -= 30
-        character.reaction_speed -= 25
-        character.ennunciation -= 50
-        character.language -= 50
-        character.math -= 50
-        character.analytic -= 50
-        character.spatial -= 10
-        character.drive -= 15
-        character.intuition -= 20
-        character.common_sense -= 30
+        character.physical_fitness = character.physical_fitness - 18
+        character.strength = character.strength + 240
+        character.bodily_attractiveness = character.bodily_attractiveness - 20
+        character.facial = character.facial - 20
+        character.kinetic = character.kinetic - 40
+        character.rhetorical = character.rhetorical - 15
+        character.hand_eye_coordination = character.hand_eye_coordination - 40
+        character.agility = character.agility - 30
+        character.reaction_speed = character.reaction_speed - 25
+        character.ennunciation = character.ennunciation - 50
+        character.language = character.language - 50
+        character.math = character.math - 50
+        character.analytic = character.analytic - 50
+        character.spatial = character.spatial - 10
+        character.drive = character.drive - 15
+        character.intuition = character.intuition - 20
+        character.common_sense = character.common_sense - 30
 
         character.current_armor = 13
         character.life_points = 30
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
-        character.phlegmatic += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.phlegmatic = character.phlegmatic + 25
 
         if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Cigan")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -541,40 +538,40 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier += 5
-        character.mangling.skill_modifier += 5
-        character.wrestling.skill_modifier += 3
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
     elif character.race == "Cliff Ogre":
-        character.strength += 200
-        character.bodily_attractiveness -= 20
-        character.facial -= 20
-        character.kinetic -= 20
-        character.rhetorical -= 15
-        character.hand_eye_coordination -= 10
-        character.agility -= 15
-        character.reaction_speed -= 25
-        character.ennunciation -= 50
-        character.language -= 50
-        character.math -= 10
-        character.analytic -= 25
-        character.drive -= 15
-        character.intuition -= 20
-        character.common_sense -= 30
+        character.strength = character.strength + 200
+        character.bodily_attractiveness = character.bodily_attractiveness - 20
+        character.facial = character.facial - 20
+        character.kinetic = character.kinetic - 20
+        character.rhetorical = character.rhetorical - 15
+        character.hand_eye_coordination = character.hand_eye_coordination - 10
+        character.agility = character.agility - 15
+        character.reaction_speed = character.reaction_speed - 25
+        character.ennunciation = character.ennunciation - 50
+        character.language = character.language - 50
+        character.math = character.math - 10
+        character.analytic = character.analytic - 25
+        character.drive = character.drive - 15
+        character.intuition = character.intuition - 20
+        character.common_sense = character.common_sense - 30
 
         character.current_armor = 13
         character.life_points = 27
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
-        character.melancholic += 25
-        character.phlegmatic -= 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.melancholic = character.melancholic + 25
+        character.phlegmatic = character.phlegmatic - 25
 
         if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Cigan")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -582,43 +579,43 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier += 5
-        character.climb.skill_modifier += 8
-        character.hurl.skill_modifier += 5
-        character.mangling.skill_modifier += 5
-        character.wrestling.skill_modifier += 3
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.climb.skill_modifier = character.climb.skill_modifier + 8
+        character.hurl.skill_modifier = character.hurl.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
     elif character.race == "Gruagach Ogre":
-        character.physical_fitness -= 22
-        character.strength += 275
-        character.bodily_attractiveness -= 30
-        character.health -= 5
-        character.facial -= 35
-        character.kinetic -= 75
-        character.rhetorical -= 30
-        character.hand_eye_coordination -= 40
-        character.agility -= 45
-        character.reaction_speed -= 35
-        character.ennunciation -= 50
-        character.language -= 60
-        character.math -= 60
-        character.analytic -= 60
-        character.spatial -= 15
-        character.drive -= 30
-        character.intuition -= 20
-        character.common_sense -= 60
+        character.physical_fitness = character.physical_fitness - 22
+        character.strength = character.strength + 275
+        character.bodily_attractiveness = character.bodily_attractiveness - 30
+        character.health = character.health - 5
+        character.facial = character.facial - 35
+        character.kinetic = character.kinetic - 75
+        character.rhetorical = character.rhetorical - 30
+        character.hand_eye_coordination = character.hand_eye_coordination - 40
+        character.agility = character.agility - 45
+        character.reaction_speed = character.reaction_speed - 35
+        character.ennunciation = character.ennunciation - 50
+        character.language = character.language - 60
+        character.math = character.math - 60
+        character.analytic = character.analytic - 60
+        character.spatial = character.spatial - 15
+        character.drive = character.drive - 30
+        character.intuition = character.intuition - 20
+        character.common_sense = character.common_sense - 60
 
         character.current_armor = 13
         character.life_points = 35
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.melancholic -= 25
-        character.phlegmatic += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.melancholic = character.melancholic - 25
+        character.phlegmatic = character.phlegmatic + 25
 
         if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Gruagan")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
@@ -626,148 +623,148 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier += 5
-        character.mangling.skill_modifier += 5
-        character.smell.skill_modifier -= 5
-        character.wrestling.skill_modifier += 3
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.smell.skill_modifier = character.smell.skill_modifier - 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
     elif character.race == "Kinder-fresser Ogre":
-        character.strength += 240
-        character.bodily_attractiveness -= 10
-        character.facial -= 12
-        character.kinetic -= 20
-        character.rhetorical += 15
-        character.hand_eye_coordination -= 40
-        character.agility -= 30
-        character.reaction_speed -= 25
-        character.ennunciation -= 10
-        character.language -= 10
-        character.math -= 50
-        character.analytic -= 50
-        character.spatial -= 10
-        character.drive -= 15
-        character.common_sense -= 30
+        character.strength = character.strength + 240
+        character.bodily_attractiveness = character.bodily_attractiveness - 10
+        character.facial = character.facial - 12
+        character.kinetic = character.kinetic - 20
+        character.rhetorical = character.rhetorical + 15
+        character.hand_eye_coordination = character.hand_eye_coordination - 40
+        character.agility = character.agility - 30
+        character.reaction_speed = character.reaction_speed - 25
+        character.ennunciation = character.ennunciation - 10
+        character.language = character.language - 10
+        character.math = character.math - 50
+        character.analytic = character.analytic - 50
+        character.spatial = character.spatial - 10
+        character.drive = character.drive - 15
+        character.common_sense = character.common_sense - 30
 
         character.current_armor = 13
         character.life_points = 30
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
-        character.phlegmatic += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
+        character.phlegmatic = character.phlegmatic + 25
 
         if character.number_of_languages < character.max_num_of_languages:
             character.languages_spoken.append("Sapian")
-            character.number_of_languages += 1
+            character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choice(
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.hide.skill_modifier += 5
-        character.mangling.skill_modifier += 3
-        character.persuasion.skill_modifier += 8
-        character.silence.skill_modifier += 5
-        character.trickery.skill_modifier += 5
+        character.hide.skill_modifier = character.hide.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 3
+        character.persuasion.skill_modifier = character.persuasion.skill_modifier + 8
+        character.silence.skill_modifier = character.silence.skill_modifier + 5
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 5
 
     elif character.race == "Borbytingarna Troll":
-        character.physical_fitness += 20
-        character.strength += 100
-        character.bodily_attractiveness -= 50
-        character.facial -= 40
-        character.kinetic -= 40
-        character.hand_eye_coordination -= 5
-        character.agility -= 25
-        character.reaction_speed -= 20
-        character.language -= 90
-        character.math -= 60
-        character.analytic -= 60
-        character.spatial -= 10
+        character.physical_fitness = character.physical_fitness + 20
+        character.strength = character.strength + 100
+        character.bodily_attractiveness = character.bodily_attractiveness - 50
+        character.facial = character.facial - 40
+        character.kinetic = character.kinetic - 40
+        character.hand_eye_coordination = character.hand_eye_coordination - 5
+        character.agility = character.agility - 25
+        character.reaction_speed = character.reaction_speed - 20
+        character.language = character.language - 90
+        character.math = character.math - 60
+        character.analytic = character.analytic - 60
+        character.spatial = character.spatial - 10
 
         character.current_armor = 14
         character.life_points = 27
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
 
         character.occupation = random.choice(
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.skill_modifier += 5
-        character.brawling.skill_modifier += 5
-        character.direction_sense.skill_modifier += 5
-        character.disarm.skill_modifier += 3
-        character.mangling.skill_modifier += 5
-        character.wrestling.skill_modifier += 5
+        character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 5
+        character.disarm.skill_modifier = character.disarm.skill_modifier + 3
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 5
 
     elif character.race == "Hill Troll":
-        character.physical_fitness -= 25
-        character.strength += 100
-        character.bodily_attractiveness -= 70
-        character.facial -= 40
-        character.kinetic -= 40
-        character.hand_eye_coordination -= 20
-        character.agility -= 25
-        character.reaction_speed -= 20
-        character.language -= 90
-        character.math -= 60
-        character.analytic -= 60
-        character.spatial -= 10
+        character.physical_fitness = character.physical_fitness - 25
+        character.strength = character.strength + 100
+        character.bodily_attractiveness = character.bodily_attractiveness - 70
+        character.facial = character.facial - 40
+        character.kinetic = character.kinetic - 40
+        character.hand_eye_coordination = character.hand_eye_coordination - 20
+        character.agility = character.agility - 25
+        character.reaction_speed = character.reaction_speed - 20
+        character.language = character.language - 90
+        character.math = character.math - 60
+        character.analytic = character.analytic - 60
+        character.spatial = character.spatial - 10
 
         character.current_armor = 14
         character.life_points = 27
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
 
         character.occupation = random.choice(
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.skill_modifier += 5
-        character.brawling.skill_modifier += 5
-        character.climb.skill_modifier += 5
-        character.direction_sense.skill_modifier += 3
-        character.mangling.skill_modifier += 5
-        character.taste.skill_modifier += 3
-        character.weapon_specific.skill_modifier += 5
-        character.wrestling.skill_modifier += 3
+        character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.climb.skill_modifier = character.climb.skill_modifier + 5
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.taste.skill_modifier = character.taste.skill_modifier + 3
+        character.weapon_specific.skill_modifier = character.weapon_specific.skill_modifier + 5
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
     elif character.race == "Subterranean Troll":
-        character.physical_fitness += 5
-        character.strength += 100
+        character.physical_fitness = character.physical_fitness + 5
+        character.strength = character.strength + 100
         if character.gender == 'male':
-            character.bodily_attractiveness -= 50
-            character.facial -= 40
-        character.kinetic -= 40
-        character.hand_eye_coordination -= 20
-        character.agility -= 25
-        character.reaction_speed -= 20
-        character.language += 10
-        character.math += 10
-        character.analytic += 10
-        character.spatial += 10
+            character.bodily_attractiveness = character.bodily_attractiveness - 50
+            character.facial = character.facial - 40
+        character.kinetic = character.kinetic - 40
+        character.hand_eye_coordination = character.hand_eye_coordination - 20
+        character.agility = character.agility - 25
+        character.reaction_speed = character.reaction_speed - 20
+        character.language = character.language + 10
+        character.math = character.math + 10
+        character.analytic = character.analytic + 10
+        character.spatial = character.spatial + 10
 
         character.current_armor = 14
         character.life_points = 27
 
-        character.ethical_points -= 50
-        character.moral_points -= 50
-        character.sanguine -= 25
-        character.choleric += 25
+        character.ethical_points = character.ethical_points - 50
+        character.moral_points = character.moral_points - 50
+        character.sanguine = character.sanguine - 25
+        character.choleric = character.choleric + 25
 
-        character.blindfighting.skill_modifier += 5
-        character.brawling.skill_modifier += 5
-        character.direction_sense.skill_modifier += 5
-        character.mangling.skill_modifier += 5
-        character.sound.skill_modifier += 3
-        character.trickery.skill_modifier += 3
-        character.wrestling.skill_modifier += 5
+        character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
+        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 5
+        character.mangling.skill_modifier = character.mangling.skill_modifier + 5
+        character.sound.skill_modifier = character.sound.skill_modifier + 3
+        character.trickery.skill_modifier = character.trickery.skill_modifier + 3
+        character.wrestling.skill_modifier = character.wrestling.skill_modifier + 5
 
     return character

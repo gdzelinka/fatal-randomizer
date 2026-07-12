@@ -6,7 +6,7 @@ def add_gender(character: FatalModel):
     gender_roll = d100()
 
     if character.race in ["Anakim", "Ogre", "Troll"]:
-        gender_roll += 10
+        gender_roll = gender_roll + 10
     
     if gender_roll < 53:
         character.gender = "female"
@@ -31,8 +31,8 @@ def add_gender_modifiers(character: FatalModel):
         character.intuition = floor(character.intuition * 0.95)
         character.reflection = floor(character.reflection * 0.96)
 
-        character.sanguine -= 2
-        character.choleric += 2
+        character.sanguine = character.sanguine - 2
+        character.choleric = character.choleric + 2
 
     elif character.gender == "female":
         character.physical_fitness = floor(character.physical_fitness * 0.95)
@@ -46,7 +46,7 @@ def add_gender_modifiers(character: FatalModel):
         character.intuition = floor(character.intuition * 1.05)
         character.reflection = floor(character.reflection * 1.04)
 
-        character.sanguine += 2
-        character.choleric -= 2
+        character.sanguine = character.sanguine + 2
+        character.choleric = character.choleric - 2
     
     return character

@@ -105,7 +105,8 @@ class FatalModel(BaseModel):
     skin_color: str = ""
     birth_rank: str = ""
     sexuality: str = ""
-    debauchery: str = ""
+    debauchery_value: int = 0
+    debauchery: str = ''
     marital_status: str = ""
     birth_status: str = ""
     hair_color: str = ""
@@ -219,6 +220,8 @@ class FatalModel(BaseModel):
 
     ethical_points: int = 0
     moral_points: int = 0
+    ethicality: str = ''
+    morality: str = ''
     disposition: str = ""
 
     sanguine: int = 0
@@ -296,7 +299,7 @@ class FatalModel(BaseModel):
     opinion_on_dark_elf: int = 0
     opinion_on_light_elf: int = 0
     opinion_on_human: int = 0
-    opinion_on_kobol: int = 0
+    opinion_on_kobold: int = 0
     opinion_on_ogre: int = 0
     opinion_on_cliff_ogre: int = 0
     opinion_on_gruagach_ogre: int = 0
@@ -306,9 +309,9 @@ class FatalModel(BaseModel):
     opinion_on_subterranean_troll: int = 0
 
     """Misc"""
-    allergies: List[str] = None
+    allergies: List[str] = []
     illness_immunity: int = None
-    mental_illnesses: List[str] = None
+    mental_illnesses: List[str] = []
     misc_notes: str = ""
     num_skill_rerolls: int = 0
 

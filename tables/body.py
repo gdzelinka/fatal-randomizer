@@ -20,7 +20,8 @@ from tables.body_tables import(
     cup_size,
     dick_size,
     foot_length,
-    head_circumference
+    head_circumference,
+    proportion_1, proportion_2, proportion_3, proportion_4
     )
 from math import floor, ceil
 from dice import d2, d4, d5, d6, d8, d10, d12, d20, d100, d1000, d1000000
@@ -38,8 +39,6 @@ def add_body(character: FatalModel):
     character = generate_facial_features(character)
     character = generate_rare_features(character)
 
-    print(character.race)
-    print(character.height)
     character = apply_age_modifiers(character)
     character = apply_height_modifiers(character)
     character = apply_weight_modifiers(character)
@@ -72,13 +71,13 @@ def generate_age(character: FatalModel):
         character.age = d1000()
         character.stage_of_life = get_stage("Dwarves", character.age)
     if character.race in ["Dark Elf", "Light Elf"]:
-        character.part_of_life = "Young Adulthood"
+        character.stage_of_life = "Young Adulthood"
         character.age = random.randint(floor(character.elf_lifespan*0.26),
                                        floor(character.elf_lifespan*.4))
     if character.race == "Human":
         character.age = floor((age_roll / 4) - 30)
         character.stage_of_life = get_stage(character.race, character.age)
-    if character.race == "Kobol":
+    if character.race == "Kobold":
         character.age = floor((age_roll / 5) - 25)
         character.stage_of_life = get_stage(character.race, character.age)
     if character.race in ["Ogre", "Cliff Ogre", "Gruagach Ogre", "Kinder-fresser Ogre"]:
@@ -97,15 +96,15 @@ def apply_age_modifiers(character: FatalModel):
     if character.age == 0:
         character.height = floor(character.height * 0.2)
         character.weight = floor(character.weight * 0.05)
-        hair_length_roll -= 90
-        character.foot_size = floor(character.foot_size * 0.2)
+        hair_length_roll = hair_length_roll - 90
+        character.foot_size = f"{floor(int(feet[0])* 0.2)}-{floor(int(feet[1])*0.2)} inches"
         character.head_circumference = floor(character.head_circumference * 0.55)
         return character
 
     if character.stage_of_life == "Infant":
         character.height = floor(character.height * 0.4)
         character.weight = floor(character.weight * 0.4)
-        hair_length_roll -= 70
+        hair_length_roll = hair_length_roll - 70
         feet = character.foot_size.split(' ')[0].split('-')
         character.foot_size = f"{floor(int(feet[0])* 0.4)}-{floor(int(feet[1])*0.4)} inches"
         character.head_circumference = floor(character.head_circumference * 0.7)
@@ -113,7 +112,7 @@ def apply_age_modifiers(character: FatalModel):
     elif character.stage_of_life == "Child":
         character.height = floor(character.height * 0.8)
         character.weight = floor(character.weight * 0.6)
-        hair_length_roll -= 50
+        hair_length_roll = hair_length_roll - 50
         feet = character.foot_size.split(' ')[0].split('-')
         character.foot_size = f"{floor(int(feet[0])* 0.8)}-{floor(int(feet[1])*0.8)} inches"
         character.head_circumference = floor(character.head_circumference * 0.85)
@@ -125,7 +124,7 @@ def apply_age_modifiers(character: FatalModel):
     elif character.stage_of_life == "Middle Age":
         character.height = floor(character.height * 0.99)
         character.weight = floor(character.weight * 1.1)
-        character.hair_color += "w/ some Gray"
+        character.hair_color = character.hair_color + "w/ some Gray"
 
     elif character.stage_of_life == "Old Age":
         character.height = floor(character.height * 0.98)
@@ -185,7 +184,7 @@ def generate_height(character: FatalModel):
         elif character.gender == "female":
             character.height =  d4() + d4() + d4() + d4() + d4() + d4() + d4() + d4() + 44
         character.breadth = floor(character.height / 2)
-    elif character.race == "Kobol":
+    elif character.race == "Kobold":
         if character.gender == "male":
             character.height = d6() + d6() + d6() + d6() + d6() + d6() + 33
         elif character.gender == "female":
@@ -215,11 +214,11 @@ def apply_height_modifiers(character: FatalModel):
     elif character.height < average:
         difference = average - character.height
 
-    character.weight += difference * height_mods[1][0]
-    character.strength += difference * height_mods[1][1]
+    character.weight = character.weight + difference * height_mods[1][0]
+    character.strength = character.strength + difference * height_mods[1][1]
 
     if character.gender == "male":
-        character.bodily_attractiveness += difference * height_mods[1][2]
+        character.bodily_attractiveness = character.bodily_attractiveness + difference * height_mods[1][2]
     
     return character
 
@@ -249,7 +248,7 @@ def generate_weight(character: FatalModel):
             character.weight = d20() + d20() + d20() + d20() + d20() + d20() + 87
         elif character.gender == "female":
             character.weight =  d12() + d12() + d12() + d12() + d12() + d12() + 76
-    elif character.race == "Kobol":
+    elif character.race == "Kobold":
         if character.gender == "male":
             character.weight = d6() + d6() + d6() + 70
         elif character.gender == "female":
@@ -271,9 +270,9 @@ def apply_weight_modifiers(character: FatalModel):
     average = average_weight[character.race][character.gender]
 
     if character.weight > average:
-        character.strength += (character.weight - average)
+        character.strength = character.strength + (character.weight - average)
     elif character.weight < average:
-        character.strength -= (average - character.weight)
+        character.strength = character.strength - (average - character.weight)
     return character
 
 def apply_bmi(character: FatalModel):
@@ -283,12 +282,12 @@ def apply_bmi(character: FatalModel):
     if bmi < bmi_bounds[0][0]:
         #underweight
         difference = floor((bmi_bounds[0][0] - bmi) / bmi_bounds[1][0])
-        character.bodily_attractiveness += difference * bmi_bounds[1][1]
+        character.bodily_attractiveness = character.bodily_attractiveness + difference * bmi_bounds[1][1]
         character.is_skinny = True
     elif bmi > bmi_bounds[0][1]:
         #overweight
         difference = floor((bmi - bmi_bounds[0][1]) / bmi_bounds[2][0])
-        character.bodily_attractiveness += difference * bmi_bounds[2][1]
+        character.bodily_attractiveness = character.bodily_attractiveness + difference * bmi_bounds[2][1]
         character.is_fat = True
     
     return character
@@ -341,7 +340,7 @@ def generate_skin_color(character: FatalModel):
     else:
         color_roll = d100()
         if isinstance(color_mod, int):
-            color_roll += color_mod
+            color_roll = color_roll + color_mod
 
         if color_roll < 6:
             character.skin_color = "Deathly Pale (many think they are undead)"
@@ -360,7 +359,7 @@ def generate_hair(character: FatalModel):
     # Hair color
     if character.race == "Gruagach Ogre":
         character.hair_color = "Blonde"
-    elif character.race in ["Anakim", "Human", "Kobol", "Ogre", "Cliff Ogre", "Kinder-fresser Ogre"]:
+    elif character.race in ["Anakim", "Human", "Kobold", "Ogre", "Cliff Ogre", "Kinder-fresser Ogre"]:
         character.hair_color = random.choices(
             population=list(hair_color_1.keys()),
             weights=list(hair_color_1.values()),
@@ -382,13 +381,13 @@ def generate_hair(character: FatalModel):
     # Hair type
     type_roll = d100()
     if character.gender == "female":
-        type_roll += 8
-    if character.race in ['Bugbear', 'Black Dwarf', 'Brown Dwarf', 'White Dwarf', 'Kobol', 'Ogre', 'Cliff Ogre', "Gruagach Ogre", "Kinder-fresser Ogre"]:
-        type_roll += 10
+        type_roll = type_roll + 8
+    if character.race in ['Bugbear', 'Black Dwarf', 'Brown Dwarf', 'White Dwarf', 'Kobold', 'Ogre', 'Cliff Ogre', "Gruagach Ogre", "Kinder-fresser Ogre"]:
+        type_roll = type_roll + 10
     if character.race in ["Borbytingarna Troll", "Hill Troll", "Subterranean Troll"]:
-        type_roll += 30
+        type_roll = type_roll + 30
     if character.stage_of_life == "Infant":
-        type_roll -= 74
+        type_roll = type_roll - 74
     
     if type_roll < 1:
         type_roll = 1
@@ -397,7 +396,7 @@ def generate_hair(character: FatalModel):
     
     character.hair_type = hair_type[type_roll][0]
     character.hair_thickness = hair_type[type_roll][1]
-    character.facial += hair_type[type_roll][2]
+    character.facial = character.facial + hair_type[type_roll][2]
 
     return character
 
@@ -419,11 +418,11 @@ def generate_vision(character: FatalModel):
         character.vision = "Far-sightedness"
     
     if character.vision == "Near-sightedness":
-        character.aim.skill_modifier += vision_imparement[vision_roll]
-        character.hurl.skill_modifier += vision_imparement[vision_roll]
-        character.mounted_archery.skill_modifier += vision_imparement[vision_roll]
-        character.search.skill_modifier += vision_imparement[vision_roll]
-        character.sight.skill_modifier += vision_imparement[vision_roll]
+        character.aim.skill_modifier = character.aim.skill_modifier + vision_imparement[vision_roll]
+        character.hurl.skill_modifier = character.hurl.skill_modifier + vision_imparement[vision_roll]
+        character.mounted_archery.skill_modifier = character.mounted_archery.skill_modifier + vision_imparement[vision_roll]
+        character.search.skill_modifier = character.search.skill_modifier + vision_imparement[vision_roll]
+        character.sight.skill_modifier = character.sight.skill_modifier + vision_imparement[vision_roll]
 
     return character
 
@@ -437,9 +436,9 @@ def generate_facial_features(character: FatalModel):
     if isinstance(modifier, list):
         for mod in modifier:
             if character.gender == mod[0]:
-                character.facial -= mod[1]
+                character.facial = character.facial - mod[1]
     else:
-        character.facial += modifier
+        character.facial = character.facial + modifier
     
     return character
 
@@ -452,19 +451,19 @@ def freak_of_nature(character: FatalModel):
         if freak_roll == 1:
             character.traits.append("Funnel Chest (Pectus Excavatum)")
             character.strength = character.strength * (-1 * d10())
-            character.bodily_attractiveness -= d10()
+            character.bodily_attractiveness = character.bodily_attractiveness - d10()
         elif freak_roll == 2:
             character.traits.append("Hermaphrodite")
-            character.bodily_attractiveness -= d10()
+            character.bodily_attractiveness = character.bodily_attractiveness - d10()
         elif freak_roll == 3:
             character.traits.append("Pidgeon Chest (Pectus Carinatum)")
             character.strength = character.strength * (-1 * d10())
         elif freak_roll == 4:
             character.traits.append("Polydactyly")
-            character.hand_eye_coordination += d10()
+            character.hand_eye_coordination = character.hand_eye_coordination + d10()
         elif freak_roll == 5:
             character.traits.append("Supermumerary Nipple")
-            character.bodily_attractiveness -= d10()
+            character.bodily_attractiveness = character.bodily_attractiveness - d10()
 
     return character
 
@@ -472,16 +471,16 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
     # Must be done after bmi
     areola_diameter_roll = d100()
     if character.gender == "male":
-        areola_diameter_roll -= 15
+        areola_diameter_roll = areola_diameter_roll - 15
     if character.stage_of_life in ["Infant", "Child"]:
-        areola_diameter_roll -= 30
+        areola_diameter_roll = areola_diameter_roll - 30
     if areola_diameter_roll < 1:
         areola_diameter_roll = 1
     
     if areola_diameter_roll >= 86 and areola_diameter_roll < 96:
-        character.bodily_attractiveness -= d4()
+        character.bodily_attractiveness = character.bodily_attractiveness - d4()
     if areola_diameter_roll >= 96:
-        character.bodily_attractiveness -= d6()
+        character.bodily_attractiveness = character.bodily_attractiveness - d6()
 
     character.areola_diameter = areola_diameter[character.race][ceil(areola_diameter_roll / 5)]
 
@@ -492,11 +491,11 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
     )[0]
 
     if character.gender == "female" and character.areola_hue == "Difficult to identify":
-        character.bodily_attractiveness -= d6()
+        character.bodily_attractiveness = character.bodily_attractiveness - d6()
     if character.gender == "female" and character.areola_hue == "Medium":
-        character.bodily_attractiveness += d4()
+        character.bodily_attractiveness = character.bodily_attractiveness + d4()
     if character.gender == "female" and character.areola_hue == "Dark":
-        character.bodily_attractiveness -= d4()
+        character.bodily_attractiveness = character.bodily_attractiveness - d4()
     
     inverted_roll = d100()
     if inverted_roll == 1:
@@ -510,34 +509,34 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
     else:
         nipple_roll = d100()
         if character.gender == "male":
-            nipple_roll -= 15
+            nipple_roll = nipple_roll - 15
         if character.stage_of_life in ["Infant", "Child"]:
-            nipple_roll -= 50
+            nipple_roll = nipple_roll - 50
         
         if nipple_roll < 66:
             character.nipple_length = nipple_length[character.race][0]
             if character.gender == "female":
-                character.bodily_attractiveness -= d4()
+                character.bodily_attractiveness = character.bodily_attractiveness - d4()
         if 66 <= nipple_roll < 81:
             character.nipple_length = nipple_length[character.race][1]
         if 81 <= nipple_roll < 98:
             character.nipple_length = nipple_length[character.race][2]
             if character.gender == "female":
-                character.bodily_attractiveness += d4()
+                character.bodily_attractiveness = character.bodily_attractiveness + d4()
         if 98 <= nipple_roll < 100:
             character.nipple_length = nipple_length[character.race][3]
             if character.gender == "female":
-                character.bodily_attractiveness -= d6()
+                character.bodily_attractiveness = character.bodily_attractiveness - d6()
         if nipple_roll == 100:
             character.nipple_length = nipple_length[character.race][4]
             if character.gender == "female":
-                character.bodily_attractiveness -= d6()
+                character.bodily_attractiveness = character.bodily_attractiveness - d6()
 
     tongue_roll = d100()
     if character.stage_of_life == "Infant":
-        tongue_roll -= 80
+        tongue_roll = tongue_roll - 80
     if character.stage_of_life == "Child":
-        tongue_roll -= 60
+        tongue_roll = tongue_roll - 60
     
     if tongue_roll < 1:
         tongue_roll = 1
@@ -549,21 +548,21 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
 
     anal_circ_roll = d100()
     if character.stage_of_life == "Infant":
-        anal_circ_roll -= 90
+        anal_circ_roll = anal_circ_roll - 90
     if character.stage_of_life == "Child":
-        anal_circ_roll -= 80
+        anal_circ_roll = anal_circ_roll - 80
     if character.stage_of_life == "Puberty":
-        anal_circ_roll -= 25
+        anal_circ_roll = anal_circ_roll - 25
     if character.stage_of_life == "Middle Age":
-        anal_circ_roll += 10
+        anal_circ_roll = anal_circ_roll + 10
     if character.stage_of_life in ["Old Age", "Venerable"]:
-        anal_circ_roll += 5
+        anal_circ_roll = anal_circ_roll + 5
     if character.gender == "male":
-        anal_circ_roll += 5
+        anal_circ_roll = anal_circ_roll + 5
     if "Nymphomaniac" in character.traits:
-        anal_circ_roll += (d20() + 10)
+        anal_circ_roll = anal_circ_roll + (d20() + 10)
     if "Satyromaniac" in character.traits:
-        anal_circ_roll += (d20() + 10)
+        anal_circ_roll = anal_circ_roll + (d20() + 10)
     
     if anal_circ_roll < 1:
         anal_circ_roll = 1
@@ -581,17 +580,17 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
     if character.gender == "female":
         cup_size_roll = d100()
         if size_mod:
-            cup_size_roll += size_mod
+            cup_size_roll = cup_size_roll + size_mod
         if character.stage_of_life in ["Infant", "Child"]:
-            cup_size_roll -= 75
+            cup_size_roll = cup_size_roll - 75
         if character.stage_of_life == "Puberty":
-            cup_size_roll -= 5
+            cup_size_roll = cup_size_roll - 5
         if character.is_fat:
-            cup_size_roll += 25
+            cup_size_roll = cup_size_roll + 25
         if character.is_pregnant:
-            cup_size_roll += 25
+            cup_size_roll = cup_size_roll + 25
         if character.is_skinny:
-            cup_size_roll -= 25
+            cup_size_roll = cup_size_roll - 25
         
         if cup_size_roll < 1:
             cup_size_roll = 1
@@ -599,23 +598,23 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
             cup_size_roll = 100
         
         character.cup_size = cup_size[cup_size_roll][0]
-        character.bodily_attractiveness += cup_size[cup_size_roll][1]
+        character.bodily_attractiveness = character.bodily_attractiveness + cup_size[cup_size_roll][1]
 
         vag_circ_roll = d100()
         if character.stage_of_life == "Infant":
-            vag_circ_roll -= 95
+            vag_circ_roll = vag_circ_roll - 95
         if character.stage_of_life == "Child":
-            vag_circ_roll -= 85
+            vag_circ_roll = vag_circ_roll - 85
         if character.stage_of_life == "Puberty":
-            vag_circ_roll -= 25
+            vag_circ_roll = vag_circ_roll - 25
         if character.stage_of_life == "Middle Age":
-            vag_circ_roll += 10
+            vag_circ_roll = vag_circ_roll + 10
         if character.stage_of_life in ["Old Age", "Venerable"]:
-            vag_circ_roll += 5
+            vag_circ_roll = vag_circ_roll + 5
         if character.is_parent:
-            vag_circ_roll += (d20() + 5)
+            vag_circ_roll = vag_circ_roll + (d20() + 5)
         if "Nymphomaniac" in character.traits:
-            vag_circ_roll += (d20() + 10)
+            vag_circ_roll = vag_circ_roll + (d20() + 10)
         
         if vag_circ_roll < 1:
             vag_circ_roll = 1
@@ -649,10 +648,10 @@ def generate_rare_features(character: FatalModel):
     foot_roll = d100()
     if character.height > average:
         difference = character.height - average
-        foot_roll += (difference* 10)
+        foot_roll = foot_roll + (difference* 10)
     elif character.height < average:
         difference = average - character.height
-        foot_roll -= (difference * 10)
+        foot_roll = foot_roll - (difference * 10)
 
     if foot_roll < 1:
         foot_roll = 1
@@ -683,4 +682,34 @@ def generate_rare_features(character: FatalModel):
     elif dirction == 2:
         character.head_circumference = head_circ + head_mod
     
+    return character
+
+def generate_bpp(character: FatalModel):
+    if character.race in ["Anakim", "Bugbear", "Dark Elf", "Light Elf", "Human", "Kobold"]:
+        proportion_table = proportion_1
+    if character.race in ["Black Dwarf", "Brown Dwarf", "White Dwarf", "Ogre", "Cliff Ogre", "Gruagach Ogre", "Kinder-fresser Ogre"]:
+        proportion_table = proportion_2
+    if character.race in ["Borbytingarna Troll", "Subterranean Troll"]:
+        proportion_table = proportion_3
+    if character.race == "Hill Troll":
+        proportion_table = proportion_4
+    
+    character.head.bpp = floor(character.life_points * proportion_table["Head"]) if floor(character.life_points * proportion_table["Head"]) >= 1 else 1
+    character.face.bpp = floor(character.life_points * proportion_table["Face"]) if floor(character.life_points * proportion_table["Face"]) >= 1 else 1
+    character.upper_torso.bpp = floor(character.life_points * proportion_table["Upper Torso"]) if floor(character.life_points * proportion_table["Upper Torso"]) >= 1 else 1
+    character.lower_torso.bpp = floor(character.life_points * proportion_table["Lower Torso"]) if floor(character.life_points * proportion_table["Lower Torso"]) >= 1 else 1
+    character.groin.bpp = floor(character.life_points * proportion_table["Groin"]) if floor(character.life_points * proportion_table["Groin"]) >= 1 else 1
+    character.upper_right_arm.bpp = floor(character.life_points * proportion_table["Upper Right Arm"]) if floor(character.life_points * proportion_table["Upper Right Arm"]) >= 1 else 1
+    character.lower_right_arm.bpp = floor(character.life_points * proportion_table["Lower Right Arm"]) if floor(character.life_points * proportion_table["Lower Right Arm"]) >= 1 else 1
+    character.right_hand.bpp = floor(character.life_points * proportion_table["Right Hand"]) if floor(character.life_points * proportion_table["Right Hand"]) >= 1 else 1
+    character.upper_left_arm.bpp = floor(character.life_points * proportion_table["Upper Left Arm"]) if floor(character.life_points * proportion_table["Upper Left Arm"]) >= 1 else 1
+    character.lower_left_arm.bpp = floor(character.life_points * proportion_table["Lower Left Arm"]) if floor(character.life_points * proportion_table["Lower Left Arm"]) >= 1 else 1
+    character.left_hand.bpp = floor(character.life_points * proportion_table["Left Hand"]) if floor(character.life_points * proportion_table["Left Hand"]) >= 1 else 1
+    character.upper_right_leg.bpp = floor(character.life_points * proportion_table["Upper Right Leg"]) if floor(character.life_points * proportion_table["Upper Right Leg"]) >= 1 else 1
+    character.lower_right_leg.bpp = floor(character.life_points * proportion_table["Lower Right Leg"]) if floor(character.life_points * proportion_table["Lower Right Leg"]) >= 1 else 1
+    character.right_foot.bpp = floor(character.life_points * proportion_table["Right Foot"]) if floor(character.life_points * proportion_table["Right Foot"]) >= 1 else 1
+    character.upper_left_leg.bpp = floor(character.life_points * proportion_table["Upper Left Leg"]) if floor(character.life_points * proportion_table["Upper Left Leg"]) >= 1 else 1
+    character.lower_left_leg.bpp = floor(character.life_points * proportion_table["Lower Left Leg"]) if floor(character.life_points * proportion_table["Lower Left Leg"]) >= 1 else 1
+    character.left_foot.bpp = floor(character.life_points * proportion_table["Left Foot"]) if floor(character.life_points * proportion_table["Left Foot"]) >= 1 else 1
+
     return character
