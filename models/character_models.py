@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Tuple
 
 
 class SkillModel(BaseModel):
@@ -42,10 +42,11 @@ class WeaponModel(BaseModel):
     skill_modifier: int = 0
     breadth: int = 0
     weapon_type: str = ""
-    size: int = 0
-    weight: int = 0
-    weight_distribution: int = 0
-    fulcrum_range: int = 0
+    size: str = ''
+    weight: float = 0
+    weight_distribution: float = 0
+    fulcrum_range: str = ''
+    weapon_range: float = 0
     delivery_penalty: int = 0
     damage: int = 0
     l: int = 0
@@ -91,14 +92,18 @@ class FatalModel(BaseModel):
     gender: str = ""
     race: str = ""
     player_name: str = "John Doe"
-    occupation: str = ""
+    occupation: str = None
+    occupation_level: int = 0
     homeland: str = ""
     level: int = 0
     religion: str = ""
     height: int = 0 # in inches
     weight: int = 0 # in pounds
-    siblings: int = 0
-    social_class: str = ""
+    siblings: Tuple[int, int] = (0,0)
+    social_class: str = None
+    master_social_class: str = None
+    master_occupation: str = None
+    literacy: str = ""
     age: int = 0
     stage_of_life: str = ''
     eyes: str = ""
@@ -211,10 +216,33 @@ class FatalModel(BaseModel):
     reflection_modifier: int = 0
     earliest_memory_at: int = 0
 
+    original_physical_fitness: int = 0
+    original_strength: int = 0
+    original_bodily_attractiveness: int = 0
+    original_health: int = 0
+    original_facial: int = 0
+    original_vocal: int = 0
+    original_kinetic: int = 0
+    original_rhetorical: int = 0
+    original_hand_eye_coordination: int = 0
+    original_agility: int = 0
+    original_reaction_speed: int = 0
+    original_ennunciation: int = 0
+    original_language: int = 0
+    original_math: int = 0
+    original_analytic: int = 0
+    original_spatial: int = 0
+    original_drive: int = 0
+    original_intuition: int = 0
+    original_common_sense: int = 0
+    original_reflection: int = 0
+
     life_points: int = 0
     magic_points: int = 0
     unconscious: int = 0
     piety_points: int = 0
+
+    
 
     """Disposition and Temperment"""
 
@@ -232,12 +260,12 @@ class FatalModel(BaseModel):
     secondary_temperment: str = ""
 
     """Equipment"""
-    weapons: List[WeaponModel] = None
-    armors: List[ArmorModel] = None
+    weapons: List[WeaponModel] = []
+    armors: List[ArmorModel] = []
 
-    left_items: List[ItemModel] = None
-    right_items: List[ItemModel] = None
-    front_back_items: List[ItemModel] = None
+    left_items: List[ItemModel] = []
+    right_items: List[ItemModel] = []
+    front_back_items: List[ItemModel] = []
 
     """Sexual and Rare"""
     horn_length: int = 0
@@ -253,6 +281,7 @@ class FatalModel(BaseModel):
     cup_size: str = ''
     tongue_size: float = 0
     hymen_resistance: int = 0
+    base_odds_of_orgasm: int = 0
     areola_hue: str = ""
     foot_size: str = ''
     fist_circumference: str = ''
@@ -334,7 +363,7 @@ class FatalModel(BaseModel):
     blindfighting: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'reaction_speed', 'intuition'])
     bookbinding: SkillModel = SkillModel(related_abilities = ['common_sense'])
     brass_smithing: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
-    brawling: SkillModel = SkillModel(related_abilities = ['agility'])
+    brawling_skill: SkillModel = SkillModel(related_abilities = ['agility'])
     brewing: SkillModel = SkillModel(related_abilities = ['common_sense'])
     brickmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
     candlemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
@@ -499,7 +528,7 @@ class FatalModel(BaseModel):
     spellcasting_famiarity: SkillModel = SkillModel(related_abilities = ['intelligence'])
     spellcasting_specific: SkillModel = SkillModel(related_abilities = [])
     spitting: SkillModel = SkillModel(related_abilities = ['ennunciation'])
-    sprint: SkillModel = SkillModel(related_abilities = ['physical_fitness'])
+    sprint_skill: SkillModel = SkillModel(related_abilities = ['physical_fitness'])
     stonemasonry: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
     storytelling: SkillModel = SkillModel(related_abilities = ['charisma'])
     surgery: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'intelligence'])
@@ -530,7 +559,7 @@ class FatalModel(BaseModel):
     weather_prediction: SkillModel = SkillModel(related_abilities = ['common_sense', 'reflection'])
     weaving: SkillModel = SkillModel(related_abilities = ['common_sense'])
     wheelwrighting: SkillModel = SkillModel(related_abilities = ['spatial'])
-    wildernes_lore: SkillModel = SkillModel(related_abilities = ['intelligence'])
+    wilderness_lore: SkillModel = SkillModel(related_abilities = ['intelligence'])
     wrestling: SkillModel = SkillModel(related_abilities = ['strength', 'agility'])
 
     """Body Parts"""

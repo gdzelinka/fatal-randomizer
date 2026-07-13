@@ -24,8 +24,14 @@ def d10():
 def d12():
     return random.randint(1, 12)
 
+def d13():
+    return random.randint(1, 13)
+
 def d20():
     return random.randint(1, 20)
+
+def d96():
+    return random.randint(1, 96)
 
 def d100():
     return random.randint(1, 100)

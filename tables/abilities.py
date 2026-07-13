@@ -31,30 +31,30 @@ def ability_dice():
     return floor((tendhundred / 5) - 1)
 
 def calculate_sub_abilities(character: FatalModel):
-    character.physical_fitness = ability_dice()
-    character.strength = ability_dice()
-    character.bodily_attractiveness = ability_dice()
-    character.health = ability_dice()
+    character.physical_fitness = character.original_physical_fitness = ability_dice()
+    character.strength = character.original_strength = ability_dice()
+    character.bodily_attractiveness = character.original_bodily_attractiveness = ability_dice()
+    character.health = character.original_health = ability_dice()
 
-    character.facial = ability_dice()
-    character.vocal = ability_dice()
-    character.kinetic = ability_dice()
-    character.rhetorical = ability_dice()
+    character.facial = character.original_facial = ability_dice()
+    character.vocal = character.original_vocal = ability_dice()
+    character.kinetic = character.original_kinetic = ability_dice()
+    character.rhetorical = character.original_rhetorical = ability_dice()
 
-    character.hand_eye_coordination = ability_dice()
-    character.agility = ability_dice()
-    character.reaction_speed = ability_dice()
-    character.ennunciation = ability_dice()
+    character.hand_eye_coordination = character.original_hand_eye_coordination = ability_dice()
+    character.agility = character.original_agility = ability_dice()
+    character.reaction_speed = character.original_reaction_speed = ability_dice()
+    character.ennunciation = character.original_ennunciation = ability_dice()
 
-    character.language = ability_dice()
-    character.math = ability_dice()
-    character.analytic = ability_dice()
-    character.spatial = ability_dice()
+    character.language = character.original_language = ability_dice()
+    character.math = character.original_math = ability_dice()
+    character.analytic = character.original_analytic = ability_dice()
+    character.spatial = character.original_spatial = ability_dice()
 
-    character.drive = ability_dice()
-    character.intuition = ability_dice()
-    character.common_sense = ability_dice()
-    character.reflection = ability_dice()
+    character.drive = character.original_drive = ability_dice()
+    character.intuition = character.original_intuition = ability_dice()
+    character.common_sense = character.original_common_sense = ability_dice()
+    character.reflection = character.original_reflection = ability_dice()
 
     return character
 
@@ -110,7 +110,8 @@ def reroll_subability(character: FatalModel, ability_name):
 
         new_ability_score = (new_ability_score / 2) + 1
 
-        setattr(character, ability_name, new_ability_score)
+        modifiers = getattr(character, ability_name) + getattr(character, f"original_{ability_name}")
+        setattr(character, ability_name, new_ability_score + modifiers)
         character.num_skill_rerolls = character.num_skill_rerolls + 1
 
         mental_illness_roll = None
@@ -131,9 +132,11 @@ def reroll_subability(character: FatalModel, ability_name):
         if illness[1] and character.gender == illness[1]:
             character.mental_illnesses.append(illness[0])
             for mod in illness[2]:
-                setattr(character, mod[0], getattr(character, mod[0] + mod[1]))
+                setattr(character, mod[0], getattr(character, mod[0]) + mod[1])
             for mod in illness[3]:
                 setattr(character, mod[0], getattr(character, mod[0]) * mod[1])
+    
+    return character
 
 def apply_subability_modifiers(character: FatalModel):
     if character.physical_fitness < 1:

@@ -628,6 +628,11 @@ def generate_sexual_features(character: FatalModel, size_mod: int = None):
 
         depth_percent = d20() + d20()
         character.vaginal_depth_potential = ((character.height / 12)* float(f"0.{depth_percent:02d}"))
+
+        character.hymen_resistance = d20() + d20() +d20() + d20() + d20()
+
+        character.base_odds_of_orgasm = d100()
+
     return character
 
 def generate_manhood(character: FatalModel):

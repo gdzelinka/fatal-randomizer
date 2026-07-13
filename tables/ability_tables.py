@@ -6,6 +6,29 @@ import random
     Drive Table, Common Sense Descriptions, Reflection Descriptions.
     """
 
+sub_abilities = [
+    "physical_fitness",
+    "strength",
+    "bodily_attractiveness",
+    "health",
+    "facial",
+    "vocal",
+    "kinetic",
+    "rhetorical",
+    "hand_eye_coordination",
+    "agility",
+    "reaction_speed",
+    "ennunciation",
+    "language",
+    "math",
+    "analytic",
+    "spatial",
+    "drive",
+    "intuition",
+    "common_sense",
+    "reflection",
+]
+
 skill_modifier = {
     1: -99,
     2: -74,

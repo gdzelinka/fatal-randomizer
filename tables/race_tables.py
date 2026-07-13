@@ -196,7 +196,7 @@ def add_race_modifiers(character: FatalModel):
             character.languages_spoken.append("Sapian")
             character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 3
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 3
         character.intimidation.skill_modifier = character.intimidation.skill_modifier + 5
         character.mangling.skill_modifier = character.mangling.skill_modifier + 3
         character.sexual_adeptness.skill_modifier = character.sexual_adeptness.skill_modifier + 5
@@ -233,7 +233,7 @@ def add_race_modifiers(character: FatalModel):
             character.languages_spoken.append("Kobold")
             character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 3
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 3
         character.delousing.skill_modifier = character.delousing.skill_modifier + 5
         character.divination_anthropomancy.skill_modifier = character.divination_anthropomancy.skill_modifier + 3
         character.divination_dririmancy.skill_modifier = character.divination_dririmancy.skill_modifier + 3
@@ -538,7 +538,7 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
         character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
 
@@ -579,7 +579,7 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.climb.skill_modifier = character.climb.skill_modifier + 8
         character.hurl.skill_modifier = character.hurl.skill_modifier + 5
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
@@ -623,7 +623,7 @@ def add_race_modifiers(character: FatalModel):
             k=1
         )[0]
 
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
         character.smell.skill_modifier = character.smell.skill_modifier - 5
         character.wrestling.skill_modifier = character.wrestling.skill_modifier + 3
@@ -695,7 +695,7 @@ def add_race_modifiers(character: FatalModel):
         )
 
         character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 5
         character.disarm.skill_modifier = character.disarm.skill_modifier + 3
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
@@ -728,7 +728,7 @@ def add_race_modifiers(character: FatalModel):
         )
 
         character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.climb.skill_modifier = character.climb.skill_modifier + 5
         character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 3
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
@@ -760,7 +760,7 @@ def add_race_modifiers(character: FatalModel):
         character.choleric = character.choleric + 25
 
         character.blindfighting.skill_modifier = character.blindfighting.skill_modifier + 5
-        character.brawling.skill_modifier = character.brawling.skill_modifier + 5
+        character.brawling_skill.skill_modifier = character.brawling_skill.skill_modifier + 5
         character.direction_sense.skill_modifier = character.direction_sense.skill_modifier + 5
         character.mangling.skill_modifier = character.mangling.skill_modifier + 5
         character.sound.skill_modifier = character.sound.skill_modifier + 3

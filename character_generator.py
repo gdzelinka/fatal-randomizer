@@ -4,6 +4,7 @@ from tables.gender_tables import add_gender, add_gender_modifiers
 from tables.abilities import calculate_main_abilities, calculate_sub_abilities, apply_subability_modifiers
 from tables.disposition import add_mind
 from tables.body import add_body, generate_bpp
+from tables.society import add_society
 
 def generate_character():
     character = FatalModel(player_name="Abomination")
@@ -21,12 +22,15 @@ def generate_character():
 
     character = apply_subability_modifiers(character)
     character = generate_bpp(character)
+
+    character = add_society(character)
+
     character = calculate_main_abilities(character)
 
     # society
 
 
-    return character.bodily_attractiveness
+    return character
 
 def main():
     character = generate_character()

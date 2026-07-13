@@ -1,0 +1,2665 @@
+from dice import d12, d20
+
+
+age_started_working = {
+    "Anakim": 10,
+    "Bugbear": 12,
+    "Black Dwarf": 24,
+    "Brown Dwarf": 24,
+    "White Dwarf": 24,
+    "Human": 10,
+    "Kobold": 6,
+    "Ogre": 18,
+    "Cliff Ogre": 18,
+    "Gruagach Ogre": 18, 
+    "Kinder-fresser Ogre": 18,
+    "Borbytingarna Troll": 13,
+    "Hill Troll": 13,
+    "Subterranean Troll": 13
+}
+
+occupation_requirements_table = {
+    'Acrobat': (
+        [
+        ('bench', 'weight'),
+        ('physical_fitness', 110),
+        ('hand_eye_coordination', 110),
+        ('agility', 110),
+        ('drive', 105),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('aim', 3),
+        ('animal_handling', 3),
+        ('balance', 8),
+        ('climb', 3),
+        ('juggling', 5),
+        ('jump', 5),
+        ('rope_use', 3),
+        ('weapon', 1),
+    ],
+        [],
+        0,
+    ),
+    'Animal Conditioner/Handler': (
+        [
+        ('drive', 100),
+        ('intuition', 110),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('animal_conditioning', 5),
+        ('animal_handling', 5),
+        ('grooming', 3),
+    ],
+        [
+        0,
+    ],
+        0,
+    ),
+    'Appraiser': (
+        [
+        ('analytic', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('appraise', 5),
+    ],
+        [],
+        0,
+    ),
+    'Armorer': (
+        [
+        ('spatial', 90),
+        ('intelligence', 85),
+        ('strength', 90),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('armorsmithing', 5),
+        ('blacksmithing', 8),
+        ('haggling', 3),
+    ],
+        [
+        'forge', 'anvil', 'hammers', 'tongs', 'many fine tools'
+    ],
+        0,
+    ),
+    'Artist': (
+        [
+        ('hand_eye_coordination', 110),
+        ('spatial', 100),
+        ('intuition', 90),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [],
+        [
+        'pigments and brushes for painting','material (stone, bronze, clay, etc.), chisels, knives for carving, or possibly a forge for casting for sculpting'
+    ],
+        0,
+    ),
+    'Assassin': (
+        [
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+        ('religion', 'immoral'),
+    ],
+        [
+        ('aim', 3),
+        ('disguise', 3),
+        ('haggling', 3),
+        ('hide', 3),
+        ('silence', 3),
+        ('toxicology', 5),
+        ('weapon', 1),
+    ],
+        [],
+        0,
+    ),
+    'Bailiff': (
+        [
+        ('intelligence', 85),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Peasant'),
+    ],
+        [
+        ('etiquette', 3),
+        ('law', 3),
+    ],
+        [],
+        0,
+    ),
+    'Baker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('cooking', 5),
+        ('haggling', 3),
+        ('smell', 3),
+    ],
+        ['hearth'
+    ],
+        0,
+    ),
+    'Bandit': (
+        [
+        ('social_class', 'in', ['Peasant', 'Slave']),
+    ],
+        [
+        ('aim', 3),
+        ('hide', 3),
+        ('silence', 3),
+        ('tracking', 5),
+        ('weapon', 2),
+    ],
+        [],
+        0,
+    ),
+    'Barber': (
+        [
+        ('hand_eye_coordination', 100),
+        ('spatial', 100),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('haggling', 3),
+        ('weapon', 2),
+    ],
+        [
+        'Knife and scissors.',
+    ],
+        0,
+    ),
+    'Bard': (
+        [
+        ('hand_eye_coordination', 105),
+        ('charisma', 105),
+        ('language', 105),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('morality', 'immoral'),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('acting_drama', 3),
+        ('buffoonery_comedy', 3),
+        ('comedy_pun', 3),
+        ('dance', 3),
+        ('history_legends', 3),
+        ('history_local', 3),
+        ('music_counterpoint', 3),
+        ('music_theory', 3),
+        ('music_instrument', 3),
+        ('persuasion', 3),
+        ('storytelling', 3),
+    ],
+        ['musical instrument'
+    ],
+        0,
+    ),
+    'Baron/Baroness': (
+        [
+        ('common_sense', 115),
+        ('intelligence', 85),
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('cartography', 3),
+        ('etiquette', 3),
+        ('genealogy', 3),
+        ('heraldry', 5),
+        ('history_cultural', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('law', 5),
+    ],
+        [],
+        0,
+    ),
+    'Barrister': (
+        [
+        ('charisma', 120),
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('acting_drama', 3),
+        ('etiquette', 5),
+        ('haggling', 5),
+        ('law', 5),
+        ('logic', 3),
+        ('persuasion', 5),
+        ('remember_detail', 5),
+        ('storytelling', 5),
+        ('trickery', 5),
+    ],
+        [],
+        0,
+    ),
+    'Beadle': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'Peasant'),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Beggar': (
+        [
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'A recepticle for coins'
+    ],
+        0,
+    ),
+    'Berserker': (
+        [
+        ('strength', 110),
+    ],
+        [
+        ('animal_handling', 3),
+        ('brawling_skill', 5),
+        ('dismemberment', 3),
+        ('hunting', 3),
+        ('hurl', 3),
+        ('intimidation', 5),
+        ('mangling', 3),
+        ('nature_animals', 3),
+        ('tanning', 3),
+        ('tracking', 3),
+        ('trapping', 3),
+        ('weapon', 2),
+        ('wilderness_lore', 3),
+        ('wrestling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Blacksmith': (
+        [
+        ('spatial', 90),
+        ('strength', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('blacksmithing', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Forge', 'anvil', 'hammers', 'tongs'
+    ],
+        0,
+    ),
+    'Bladesmith': (
+        [
+        ('spatial', 90),
+        ('intelligence', 85),
+        ('strength', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('haggling', 3),
+        ('weaponsmithing', 5),
+    ],
+        [
+        'Forge', 'anvil', 'tongs', 'hammers'
+    ],
+        0,
+    ),
+    'Bookbinder': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('bookbinding', 5),
+        ('haggling', 3),
+    ],
+        ['leather', 'wood', 'metal', 'glue'
+    ],
+        0,
+    ),
+    'Bounty Hunter': (
+        [
+        ('drive', 100),
+        ('intuition', 105),
+        ('common_sense', 100),
+        ('strength', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('aim', 3),
+        ('brawling_skill', 3),
+        ('direction_sense', 3),
+        ('intimidation', 3),
+        ('rope_use', 3),
+        ('search', 3),
+        ('sight', 3),
+        ('sprint_skill', 3),
+        ('tracking', 8),
+        ('weapon', 2),
+        ('wrestling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Bowyer': (
+        [
+        ('hand_eye_coordination', 100),
+        ('spatial', 100),
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('bowyer', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'knife',
+    ],
+        0,
+    ),
+    'Brazier': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('brass_smithing', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Forge'
+    ],
+        0,
+    ),
+    'Brewer': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('brewing', 5),
+        ('haggling', 3),
+        ('taste', 3),
+    ],
+        [
+        'A large cauldron'
+    ],
+        0,
+    ),
+    'Brickmaker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('brickmaking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'kiln'
+    ],
+        0,
+    ),
+    'Brotheler': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('cosmetics', 3),
+        ('haggling', 3),
+        ('intimidation', 3),
+    ],
+        [],
+        0,
+    ),
+    'Butcher': (
+        [
+        ('strength', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Cleaver'
+    ],
+        0,
+    ),
+    'Cabinetmaker': (
+        [
+        ('hand_eye_coordination', 90),
+        ('spatial', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('carpentry', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'knives'
+    ],
+        0,
+    ),
+    'Carpenter': (
+        [
+        ('hand_eye_coordination', 90),
+        ('spatial', 90),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('carpentry', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'knives'
+    ],
+        0,
+    ),
+    'Carter/Teamster': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('direction_sense', 3),
+    ],
+        [],
+        0,
+    ),
+    'Cartwright': (
+        [
+        ('hand_eye_coordination', 100),
+        ('spatial', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('carpentry', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'knives'
+    ],
+        0,
+    ),
+    'Carver': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('weapon', 1),
+    ],
+        [
+        'knife'
+    ],
+        0,
+    ),
+    'Chambermaid': (
+        [
+        ('common_sense', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+        ('gender', 'female'),
+    ],
+        [
+        ('cleaning', 5),
+    ],
+        [],
+        0,
+    ),
+    'Chancellor': (
+        [
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('etiquette', 5),
+        ('religion_cultural', 5),
+        ('religion', 5),
+    ],
+        [],
+        'Determined by god and priesthood.',
+    ),
+    'Chandler': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('candlemaking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Wax','lye',
+    ],
+        0,
+    ),
+    'Charioteer': (
+        [
+        ('hand_eye_coordination', 100),
+        ('agility', 100),
+        ('intelligence', 85),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('charioteering', 3),
+    ],
+        [],
+        0,
+    ),
+    'Cheesemaker': (
+        [
+        ('intelligence', 80),
+        ('race', 'Human'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('cheesemaking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Milk'
+    ],
+        0,
+    ),
+    'Chieftain': (
+        [
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('intimidation', 3),
+    ],
+        [],
+        0,
+    ),
+    'Claspmaker': (
+        [
+        ('spatial', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('blacksmithing', 3),
+        ('haggling', 3),
+    ],
+        [
+        'Forge', 'anvil', 'hammers', 'tongs'
+    ],
+        0,
+    ),
+    'Clerk': (
+        [
+        ('intelligence', 90),
+        ('language', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('law', 3),
+    ],
+        [],
+        0,
+    ),
+    'Clockmaker': (
+        [
+        ('spatial', 100),
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('clockmaking', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Cobbler': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Leather', 'scissors'
+    ],
+        0,
+    ),
+    'Collier': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'beehive kiln'
+    ],
+        0,
+    ),
+    'Cook': (
+        [
+        ('intelligence', 75),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('cooking', 5),
+        ('smell', 3),
+        ('taste', 5),
+    ],
+        [
+        'Knives', 'spoons', 'pots'
+    ],
+        0,
+    ),
+    'Cooper': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('carpentry', 3),
+        ('haggling', 3),
+    ],
+        [
+        'Wood', 'knives'
+    ],
+        0,
+    ),
+    'Coppersmith': (
+        [
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('coppersmithing', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Hammer', 'anvil', 'forge',
+    ],
+        0,
+    ),
+    'Courtesan': (
+        [
+        ('physical_fitness', 100),
+        ('bodily_attractiveness', 130),
+        ('facial', 130),
+        ('charisma', 100),
+        ('intelligence', 90),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+        ('gender', 'female'),
+    ],
+        [
+        ('acting_drama', 3),
+        ('cleaning', 3),
+        ('contortion', 3),
+        ('cooking', 3),
+        ('cosmetics', 5),
+        ('dance', 5),
+        ('etiquette', 3),
+        ('massage', 5),
+        ('music', 3),
+        ('seduction', 5),
+        ('sexual_adeptness', 5),
+        ('storytelling', 3),
+        ('weaving', 3),
+    ],
+        [],
+        0,
+    ),
+    'Cowherd': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Slave']),
+    ],
+        [
+        ('animal_conditioning', 5),
+        ('animal_handling', 5),
+    ],
+        [],
+        0,
+    ),
+    'Cupbearer': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('etiquette', 5),
+    ],
+        [],
+        0,
+    ),
+    'Cutler': (
+        [
+        ('strength', 85),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('bladesmithing', 5),
+        ('carpentry', 3),
+        ('haggling', 3),
+    ],
+        [
+        'Forge', 'hammers', 'tongs', 'anvil', 'knives'
+    ],
+        0,
+    ),
+    'Dairymaid': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Slave']),
+        ('gender', 'female'),
+    ],
+        [
+        ('milking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Bucket'
+    ],
+        0,
+    ),
+    'Dancer': (
+        [
+        ('physical_fitness', 90),
+        ('bodily_attractiveness', 100),
+        ('agility', 115),
+        ('charisma', 115),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('dance', 5),
+    ],
+        [],
+        0,
+    ),
+    'Delouser': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 75),
+        ('social_class', 'Serf'),
+        ('gender', 'female'),
+    ],
+        [
+        ('delousing', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Dicemaker': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('carving', 5),
+    ],
+        [],
+        0,
+    ),
+    'Dockwalloper': (
+        [
+        ('physical_fitness', 85),
+        ('intelligence', 75),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Doctor': (
+        [
+        ('analytic', 115),
+        ('intelligence', 105),
+        ('intuition', 100),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('anatomy', 3),
+        ('diagnosing', 3),
+        ('surgery', 3),
+    ],
+        [
+        'Surgical equipment'
+    ],
+        0,
+    ),
+    'Draper': (
+        [
+        ('hand_eye_coordination', 85),
+        ('intelligence', 80),
+        ('race', 'Human'),
+        ('social_class', 'Serf'),
+        ('gender', 'female'),
+    ],
+        [
+        ('haggling', 3),
+        ('weaving', 5),
+    ],
+        [
+        'Cloth', 'scissors'
+    ],
+        0,
+    ),
+    'Druid': (
+        [
+        ('gender', 'male'),
+        ('race', 'Human'),
+        ('ethicality', 'neutral'),
+        ('morality', 'neutral'),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('agriculture', 3),
+        ('anatomy', 3),
+        ('animal_handling', 5),
+        ('appraise', 3),
+        ('constellations', 3),
+        ('cosmos_general_planes', 5),
+        ('direction_sense', 3),
+        ('herbalism', 5),
+        ('history_culture', 3),
+        ('history_legends', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('math_fundamental', 5),
+        ('nature_animals', 5),
+        ('nature_beasts', 5),
+        ('nature_birds', 5),
+        ('nature_fish', 5),
+        ('nature_geography', 5),
+        ('nature_humanoids', 5),
+        ('nature_minerals', 5),
+        ('nature_mycology', 5),
+        ('nature_plants', 5),
+        ('nature_trees', 5),
+        ('persuasion', 3),
+        ('philosophy', 3),
+        ('religion_cultural', 8),
+        ('riding', 3),
+        ('complex_ritual', 5),
+        ('symbology', 3),
+        ('toxicology', 3),
+        ('tracking', 3),
+        ('weapon', 1),
+        ('weather_prediction', 5),
+        ('wilderness_lore', 5),
+    ],
+        [
+        'robe', 'ceremonial dagger', 'ornate quarterstaff'
+    ],
+        18 + d12()
+    ),
+    'Duke/Duchess': (
+        [
+        ('common_sense', 115),
+        ('intelligence', 85),
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('cartography', 3),
+        ('etiquette', 3),
+        ('genealogy', 3),
+        ('heraldry', 5),
+        ('history_cultural', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('law', 5),
+    ],
+        [],
+        0,
+    ),
+    'Dyer': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('dying', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Dye'
+    ],
+        0,
+    ),
+    'Enameler': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('enameling', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Enamel'
+    ],
+        0,
+    ),
+    'Engineer': (
+        [
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('architecture', 5),
+        ('math_geometry', 5),
+        ('math_trigonometry', 5),
+    ],
+        [],
+        0,
+    ),
+    'Engraver': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('engraving', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Farmer': (
+        [
+        ('strength', 80),
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Slave']),
+    ],
+        [
+        ('agriculture', 5),
+    ],
+        [
+        'Plow', 'ox', 'seeds'
+    ],
+        0,
+    ),
+    'Fisherman': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Dark Elf', 'Light Elf', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('fishing', 5),
+    ],
+        [
+        'Net'
+    ],
+        0,
+    ),
+    'Fishmonger': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 5),
+    ],
+        [
+        'Fish'
+    ],
+        0,
+    ),
+    'Fletcher': (
+        [
+        ('hand_eye_coordination', 90),
+        ('spatial', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('fletching', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Sticks', 'feathers', 'knife'
+    ],
+        0,
+    ),
+    'Forester': (
+        [
+        ('strength', 90),
+        ('intelligence', 75),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('foresting', 5),
+    ],
+        [
+        'pit saw'
+    ],
+        0,
+    ),
+    'Fuller': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tailoring', 5),
+    ],
+        [
+        'Sheep'
+    ],
+        0,
+    ),
+    'Furrier': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tailoring', 3),
+    ],
+        [
+        'Traps'
+    ],
+        0,
+    ),
+    'Gardener': (
+        [
+        ('intelligence', 80),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('agriculture', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Seeds', 'water'
+    ],
+        0,
+    ),
+    'Gemcutter': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('gemcutting', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Gems', 'tools'
+    ],
+        0,
+    ),
+    'Gilder': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('goldsmithing', 3),
+        ('haggling', 3),
+    ],
+        [
+        'Gold', 'tools'
+    ],
+        0,
+    ),
+    'Girdler': (
+        [
+        ('hand_eye_coordination', 85),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('girdlemaking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Tools for working leather'
+    ],
+        0,
+    ),
+    'Gladiator': (
+        [],
+        [
+        ('dismemberment', 3),
+        ('impaling', 3),
+        ('mangling', 3),
+        ('seduction', 3),
+        ('weapon', 4),
+    ],
+        [],
+        0,
+    ),
+    'Glassblower/Glazier': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('glassblowing', 10),
+        ('haggling', 5),
+    ],
+        [
+        'Silica', 'blowpipe'
+    ],
+        0,
+    ),
+    'Glover': (
+        [
+        ('hand_eye_coordination', 85),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('glovemaking', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Leather', 'tools'
+    ],
+        0,
+    ),
+    'Goldsmith': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('goldsmithing', 5),
+        ('haggling', 3),
+    ],
+        [
+        'Gold'
+    ],
+        0,
+    ),
+    'Grocer': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Staple foods'
+    ],
+        0,
+    ),
+    'Groom': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('grooming', 5),
+    ],
+        [],
+        0,
+    ),
+    'Hatter': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('hatmaking', 5),
+    ],
+        [
+        'Wool',
+    ],
+        0,
+    ),
+    'Healer': (
+        [
+        ('analytic', 100),
+        ('intelligence', 90),
+        ('intuition', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('anatomy', 3),
+    ],
+        [
+        'Cloth'
+    ],
+        0,
+    ),
+    'Herbalist': (
+        [
+        ('intuition', 100),
+        ('intelligence', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 5),
+        ('herbalism', 5),
+        ('nature_mycology', 5),
+        ('nature_plants', 5),
+        ('nature_trees', 5),
+    ],
+        [],
+        0,
+    ),
+    'Hewer': (
+        [
+        ('strength', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [
+        ('hewing', 5),
+    ],
+        [
+        'Shovel'
+    ],
+        0,
+    ),
+    'Hierophant': (
+        [
+        ('language', 90),
+        ('wisdom', 90),
+    ],
+        [],
+        [],
+        26 + d12()
+    ),
+    'Hunter': (
+        [
+        ('drive', 100),
+        ('intuition', 105),
+        ('common_sense', 100),
+        ('strength', 100),
+        ('intelligence', 85),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('hunting', 5),
+    ],
+        [
+        'Bow or spear'
+    ],
+        0,
+    ),
+    'Inkmaker': (
+        [
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('inkmaking', 5),
+    ],
+        [
+        'Lampblack gum', 'water'
+    ],
+        0,
+    ),
+    'Innkeeper/Hosteler': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Interpreter': (
+        [
+        ('intelligence', 85),
+        ('language', 100),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Ironmonger': (
+        [
+        ('strength', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Iron',
+    ],
+        0,
+    ),
+    'Jeweler': (
+        [
+        ('analytic', 100),
+        ('intelligence', 95),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('appraise', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Juggler': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('juggling', 5),
+    ],
+        [
+        'Objects to juggle'
+    ],
+        0,
+    ),
+    'King/Queen': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('cartography', 3),
+        ('etiquette', 3),
+        ('genealogy', 3),
+        ('heraldry', 5),
+        ('history_cultural', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('law', 5),
+    ],
+        [],
+        0,
+    ),
+    'Knacker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('saddlemaking', 5),
+    ],
+        [],
+        0,
+    ),
+    'Knight': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('armor', 3),
+        ('cartography', 3),
+        ('heraldry', 5),
+        ('history_military', 3),
+        ('mounted_archery', 3),
+        ('religion', 3),
+        ('riding', 3),
+        ('weapon_general', 3),
+        ('weapon', 2),
+    ],
+        [],
+        0,
+    ),
+    'Laborer': (
+        [
+        ('strength', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Lacemaker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+        ('gender', 'female'),
+    ],
+        [
+        ('cleaning', 5),
+    ],
+        [],
+        0,
+    ),
+    'Laundress': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+        ('gender', 'female'),
+    ],
+        [
+        ('cleaning', 5),
+        ('smell', 3),
+    ],
+        [
+        'Water', 'soap'
+    ],
+        0,
+    ),
+    'Linkboy': (
+        [
+        ('intelligence', 75),
+        ('gender', 'male'),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('direction_sense', 5),
+    ],
+        [
+        'Lantern or torch'
+    ],
+        0,
+    ),
+    'Locksmith': (
+        [
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('locksmithing', 5),
+        ('lock_picking', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Lord/Lady': (
+        [
+        ('intelligence', 75),
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('cartography', 3),
+        ('etiquette', 3),
+        ('genealogy', 3),
+        ('heraldry', 5),
+        ('history_cultural', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('law', 5),
+    ],
+        [],
+        0,
+    ),
+    'Mage': (
+        [
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('ethicality', 'ethical'),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('bookbinding', 3),
+        ('research_library', 3),
+        ('spellcasting_familiarity', 3),
+        ('symbology', 3),
+    ],
+        ['spellbook'
+    ],
+        38 + d20()
+    ),
+    'Marbler': (
+        [
+        ('strength', 100),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('stonemasonry', 5),
+    ],
+        [
+        'Pick'
+    ],
+        0,
+    ),
+    'Mason': (
+        [
+        ('strength', 100),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('haggling', 3),
+        ('stonemasonry', 5),
+    ],
+        [
+        'Pick'
+    ],
+        0,
+    ),
+    'Mercenary': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('armor', 3),
+        ('blindfighting', 3),
+        ('haggling', 3),
+        ('weapon_general', 3),
+        ('weapon', 3),
+    ],
+        [],
+        0,
+    ),
+    'Messenger': (
+        [
+        ('physical_fitness', 110),
+        ('drive', 110),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [
+        ('sprint_skill', 5),
+    ],
+        [],
+        0,
+    ),
+    'Militiaman': (
+        [
+        ('physical_fitness', 90),
+        ('agility', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('blindfighting', 3),
+        ('disarm', 3),
+        ('law', 3),
+        ('weapon_general', 3),
+        ('weapon', 1),
+    ],
+        [],
+        0,
+    ),
+    'Miller': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('milling', 5),
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Miner': (
+        [
+        ('common_sense', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('appraise', 3),
+        ('mining', 5),
+    ],
+        [
+        'Pick'
+    ],
+        0,
+    ),
+    'Minter': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('blacksmithing', 5),
+        ('minting', 5),
+    ],
+        [
+        'Forge', 'anvil', 'die', 'hammer', 'precious metal'
+    ],
+        0,
+    ),
+    'Money-Lender': (
+        [
+        ('common_sense', 90),
+        ('intelligence', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('haggling', 5),
+        ('intimidation', 5),
+    ],
+        [
+        'Money'
+    ],
+        0,
+    ),
+    'Mountaineer': (
+        [
+        ('bench', 'weight'),
+        ('physical_fitness', 110),
+        ('agility', 100),
+        ('intelligence', 75),
+        ('bench', 'weight'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('mountaineering', 5),
+    ],
+        [
+        'Pick'
+    ],
+        0,
+    ),
+    'Musician/Minstrel': (
+        [
+        ('hand_eye_coordination', 100),
+        ('analytic', 95),
+        ('spatial', 100),
+        ('charisma', 110),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('music_counterpoint', 5),
+        ('music_theory', 5),
+        ('musical_instrument', 5),
+    ],
+        [
+        'Voice or instrument'
+    ],
+        0,
+    ),
+    'Navigator': (
+        [
+        ('intelligence', 90),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('constellations', 5),
+        ('sailing', 5),
+    ],
+        [],
+        0,
+    ),
+    'Papermaker': (
+        [
+        ('spatial', 90),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('papermaking', 5),
+    ],
+        [
+        'Paper'
+    ],
+        0,
+    ),
+    'Pawnshopman': (
+        [
+        ('common_sense', 85),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 5),
+    ],
+        [],
+        0,
+    ),
+    'Perfumer': (
+        [
+        ('intelligence', 90),
+        ('race', 'Human'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('perfumemaking', 5),
+        ('smell', 5),
+    ],
+        [
+        'Scented liquids'
+    ],
+        0,
+    ),
+    'Pewterer': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('pewtersmithing', 5),
+    ],
+        [
+        'Pewter'
+    ],
+        0,
+    ),
+    'Pick Pocket/Cutpurse': (
+        [
+        ('hand_eye_coordination', 90),
+        ('agility', 90),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('appraise', 3),
+        ('hide', 5),
+        ('pick_pocket', 8),
+        ('silence', 3),
+        ('sprint_skill', 5),
+        ('touch', 5),
+    ],
+        [],
+        0,
+    ),
+    'Potter': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('pottery', 5),
+    ],
+        [],
+        0,
+    ),
+    'Poulterer': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [
+        'Poultry'
+    ],
+        0,
+    ),
+    'Prince/Princess': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Royalty'),
+    ],
+        [
+        ('cartography', 3),
+        ('etiquette', 3),
+        ('genealogy', 3),
+        ('heraldry', 5),
+        ('history_cultural', 3),
+        ('history_local', 3),
+        ('history_military', 3),
+        ('law', 5),
+    ],
+        [],
+        0,
+    ),
+    'Public Executioner': (
+        [
+        ('strength', 100),
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('dismemberment', 5),
+    ],
+        [
+        'Berdeesh'
+    ],
+        0,
+    ),
+    'Pursemaker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('pursemaking', 5),
+    ],
+        [
+        'Leather'
+    ],
+        0,
+    ),
+    'Ranger': (
+        [
+        ('physical_fitness', 90),
+        ('health', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('aim', 3),
+        ('animal_handling', 3),
+        ('climb', 3),
+        ('constellations', 3),
+        ('direction_sense', 5),
+        ('fishing', 3),
+        ('hunting', 3),
+        ('nature_animals', 3),
+        ('nature_beasts', 3),
+        ('nature_birds', 3),
+        ('nature_fish', 3),
+        ('nature_geography', 3),
+        ('nature_humanoids', 3),
+        ('nature_mycology', 3),
+        ('nature_plants', 3),
+        ('nature_trees', 3),
+        ('search', 3),
+        ('sight', 3),
+        ('sound', 3),
+        ('sprint_skill', 3),
+        ('weapon', 2),
+    ],
+        [],
+        0,
+    ),
+    'Reeve': (
+        [
+        ('intelligence', 75),
+        ('gender', 'male'),
+        ('race', 'Human'),
+        ('social_class', 'Peasant'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Ropemaker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('ropemaking', 5),
+    ],
+        [],
+        0,
+    ),
+    'Ruffian': (
+        [
+        ('agility', 90),
+        ('strength', 115),
+        ('intelligence', 75),
+        ('race', 'not', ['Light Elf', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('brawling_skill', 5),
+        ('hide', 3),
+        ('intimidation', 5),
+        ('weapon', 1),
+    ],
+        [],
+        0,
+    ),
+    'Saddler': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('saddlemaking', 5),
+    ],
+        [
+        'Leather'
+    ],
+        0,
+    ),
+    'Sage': (
+        [
+        ('drive', 115),
+        ('intelligence', 120),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('anatomy', 3),
+        ('appraise', 5),
+        ('architecture', 3),
+        ('bookbinding', 3),
+        ('cartography', 3),
+        ('chemistry', 3),
+        ('constellations', 3),
+        ('cosmos_general_planes', 3),
+        ('etiquette', 3),
+        ('glassblowing', 3),
+        ('heraldry', 3),
+        ('herbalism', 3),
+        ('history_culture', 3),
+        ('history_legends', 3),
+        ('history_local', 5),
+        ('history_military', 3),
+        ('law', 3),
+        ('logic', 5),
+        ('math_fundamental', 8),
+        ('math_algebra', 5),
+        ('math_geometry', 3),
+        ('math_trigonometry', 3),
+        ('music_theory', 5),
+        ('music_counterpoint', 3),
+        ('1_musical_instrument', 3),
+        ('nature_animals', 3),
+        ('nature_beasts', 3),
+        ('nature_birds', 3),
+        ('nature_fish', 3),
+        ('nature_geography', 3),
+        ('nature_humanoids', 3),
+        ('nature_minerals', 3),
+        ('nature_mycology', 3),
+        ('nature_plants', 3),
+        ('nature_trees', 3),
+        ('paper_making', 3),
+        ('philosophy', 5),
+        ('religion_cultural', 3),
+        ('remember_detail', 3),
+        ('research_library', 5),
+        ('ritual_complex', 5),
+        ('symbology', 3),
+        ('teaching', 5),
+        ('toxicology', 5),
+    ],
+        [],
+        0,
+    ),
+    'Sailmaker': (
+        [
+        ('intelligence', 75),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('sailmaking', 5),
+    ],
+        [
+        'Wool'
+    ],
+        0,
+    ),
+    'Sailor': (
+        [
+        ('intelligence', 75),
+        ('social_class', 'in', ['Serf', 'Slave']),
+    ],
+        [
+        ('sailing', 5),
+    ],
+        [],
+        0,
+    ),
+    'Scholar': (
+        [
+        ('intelligence', 100),
+        ('language', 100),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Nobility', 'Royalty']),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Schoolmaster': (
+        [
+        ('intelligence', 100),
+        ('language', 100),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('teaching', 5),
+    ],
+        [],
+        0,
+    ),
+    'Scribe': (
+        [
+        ('intelligence', 85),
+        ('language', 100),
+        ('gender', 'male'),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('forgery', 5),
+        ('transcribing', 5),
+    ],
+        [
+        'Ink', 'pen', 'paper'
+    ],
+        0,
+    ),
+    'Sheather': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('sheathmaking', 5),
+    ],
+        [
+        'Leather'
+    ],
+        0,
+    ),
+    'Shepherd': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Slave']),
+    ],
+        [
+        ('animal_conditioning', 5),
+        ('animal_handling', 5),
+    ],
+        [],
+        0,
+    ),
+    'Sheriff': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('social_class', 'Nobility'),
+    ],
+        [
+        ('haggling', 3),
+        ('intimidation', 3),
+    ],
+        [],
+        0,
+    ),
+    'Shipwright': (
+        [
+        ('strength', 90),
+        ('intelligence', 100),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('shipwright', 5),
+    ],
+        [
+        'Wood.',
+        'linen'
+    ],
+        0,
+    ),
+    'Silversmith': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('silversmithing', 5),
+    ],
+        [],
+        0,
+    ),
+    'Skinner': (
+        [
+        ('hand_eye_coordination', 90),
+        ('intelligence', 85),
+        ('race', 'not', ['Light Elf', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 5),
+        ('skinning', 5),
+    ],
+        [
+        'Knife'
+    ],
+        0,
+    ),
+    'Slave': (
+        [
+        ('social_class', 'Slave'),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Slave-Trader': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Black Dwarf', 'Brown Dwarf', 'White Dwarf', 'Dark Elf', 'Light Elf', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll', 'Subterranean Troll']),
+        ('ethicality', 'ethical'),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 5),
+        ('intimidation', 3),
+    ],
+        [
+        'Slaves'
+    ],
+        0,
+    ),
+    'Soapmaker': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('soapmaking', 5),
+    ],
+        [
+        'Lye'
+    ],
+        0,
+    ),
+    'Soldier': (
+        [
+        ('physical_fitness', 90),
+        ('hand_eye_coordination', 100),
+        ('agility', 100),
+        ('drive', 100),
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('specific', 3),
+        ('history_military', 3),
+        ('weapon_general', 3),
+        ('weapon', 2),
+    ],
+        [],
+        0,
+    ),
+    'Sorcerer': (
+        [
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('divination_astrology', 3),
+        ('spellcasting_combat', 3),
+        ('cosmos_general_planes', 3),
+        ('constellations', 3),
+    ],
+        [],
+        38 + d20()
+    ),
+    'Spy': (
+        [
+        ('physical_fitness', 90),
+        ('drive', 100),
+        ('intuition', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [
+        ('disguise', 3),
+        ('forgery', 3),
+        ('hide', 3),
+        ('read_lips', 5),
+        ('remember_detail', 5),
+        ('sight', 5),
+        ('silence', 3),
+        ('sound', 3),
+        ('weapon', 1),
+    ],
+        [],
+        0,
+    ),
+    'Squire': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Serf', 'Nobility']),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Stabler': (
+        [
+        ('intuition', 75),
+        ('intelligence', 85),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Slave']),
+    ],
+        [
+        ('animal_conditioning', 5),
+        ('animal_handling', 5),
+        ('grooming', 3),
+    ],
+        [
+        'Stables', 'oats'
+    ],
+        0,
+    ),
+    'Swineherd': (
+        [
+        ('intelligence', 75),
+        ('race', 'Human'),
+        ('social_class', 'in', ['Peasant', 'Slave']),
+    ],
+        [
+        ('animal_conditioning', 5),
+        ('animal_handling', 5),
+    ],
+        [],
+        0,
+    ),
+    'Tailor': (
+        [
+        ('hand_eye_coordination', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tailoring', 5),
+    ],
+        [
+        'Needle', 'thread',
+    ],
+        0,
+    ),
+    'Tanner': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Light Elf', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tanning', 5),
+    ],
+        [
+        'Leather'
+    ],
+        0,
+    ),
+    'Tavernkeeper': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('taste', 3),
+    ],
+        [
+        'Tavern', 'kegs', 'wenches', 'ruffians'
+    ],
+        0,
+    ),
+    'Thatcher': (
+        [
+        ('intelligence', 80),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('thatching', 5),
+    ],
+        [
+        'Lead or slate'
+    ],
+        0,
+    ),
+    'Tilemaker': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Dark Elf', 'Light Elf', 'Kobold', 'Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tilemaking', 5),
+    ],
+        [],
+        0,
+    ),
+    'Tinker': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('tinkering', 5),
+    ],
+        [
+        'Any.',
+    ],
+        0,
+    ),
+    'Torturer': (
+        [
+        ('intelligence', 75),
+    ],
+        [],
+        [],
+        0,
+    ),
+    'Trapper': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf']),
+    ],
+        [
+        ('haggling', 3),
+        ('trapping', 5),
+    ],
+        [
+        'Traps'
+    ],
+        0,
+    ),
+    'Vintner': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('taste', 5),
+    ],
+        [
+        'Wine'
+    ],
+        0,
+    ),
+    'Wainwright': (
+        [
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('wainwrighting', 5),
+    ],
+        [
+        'Wood'
+    ],
+        0,
+    ),
+    'Weaponsmith': (
+        [
+        ('strength', 100),
+        ('intelligence', 85),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('blacksmithing', 3),
+        ('haggling', 3),
+        ('weaponsmithing', 5),
+    ],
+        [
+        'Forge', 'tongs', 'hammers', 'anvil'
+    ],
+        0,
+    ),
+    'Weaver/Embroiderer': (
+        [
+        ('intelligence', 75),
+        ('social_class', 'Serf'),
+        ('gender', 'female'),
+    ],
+        [
+        ('haggling', 3),
+        ('weaving', 5),
+    ],
+        [],
+        0,
+    ),
+    'Wench': (
+        [
+        ('intelligence', 75),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Serf', 'Slave']),
+        ('gender', 'female'),
+    ],
+        [
+        ('haggling', 3),
+    ],
+        [],
+        0,
+    ),
+    'Wheelwright': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('haggling', 3),
+        ('wheelwrighting', 5),
+    ],
+        [],
+        0,
+    ),
+    'Whore': (
+        [
+        ('bodily_attractiveness', 90),
+        ('facial', 90),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'in', ['Peasant', 'Serf', 'Nobility', 'Slave']),
+    ],
+        [
+        ('acting_drama', 3),
+        ('contortion', 3),
+        ('cosmetics', 3),
+        ('haggling', 3),
+        ('massage', 3),
+        ('seduction', 5),
+        ('sexual_adeptness', 5),
+    ],
+        [
+        'Aiguillette'
+    ],
+        0,
+    ),
+    'Wine-Crier': (
+        [
+        ('intelligence', 80),
+        ('race', 'not', ['Ogre', 'Cliff Ogre', 'Gruagach Ogre', 'Kinder-fresser Ogre', 'Borbytingarna Troll', 'Hill Troll']),
+        ('social_class', 'Serf'),
+    ],
+        [
+        ('smell', 3),
+        ('taste', 5),
+    ],
+        [],
+        0,
+    ),
+}
+
+
+occupation_name_aliases = {
+    'Animal Conditioner': 'Animal Conditioner/Handler',
+    'Baron': 'Baron/Baroness',
+    'Baroness': 'Baron/Baroness',
+    'Carter': 'Carter/Teamster',
+    'Cutpurse': 'Pick Pocket/Cutpurse',
+    'Duchess': 'Duke/Duchess',
+    'Duke': 'Duke/Duchess',
+    'Embroiderer': 'Weaver/Embroiderer',
+    'Glassblower': 'Glassblower/Glazier',
+    'Hosteler': 'Innkeeper/Hosteler',
+    'Innkeeper': 'Innkeeper/Hosteler',
+    'King': 'King/Queen',
+    'Lady': 'Lord/Lady',
+    'Lord': 'Lord/Lady',
+    'Minstrel': 'Musician/Minstrel',
+    'Musician': 'Musician/Minstrel',
+    'Pick Pocket': 'Pick Pocket/Cutpurse',
+    'Prince': 'Prince/Princess',
+    'Princess': 'Prince/Princess',
+    'Queen': 'King/Queen',
+    'Teamster': 'Carter/Teamster',
+    'Weaver': 'Weaver/Embroiderer',
+}
+
+
+def lookup_occupation_requirements(occupation: str) -> tuple[list, list, list, str]:
+    """Return requirements, skills, equipment, and magic points for an occupation."""
+    canonical = occupation_name_aliases.get(occupation, occupation)
+    try:
+        return occupation_requirements_table[canonical]
+    except KeyError as error:
+        raise KeyError(f"No occupation requirements for {occupation!r}") from error
