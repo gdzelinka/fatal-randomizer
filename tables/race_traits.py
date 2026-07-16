@@ -50,7 +50,7 @@ anakim_traits = {
     24: (("The anakim causes humans within 1 foot to desire anal sex according to their sexuality."),),
     25: (("The anakim has blood for sexual fluid, causing a penalty of 1d10 to the Sexual Adeptness Skill. If "
          "male, then the anakim ejaculates blood. If female, then blood is the lubricating vaginal fluid all "
-         "month long."),{"sexual_adeptness.skill_modifier": -1*d10()}),
+         "month long."),{"sexual_adeptness.points_invested": -1*d10()}),
     26: (("The anakim is angered easily. Any attempt to intimidate this anakim will result in the anakim "
          "attacking with intent to kill unless they pass a Drive check at TH 22."),),
     27: (("The anakim may cast Call Fog once per day. Casting requires no chant, ingredient, or ritual."),),
@@ -118,12 +118,12 @@ anakim_traits = {
             "charisma": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10())),
             "ennunciation": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10())),
             "language": (["OR", ("less than","rhetorical",90),("less than","charisma",90), ("less than","ennunciation",90),("less than","language",90)], -1*(d10())),
-            "persuasion.skill_modifier": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10())),
-            "trickery.skill_modifier": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10())),
+            "persuasion.points_invested": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10())),
+            "trickery.points_invested": (["AND", ("greater than","rhetorical",90),("greater than","charisma",90), ("greater than","ennunciation",90),("greater than","language",90)], -1*(d10())),
          }),
     63: (("The anakim can read the thoughts of any animal in visual range. The anakim receives + 3 points "
          "invested into the skills of Animal Handling and Animal Conditioning."),
-         {"animal_handling.skill_modifier": 3, "animal_conditioning.skill_modifier": 3}),
+         {"animal_handling.points_invested": 3, "animal_conditioning.points_invested": 3}),
     64: (("The anakim may emit an odor of rotting flesh from his pores at a 1-foot radius 3 times per day. Due "
          "to the horrid stench, any foe in that area has a 10%% chance of vomiting. Vomiting lasts for 1 round, "
          "and for this round they are slowed by 50%%, CA is halved, and may not attack."),),
@@ -185,7 +185,7 @@ anakim_traits = {
          "invisble while not reflecting light. During this time, the anakim is refracting light. Instead of light "
          "being reflected from the surface of the anakim, it passes through the anakim, but its angle is slightly "
          "refracted. This does not cause the anakim to appear in rainbow colors, but appears to an observer as "
-         "though the background beyond the body of the anakim is distorted."),{"hide.skill_modifier": d10()}),
+         "though the background beyond the body of the anakim is distorted."),{"hide.points_invested": d10()}),
     85: (("The anakim has kneecaps that protrude through the skin by 2 inches, causing 50%% more base Brawling "
          "damage when attacking with knees."),),
     86: (("The anakim is sensitive to others' motives. Therefore, they have a 50%% chance of automatic success "

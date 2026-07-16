@@ -4,14 +4,13 @@ from tables.gender_tables import add_gender, add_gender_modifiers
 from tables.abilities import calculate_main_abilities, calculate_sub_abilities, apply_subability_modifiers
 from tables.disposition import add_mind
 from tables.body import add_body, generate_bpp
-from tables.society import add_society
+from tables.society import add_society, calculate_skills
+from tables.equipment import add_equipment
 
 def generate_character():
     character = FatalModel(player_name="Abomination")
 
-    # abilities, race, gender
     character = calculate_sub_abilities(character)
-    # When do people choose to reroll, let's say occupations
 
     character = add_race(character)
     character = add_gender(character)
@@ -23,12 +22,15 @@ def generate_character():
     character = apply_subability_modifiers(character)
     character = generate_bpp(character)
 
+    character = calculate_main_abilities(character)
     character = add_society(character)
 
+    # There's a chance to reroll subabilities in add_society so we do this again
     character = calculate_main_abilities(character)
 
-    # society
+    character = add_equipment(character)
 
+    character = calculate_skills(character)
 
     return character
 

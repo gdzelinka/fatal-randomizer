@@ -27,7 +27,9 @@ def update_weapon(character: FatalModel, weapon: WeaponModel):
 
     return weapon
 
-weapons_table = [
+weapons_table = {
+    "Axe, Battle, Footman's (2H)(w/o back spike)": (
+        50,
     WeaponModel(
         weapon="Axe, Battle, Footman's (2H)(w/o back spike)",
         weapon_type='H:SA',
@@ -41,6 +43,9 @@ weapons_table = [
         m=5,
         h=-10,
     ),
+    ),
+    "Axe, Battle, Horseman's (w/back spike)": (
+        30,
     WeaponModel(
         weapon="Axe, Battle, Horseman's (w/back spike)",
         weapon_type='H(S):SA',
@@ -54,6 +59,9 @@ weapons_table = [
         m=5,
         h=-15,
     ),
+    ),
+    'Axe, Hand (Hatchet) (also thrown)': (
+        10,
     WeaponModel(
         weapon='Axe, Hand (Hatchet) (also thrown)',
         weapon_type='H:A',
@@ -67,6 +75,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Club': (
+        0,
     WeaponModel(
         weapon='Club',
         weapon_type='P:SA',
@@ -80,6 +91,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    'Club, Great (2H)': (
+        10,
     WeaponModel(
         weapon='Club, Great (2H)',
         weapon_type='P:S',
@@ -93,6 +107,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    'Dagger (double-edged) (also thrown)': (
+        30,
     WeaponModel(
         weapon='Dagger (double-edged) (also thrown)',
         weapon_type='S:A',
@@ -106,6 +123,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Dagger, Dirk (single edge)': (
+        20,
     WeaponModel(
         weapon='Dagger, Dirk (single edge)',
         weapon_type='S:A',
@@ -119,6 +139,9 @@ weapons_table = [
         m=-10,
         h=-25,
     ),
+    ),
+    'Dagger, Stiletto(triple edge)': (
+        50,
     WeaponModel(
         weapon='Dagger, Stiletto(triple edge)',
         weapon_type='S:A',
@@ -132,6 +155,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Flail, Footman\\\\\\\'s, Holy Water Sprinkler (2H) [swivel end link (no chain) w/ attached 8" spiked mace]': (
+        50,
     WeaponModel(
         weapon='Flail, Footman\'s, Holy Water Sprinkler (2H) [swivel end link (no chain) w/ attached 8" spiked mace]',
         weapon_type='P:SA',
@@ -145,6 +171,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    'Flail, Footman\\\\\\\'s Military (2H) [swivel end link (no chain) w/ attached 15" sectioned + spiked rod]': (
+        70,
     WeaponModel(
         weapon='Flail, Footman\'s Military (2H) [swivel end link (no chain) w/ attached 15" sectioned + spiked rod]',
         weapon_type='P:SA',
@@ -158,6 +187,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    "Flail, Horseman's (w/ chain and one spiked ball)": (
+        30,
     WeaponModel(
         weapon="Flail, Horseman's (w/ chain and one spiked ball)",
         weapon_type='P:SA',
@@ -171,6 +203,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    "Flail, Horseman's (w/ chains + two spiked balls)": (
+        40,
     WeaponModel(
         weapon="Flail, Horseman's (w/ chains + two spiked balls)",
         weapon_type='P:SA',
@@ -184,6 +219,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Garrote (2H) (thin wire for choking)': (
+        5,
     WeaponModel(
         weapon='Garrote (2H) (thin wire for choking)',
         weapon_type='0:A',
@@ -197,6 +235,9 @@ weapons_table = [
         m=0,
         h=-50,
     ),
+    ),
+    'Hammer, Maul (2H) (military sledge of stone)': (
+        120,
     WeaponModel(
         weapon='Hammer, Maul (2H) (military sledge of stone)',
         weapon_type='P:S',
@@ -210,6 +251,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    "Hammer, War, Footman's (2H) (with back spike)": (
+        40,
     WeaponModel(
         weapon="Hammer, War, Footman's (2H) (with back spike)",
         weapon_type='P(S):SA',
@@ -223,6 +267,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    "Hammer, War, Horseman's (with back spike) (also thrown)": (
+        30,
     WeaponModel(
         weapon="Hammer, War, Horseman's (with back spike) (also thrown)",
         weapon_type='P(S):SA',
@@ -236,6 +283,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Lance, Light (blunted end, hollow pole)': (
+        20,
     WeaponModel(
         weapon='Lance, Light (blunted end, hollow pole)',
         weapon_type='P:SA',
@@ -249,6 +299,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Lance, Heavy (x2 charge)': (
+        80,
     WeaponModel(
         weapon='Lance, Heavy (x2 charge)',
         weapon_type='S:SA',
@@ -262,6 +315,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Lance, Jousting (x2 set charge) (blunted end)': (
+        100,
     WeaponModel(
         weapon='Lance, Jousting (x2 set charge) (blunted end)',
         weapon_type='P:SA',
@@ -275,6 +331,9 @@ weapons_table = [
         m=0,
         h=0,
     ),
+    ),
+    "Mace, Footman's (2H)": (
+        40,
     WeaponModel(
         weapon="Mace, Footman's (2H)",
         weapon_type='P:SA',
@@ -288,6 +347,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    "Mace, Horseman's": (
+        20,
     WeaponModel(
         weapon="Mace, Horseman's",
         weapon_type='P:SA',
@@ -301,6 +363,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Mace-axe (2H)': (
+        60,
     WeaponModel(
         weapon='Mace-axe (2H)',
         weapon_type='H/P:SA',
@@ -314,6 +379,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Morgenstern (Morningstar) (2H)': (
+        40,
     WeaponModel(
         weapon='Morgenstern (Morningstar) (2H)',
         weapon_type='S/P:SA',
@@ -327,6 +395,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    "Pick, Military, Footman's (2H) (also called the Bisacuta, Oucin, Besague)": (
+        40,
     WeaponModel(
         weapon="Pick, Military, Footman's (2H) (also called the Bisacuta, Oucin, Besague)",
         weapon_type='H(S):SA',
@@ -340,6 +411,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    "Pick, Military, Horseman's": (
+        30,
     WeaponModel(
         weapon="Pick, Military, Horseman's",
         weapon_type='H(S):SA',
@@ -353,6 +427,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Polearm, Awl Pike (2H) (x2 set charge)': (
+        20,
     WeaponModel(
         weapon='Polearm, Awl Pike (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -366,6 +443,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Polearm, Berdeesh (2H) (Bardiche or Sparth Axe)': (
+        30,
     WeaponModel(
         weapon='Polearm, Berdeesh (2H) (Bardiche or Sparth Axe)',
         weapon_type='H:SA',
@@ -379,6 +459,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    "Polearm, Bec de Corbin (Raven's Beak) (2H)": (
+        40,
     WeaponModel(
         weapon="Polearm, Bec de Corbin (Raven's Beak) (2H)",
         weapon_type='S/P:SA',
@@ -392,6 +475,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Polearm, Bill (2H)': (
+        50,
     WeaponModel(
         weapon='Polearm, Bill (2H)',
         weapon_type='S/H:SA',
@@ -405,6 +491,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Polearm, Bipennis (2H) (double-bladed Poleaxe)': (
+        90,
     WeaponModel(
         weapon='Polearm, Bipennis (2H) (double-bladed Poleaxe)',
         weapon_type='H:SA',
@@ -418,6 +507,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Polearm, Fauchard (2H)': (
+        20,
     WeaponModel(
         weapon='Polearm, Fauchard (2H)',
         weapon_type='H:SA',
@@ -431,6 +523,9 @@ weapons_table = [
         m=0,
         h=-15,
     ),
+    ),
+    'Polearm, Glaive (2H)': (
+        30,
     WeaponModel(
         weapon='Polearm, Glaive (2H)',
         weapon_type='H:SA',
@@ -444,6 +539,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Polearm, Guisarme (2H)': (
+        20,
     WeaponModel(
         weapon='Polearm, Guisarme (2H)',
         weapon_type='H:SA',
@@ -457,6 +555,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Polearm, Halberd (2H) (x2 set charge)': (
+        50,
     WeaponModel(
         weapon='Polearm, Halberd (2H) (x2 set charge)',
         weapon_type='S/H:SA',
@@ -470,6 +571,9 @@ weapons_table = [
         m=-5,
         h=-5,
     ),
+    ),
+    'Polearm, Military Fork (2H) (x2 set charge)': (
+        20,
     WeaponModel(
         weapon='Polearm, Military Fork (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -483,6 +587,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Polearm, Partisan (2H) (x2 set charge)': (
+        50,
     WeaponModel(
         weapon='Polearm, Partisan (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -496,6 +603,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Polearm, Poleaxe (single-bladed Bipennis w/spikes on back and tip) (2H)': (
+        60,
     WeaponModel(
         weapon='Polearm, Poleaxe (single-bladed Bipennis w/spikes on back and tip) (2H)',
         weapon_type='S/H:SA',
@@ -509,6 +619,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Polearm, Ranseur (2H) (x2 set charge)': (
+        30,
     WeaponModel(
         weapon='Polearm, Ranseur (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -522,6 +635,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Polearm, Spetum (2H) (x2 set charge)': (
+        20,
     WeaponModel(
         weapon='Polearm, Spetum (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -535,6 +651,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Polearm, Voulge (2H) (Lochaber axe)': (
+        30,
     WeaponModel(
         weapon='Polearm, Voulge (2H) (Lochaber axe)',
         weapon_type='H:SA',
@@ -548,6 +667,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Quarterstaff (iron end-caps)': (
+        1,
     WeaponModel(
         weapon='Quarterstaff (iron end-caps)',
         weapon_type='P:SA',
@@ -561,6 +683,9 @@ weapons_table = [
         m=-20,
         h=-80,
     ),
+    ),
+    'Sap': (
+        2,
     WeaponModel(
         weapon='Sap',
         weapon_type='P:SA',
@@ -574,6 +699,9 @@ weapons_table = [
         m=-5,
         h=-50,
     ),
+    ),
+    'Spear, Long (2H) (x2 set charge)': (
+        20,
     WeaponModel(
         weapon='Spear, Long (2H) (x2 set charge)',
         weapon_type='S:SA',
@@ -587,6 +715,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Spear, Medium (also thrown)': (
+        10,
     WeaponModel(
         weapon='Spear, Medium (also thrown)',
         weapon_type='S:SA',
@@ -600,6 +731,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Spear, Short (half-spear or guard spear)': (
+        5,
     WeaponModel(
         weapon='Spear, Short (half-spear or guard spear)',
         weapon_type='S:SA',
@@ -613,6 +747,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Spear, Trident (2H)': (
+        8,
     WeaponModel(
         weapon='Spear, Trident (2H)',
         weapon_type='S:SA',
@@ -626,6 +763,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Strike, Unarmed (see Brawling skill)': (
+        0,
     WeaponModel(
         weapon='Strike, Unarmed (see Brawling skill)',
         weapon_type='P:A',
@@ -639,6 +779,9 @@ weapons_table = [
         m=-50,
         h=-90,
     ),
+    ),
+    'Sword, Bastard (Hand-and-a-Half)': (
+        120,
     WeaponModel(
         weapon='Sword, Bastard (Hand-and-a-Half)',
         weapon_type='H:SA',
@@ -652,6 +795,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Sword, Broadsword (seemingly, the average of swords)': (
+        50,
     WeaponModel(
         weapon='Sword, Broadsword (seemingly, the average of swords)',
         weapon_type='H:SA',
@@ -665,6 +811,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Sword, Cut + Thrust (thick sword of medium length)': (
+        90,
     WeaponModel(
         weapon='Sword, Cut + Thrust (thick sword of medium length)',
         weapon_type='S/H:SA',
@@ -678,6 +827,9 @@ weapons_table = [
         m=0,
         h=-15,
     ),
+    ),
+    'Sword, Falchion (curved blade, weighted end, single edge)': (
+        60,
     WeaponModel(
         weapon='Sword, Falchion (curved blade, weighted end, single edge)',
         weapon_type='H:SA',
@@ -691,6 +843,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Sword, Flamberge (2H) (wavy blade)': (
+        300,
     WeaponModel(
         weapon='Sword, Flamberge (2H) (wavy blade)',
         weapon_type='S:SA',
@@ -704,6 +859,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Sword, Gladius': (
+        60,
     WeaponModel(
         weapon='Sword, Gladius',
         weapon_type='S/H:SA',
@@ -717,6 +875,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Sword, Long (thin blade that is long for a one-handed sword)': (
+        70,
     WeaponModel(
         weapon='Sword, Long (thin blade that is long for a one-handed sword)',
         weapon_type='S:SA',
@@ -730,6 +891,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    "Sword, Short (sometimes called an Archer's sword)": (
+        50,
     WeaponModel(
         weapon="Sword, Short (sometimes called an Archer's sword)",
         weapon_type='S:SA',
@@ -743,6 +907,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Sword, Zweihander (2H)': (
+        250,
     WeaponModel(
         weapon='Sword, Zweihander (2H)',
         weapon_type='S/H:S',
@@ -756,6 +923,9 @@ weapons_table = [
         m=0,
         h=-10,
     ),
+    ),
+    'Whip (subdual damage)': (
+        10,
     WeaponModel(
         weapon='Whip (subdual damage)',
         weapon_type='H:A',
@@ -769,6 +939,9 @@ weapons_table = [
         m=-80,
         h=-95,
     ),
+    ),
+    'Whip, Bull': (
+        20,
     WeaponModel(
         weapon='Whip, Bull',
         weapon_type='H:A',
@@ -782,6 +955,9 @@ weapons_table = [
         m=-70,
         h=-90,
     ),
+    ),
+    'Whip, Cat-o-nine tails (subdual damage)': (
+        5,
     WeaponModel(
         weapon='Whip, Cat-o-nine tails (subdual damage)',
         weapon_type='H:A',
@@ -795,6 +971,9 @@ weapons_table = [
         m=-80,
         h=-95,
     ),
+    ),
+    'Whip, Scourge (a Cat-o-nine tails with barbs)': (
+        10,
     WeaponModel(
         weapon='Whip, Scourge (a Cat-o-nine tails with barbs)',
         weapon_type='H:A',
@@ -808,6 +987,9 @@ weapons_table = [
         m=-75,
         h=-90,
     ),
+    ),
+    'Axe, Hand (Hatchet)': (
+        10,
     WeaponModel(
         weapon='Axe, Hand (Hatchet)',
         weapon_type='H:A',
@@ -821,6 +1003,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Bottle (if broken, treat as a knife)': (
+        1,
     WeaponModel(
         weapon='Bottle (if broken, treat as a knife)',
         weapon_type='P:A',
@@ -834,6 +1019,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Bucket': (
+        2,
     WeaponModel(
         weapon='Bucket',
         weapon_type='P:SA',
@@ -847,6 +1035,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Chain': (
+        4,
     WeaponModel(
         weapon='Chain',
         weapon_type='P:SA',
@@ -860,6 +1051,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Chair (2H)': (
+        3,
     WeaponModel(
         weapon='Chair (2H)',
         weapon_type='P:SA',
@@ -873,6 +1067,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Cleaver': (
+        10,
     WeaponModel(
         weapon='Cleaver',
         weapon_type='H:A',
@@ -886,6 +1083,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'File, Metal': (
+        2,
     WeaponModel(
         weapon='File, Metal',
         weapon_type='P:A',
@@ -899,6 +1099,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Flail, Grain (wood joined by rope)': (
+        3,
     WeaponModel(
         weapon='Flail, Grain (wood joined by rope)',
         weapon_type='P:SA',
@@ -912,6 +1115,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Fork, Pitch (2H)': (
+        9,
     WeaponModel(
         weapon='Fork, Pitch (2H)',
         weapon_type='S:SA',
@@ -925,6 +1131,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Fork, Serving': (
+        6,
     WeaponModel(
         weapon='Fork, Serving',
         weapon_type='S:A',
@@ -938,6 +1147,9 @@ weapons_table = [
         m=-5,
         h=-25,
     ),
+    ),
+    'Gauntlet': (
+        200,
     WeaponModel(
         weapon='Gauntlet',
         weapon_type='P:SA',
@@ -951,6 +1163,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Hammer, Tool (w/o back spike)': (
+        10,
     WeaponModel(
         weapon='Hammer, Tool (w/o back spike)',
         weapon_type='P:A',
@@ -964,6 +1179,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Hammer, Sledge (2H)': (
+        30,
     WeaponModel(
         weapon='Hammer, Sledge (2H)',
         weapon_type='P:S',
@@ -977,6 +1195,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    'Hoe (2H)': (
+        5,
     WeaponModel(
         weapon='Hoe (2H)',
         weapon_type='H:SA',
@@ -990,6 +1211,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Hook, Grappling': (
+        40,
     WeaponModel(
         weapon='Hook, Grappling',
         weapon_type='S/P:SA',
@@ -1003,6 +1227,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Knife, Hunting or Tool (single edge)': (
+        8,
     WeaponModel(
         weapon='Knife, Hunting or Tool (single edge)',
         weapon_type='S:A',
@@ -1016,6 +1243,9 @@ weapons_table = [
         m=-15,
         h=-25,
     ),
+    ),
+    'Mallet (all wood)': (
+        2,
     WeaponModel(
         weapon='Mallet (all wood)',
         weapon_type='P:A',
@@ -1029,6 +1259,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Quill': (
+        40,
     WeaponModel(
         weapon='Quill',
         weapon_type='S:A',
@@ -1042,6 +1275,9 @@ weapons_table = [
         m=-30,
         h=-95,
     ),
+    ),
+    'Pan, Frying (Iron)': (
+        8,
     WeaponModel(
         weapon='Pan, Frying (Iron)',
         weapon_type='P:SA',
@@ -1055,6 +1291,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Pry bar (Crowbar)': (
+        4,
     WeaponModel(
         weapon='Pry bar (Crowbar)',
         weapon_type='P:SA',
@@ -1068,6 +1307,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Rolling Pin': (
+        2,
     WeaponModel(
         weapon='Rolling Pin',
         weapon_type='P:SA',
@@ -1081,6 +1323,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Scissors': (
+        9,
     WeaponModel(
         weapon='Scissors',
         weapon_type='S:A',
@@ -1094,6 +1339,9 @@ weapons_table = [
         m=-5,
         h=-25,
     ),
+    ),
+    'Scythe (2H)': (
+        30,
     WeaponModel(
         weapon='Scythe (2H)',
         weapon_type='H(S):SA',
@@ -1107,6 +1355,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Shield': (
+        None,
     WeaponModel(
         weapon='Shield',
         weapon_type='P:SA',
@@ -1120,6 +1371,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Shoe': (
+        2,
     WeaponModel(
         weapon='Shoe',
         weapon_type='P:A',
@@ -1133,6 +1387,9 @@ weapons_table = [
         m=-5,
         h=-25,
     ),
+    ),
+    'Shoe, Horse': (
+        5,
     WeaponModel(
         weapon='Shoe, Horse',
         weapon_type='P:SA',
@@ -1146,6 +1403,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Shovel (2H)': (
+        8,
     WeaponModel(
         weapon='Shovel (2H)',
         weapon_type='H/P:SA',
@@ -1159,6 +1419,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Sickle': (
+        10,
     WeaponModel(
         weapon='Sickle',
         weapon_type='H(S):A',
@@ -1172,6 +1435,9 @@ weapons_table = [
         m=-15,
         h=-25,
     ),
+    ),
+    'Spade (2H)': (
+        7,
     WeaponModel(
         weapon='Spade (2H)',
         weapon_type='H/P:SA',
@@ -1185,6 +1451,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Targe (Spiked Shield)': (
+        20,
     WeaponModel(
         weapon='Targe (Spiked Shield)',
         weapon_type='S:SA',
@@ -1198,6 +1467,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Torch (a burning club)': (
+        1,
     WeaponModel(
         weapon='Torch (a burning club)',
         weapon_type='P:SA',
@@ -1211,6 +1483,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Arrows (12 w/quiver)': (
+        10,
     WeaponModel(
         weapon='Arrows (12 w/quiver)',
         weapon_type='S:0',
@@ -1224,19 +1499,9 @@ weapons_table = [
         m=0,
         h=0,
     ),
-    WeaponModel(
-        weapon='Axe, Hand (Hatchet)',
-        weapon_type='H:SA',
-        size='T 15"',
-        weight=2,
-        weight_distribution=-1,
-        fulcrum_range='20',
-        weapon_range=-1,
-        damage=d10(),
-        l=0,
-        m=-10,
-        h=-20,
     ),
+    'Bolas': (
+        10,
     WeaponModel(
         weapon='Bolas',
         weapon_type='P:SA',
@@ -1250,6 +1515,9 @@ weapons_table = [
         m=-20,
         h=-90,
     ),
+    ),
+    'Bolts (20 w/ quiver)': (
+        20,
     WeaponModel(
         weapon='Bolts (20 w/ quiver)',
         weapon_type='S:0',
@@ -1263,6 +1531,9 @@ weapons_table = [
         m=0,
         h=0,
     ),
+    ),
+    'Boomerang (does not return to thrower)': (
+        10,
     WeaponModel(
         weapon='Boomerang (does not return to thrower)',
         weapon_type='P:A',
@@ -1276,19 +1547,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
-    WeaponModel(
-        weapon='Bottle (if broken, treat as a knife)',
-        weapon_type='P:SA',
-        size='T 12"',
-        weight=1,
-        weight_distribution=-1,
-        fulcrum_range='10',
-        weapon_range=-1,
-        damage=d8(),
-        l=0,
-        m=-5,
-        h=-15,
     ),
+    'Bottle, Oil (with ignited wick) (Molotov cocktail)': (
+        5,
     WeaponModel(
         weapon='Bottle, Oil (with ignited wick) (Molotov cocktail)',
         weapon_type='P:SA',
@@ -1302,6 +1563,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Bow, Short (2H) (can use mounted)': (
+        150,
     WeaponModel(
         weapon='Bow, Short (2H) (can use mounted)',
         weapon_type='S:A',
@@ -1315,6 +1579,9 @@ weapons_table = [
         m=-20,
         h=-50,
     ),
+    ),
+    'Bow, Long (2H) (too big to use mounted)': (
+        400,
     WeaponModel(
         weapon='Bow, Long (2H) (too big to use mounted)',
         weapon_type='S:A',
@@ -1328,19 +1595,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
-    WeaponModel(
-        weapon='Cleaver',
-        weapon_type='H:SA',
-        size='T 12"',
-        weight=2,
-        weight_distribution=-1,
-        fulcrum_range='10',
-        weapon_range=-1,
-        damage=d10(),
-        l=0,
-        m=-10,
-        h=-20,
     ),
+    'Crossbow, Hand (2H) (drawn by the hand) [Note: Crossbows and crossbowmen are also called arbalests + arbalestiers.]': (
+        180,
     WeaponModel(
         weapon='Crossbow, Hand (2H) (drawn by the hand) [Note: Crossbows and crossbowmen are also called arbalests + arbalestiers.]',
         weapon_type='S:A',
@@ -1354,6 +1611,9 @@ weapons_table = [
         m=0,
         h=-5,
     ),
+    ),
+    'Crossbow, Wheel + Ratchet (2H) (must be cranked) [Note: Crossbows and crossbowmen are also called arbalests + arbalestiers. 400 draw lbs. required.]': (
+        250,
     WeaponModel(
         weapon='Crossbow, Wheel + Ratchet (2H) (must be cranked) [Note: Crossbows and crossbowmen are also called arbalests + arbalestiers. 400 draw lbs. required.]',
         weapon_type='S:A',
@@ -1367,6 +1627,9 @@ weapons_table = [
         m=0,
         h=0,
     ),
+    ),
+    'Dagger (double-edged)': (
+        10,
     WeaponModel(
         weapon='Dagger (double-edged)',
         weapon_type='S:A',
@@ -1380,6 +1643,9 @@ weapons_table = [
         m=-5,
         h=-20,
     ),
+    ),
+    'Dart': (
+        20,
     WeaponModel(
         weapon='Dart',
         weapon_type='S:A',
@@ -1393,6 +1659,9 @@ weapons_table = [
         m=-25,
         h=-75,
     ),
+    ),
+    'Flask': (
+        1,
     WeaponModel(
         weapon='Flask',
         weapon_type='P:SA',
@@ -1406,6 +1675,9 @@ weapons_table = [
         m=-10,
         h=-25,
     ),
+    ),
+    'Flask, Oil (with ignited wick)': (
+        20,
     WeaponModel(
         weapon='Flask, Oil (with ignited wick)',
         weapon_type='P:SA',
@@ -1419,19 +1691,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
-    WeaponModel(
-        weapon='Hammer, Tool (w/o back spike)',
-        weapon_type='P:SA',
-        size='T 15"',
-        weight=2,
-        weight_distribution=-1,
-        fulcrum_range='20',
-        weapon_range=-1,
-        damage=d12(),
-        l=0,
-        m=-5,
-        h=-10,
     ),
+    "Hammer, War, Horseman's (with back spike)": (
+        30,
     WeaponModel(
         weapon="Hammer, War, Horseman's (with back spike)",
         weapon_type='P(S):SA',
@@ -1445,19 +1707,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
-    WeaponModel(
-        weapon='Hook, Grappling',
-        weapon_type='S/P:SA',
-        size='T 18"',
-        weight=4,
-        weight_distribution=-1,
-        fulcrum_range='40',
-        weapon_range=-1,
-        damage=d6(),
-        l=0,
-        m=-5,
-        h=-10,
     ),
+    'Hudbat (all metal hand ax)': (
+        20,
     WeaponModel(
         weapon='Hudbat (all metal hand ax)',
         weapon_type='H(S):SA',
@@ -1471,6 +1723,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Javelin': (
+        10,
     WeaponModel(
         weapon='Javelin',
         weapon_type='S:SA',
@@ -1484,19 +1739,9 @@ weapons_table = [
         m=-10,
         h=-25,
     ),
-    WeaponModel(
-        weapon='Knife, Hunting or Tool (single edge)',
-        weapon_type='S:A',
-        size='T 8-12"',
-        weight=1,
-        weight_distribution=-1,
-        fulcrum_range='10',
-        weapon_range=-1,
-        damage=d8(),
-        l=0,
-        m=-15,
-        h=-25,
     ),
+    'Knife, Throwing (double-edged)': (
+        9,
     WeaponModel(
         weapon='Knife, Throwing (double-edged)',
         weapon_type='S:A',
@@ -1510,6 +1755,9 @@ weapons_table = [
         m=-10,
         h=-20,
     ),
+    ),
+    'Net, Weighted': (
+        5,
     WeaponModel(
         weapon='Net, Weighted',
         weapon_type='P:SA',
@@ -1523,6 +1771,9 @@ weapons_table = [
         m=0,
         h=0,
     ),
+    ),
+    'Pilum': (
+        20,
     WeaponModel(
         weapon='Pilum',
         weapon_type='S:SA',
@@ -1536,6 +1787,9 @@ weapons_table = [
         m=-5,
         h=-10,
     ),
+    ),
+    'Rock': (
+        0,
     WeaponModel(
         weapon='Rock',
         weapon_type='P:A',
@@ -1549,6 +1803,9 @@ weapons_table = [
         m=-5,
         h=-25,
     ),
+    ),
+    'Sling (2H)': (
+        0,
     WeaponModel(
         weapon='Sling (2H)',
         weapon_type='P:SA',
@@ -1562,6 +1819,9 @@ weapons_table = [
         m=-5,
         h=-25,
     ),
+    ),
+    'Spear, Medium': (
+        10,
     WeaponModel(
         weapon='Spear, Medium',
         weapon_type='S:SA',
@@ -1575,6 +1835,9 @@ weapons_table = [
         m=-5,
         h=-15,
     ),
+    ),
+    'Vial': (
+        5,
     WeaponModel(
         weapon='Vial',
         weapon_type='P:SA',
@@ -1588,4 +1851,5 @@ weapons_table = [
         m=-10,
         h=-50,
     ),
-]
+    ),
+}

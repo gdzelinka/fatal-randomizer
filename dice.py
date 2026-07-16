@@ -39,5 +39,8 @@ def d100():
 def d1000():
     return random.randint(1, 1000)
 
+def d2000():
+    return random.randint(1, 2000)
+
 def d1000000():
     return random.randint(1, 1000000)

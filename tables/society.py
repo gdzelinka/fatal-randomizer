@@ -1,18 +1,21 @@
 import random
-from math import sqrt, floor
-from models.character_models import FatalModel, ItemModel
+from math import sqrt, floor, ceil
+from models.character_models import FatalModel, ItemModel, SkillModel
 from dice import d3, d12, d13, d20, d96, d100, d1000
+from tables.body_tables import lifespan_table
 from tables.weapons import weapons_table, update_weapon
 from tables.abilities import reroll_subability
 from tables.ability_tables import sub_abilities
 from tables.occupation_tables import lookup_occupation_requirements, age_started_working
+from tables.skill_tables import skill_prerequisites_table
 from tables.society_tables import(
     lookup_race_social_class,
     lookup_social_status_birthplace,
     sibling_table,
     marital_table,
     lookup_social_status_occupation,
-    lookup_slave_occupation
+    lookup_slave_occupation,
+    skill_points_table
 )
 from tables.names import (
     lookup_anakim_human_male_first_name,
@@ -52,8 +55,8 @@ def add_society(character: FatalModel):
     else:
         character = generate_occupation(character)
 
-    # skills
-    # buy items
+    character = generate_skills(character)
+
     return character
 
 def generate_name(character: FatalModel):
@@ -263,11 +266,11 @@ def generate_occupation(character: FatalModel):
     for skill_bonus in requirements[1]:
         if skill_bonus[0] != "weapon":
             skill = getattr(character, skill_bonus[0])
-            skill.skill_modifier  = skill.skill_modifier + skill_bonus[1]
+            skill.points_invested  = skill.points_invested + skill_bonus[1]
             setattr(character, skill_bonus[0], skill)
         else:
             for i in range(skill_bonus[1]):
-                weapon = random.choice(weapons_table)
+                _, weapon = random.choice(list(weapons_table.values()))
                 weapon = update_weapon(character, weapon)
                 character.weapons.append(weapon)
 
@@ -286,5 +289,76 @@ def generate_occupation(character: FatalModel):
     return character
 
 def generate_skills(character: FatalModel):
+    if character.race in ['Dark Elf', 'Light Elf']:
+        lifespan_list = [
+        ("Infant", 0, floor(character.elf_lifespan * 0.05)),
+        ("Child", floor(character.elf_lifespan * 0.05) + 1, floor(character.elf_lifespan * 0.15)),
+        ("Puberty", floor(character.elf_lifespan * 0.15)+ 1, floor(character.elf_lifespan * .25)),
+        ("Young Adulthood",floor(character.elf_lifespan * .25) + 1, floor(character.elf_lifespan * 0.4))]
+        working_age = floor(character.elf_lifespan * 0.15)+ 1
+    else:
+        lifespan_list = lifespan_table[character.race]
+        working_age = age_started_working[character.race]
+
+    if character.occupation:
+        occupation_skills = lookup_occupation_requirements(character.occupation)[1]
+        occupation_skills_list = []
+        for occ in occupation_skills:
+            occupation_skills_list.append(occ[0])
+    for age in range(character.age):
+        for age_range in lifespan_list:
+            if age_range[1] <= age <= age_range[2]:
+                stage_of_life = age_range[0]
+        
+        sp = skill_points_table[character.race][stage_of_life]
+        working_skills = 0
+        if age >= working_age and len(occupation_skills_list) >= 1:
+            working_skills = floor(float(f"0.{d100():02d}") * sp)
+            freetime_skills = sp - working_skills
+        else:
+            freetime_skills = sp
+        for point in range(working_skills):
+            skill_to_receive_points = random.choice(occupation_skills_list)
+            skill = getattr(character, skill_to_receive_points)
+            skill.points_invested += 1
+            setattr(character, skill_to_receive_points, skill)
+
+        for point in range(freetime_skills):
+            skill_to_receive_points = None
+            while skill_to_receive_points is None:
+                skill_check = random.choice(list(skill_prerequisites_table.keys()))
+                prerequisites = skill_prerequisites_table[skill_check]
+                if len(prerequisites) >= 1:
+                    passed = True
+                    for prereq in prerequisites:
+                        attribute = getattr(character, prereq[0])
+                        if isinstance(attribute, SkillModel):
+                            if attribute.points_invested < prereq[1]:
+                                passed = False
+                        else:
+                            if attribute < prereq[1]:
+                                passed = False
+                    if passed:
+                        skill_to_receive_points = skill_check
+            skill = getattr(character, skill_to_receive_points)
+            skill.points_invested += 1
+            setattr(character, skill_to_receive_points, skill)
+
     return character
 
+def calculate_skills(character: FatalModel):
+    for name, attribute in vars(character).items():
+        if isinstance(attribute, SkillModel):
+            rel_abilities = attribute.related_abilities
+            skill_modifier = 0
+            if len(rel_abilities) > 0:
+                for ability in rel_abilities:
+                    skill_modifier += getattr(character, f"{ability}_modifier")
+                skill_modifier = floor(skill_modifier / len(rel_abilities))
+            attribute.skill_modifier = skill_modifier
+            if attribute.points_invested >= 5:
+                attribute.total_modifier = attribute.skill_modifier + attribute.points_invested
+            else:
+                attribute.total_modifier = attribute.skill_modifier + attribute.points_invested - attribute.learning_curve
+            setattr(character, name, attribute)
+    return character
