@@ -9,14 +9,14 @@ from tables.abilities import reroll_subability
 from tables.ability_tables import sub_abilities
 from tables.occupation_tables import lookup_occupation_requirements, age_started_working
 from tables.skill_tables import skill_prerequisites_table
-from tables.society_tables import(
+from tables.society_tables import (
     lookup_race_social_class,
     lookup_social_status_birthplace,
     sibling_table,
     marital_table,
     lookup_social_status_occupation,
     lookup_slave_occupation,
-    skill_points_table
+    skill_points_table,
 )
 from tables.names import (
     lookup_anakim_human_male_first_name,
@@ -43,22 +43,24 @@ from tables.names import (
     gruagach_male_nickname_prefix_table,
     gruagach_male_nickname_suffix_table,
     kinder_fresser_male_nickname_prefix_table,
-    kinder_fresser_male_nickname_suffix_table
+    kinder_fresser_male_nickname_suffix_table,
 )
+
 
 def add_society(character: FatalModel):
     character = generate_name(character)
     character = generate_birth(character)
 
     if character.race not in ["Dark Elf", "Light Elf"]:
-         if character.age > age_started_working[character.race]:
-             character = generate_occupation(character)
+        if character.age > age_started_working[character.race]:
+            character = generate_occupation(character)
     else:
         character = generate_occupation(character)
 
     character = generate_skills(character)
 
     return character
+
 
 def generate_name(character: FatalModel):
     if character.race in ["Anakim", "Human"]:
@@ -68,7 +70,7 @@ def generate_name(character: FatalModel):
         elif character.gender == "female":
             first_name = anakim_human_female_first_name_table[d100()]
         character.character_name = f"{first_name} {last_name}"
-    
+
     elif character.race == "Bugbear":
         if character.gender == "male":
             prefix = bugbear_male_name_prefix_table[d100()]
@@ -77,13 +79,13 @@ def generate_name(character: FatalModel):
             prefix = bugbear_female_name_prefix_table[d100()]
             suffix = bugbear_female_name_suffix_table[d100()]
         character.character_name = f"{prefix}-{suffix}"
-    
+
     elif character.race in ["Black Dwarf", "Brown Dwarf", "White Dwarf"]:
         if character.gender == "male":
             character.character_name = dwarven_male_name_table[d96()]
         elif character.gender == "female":
             character.character_name = dwarven_female_name_table[d100()]
-    
+
     elif character.race in ["Dark Elf", "Light Elf"]:
         if character.gender == "male":
             character.character_name = lookup_elven_male_name(d1000())
@@ -93,29 +95,29 @@ def generate_name(character: FatalModel):
     elif character.race == "Kobold":
         if character.gender == "male":
             character.character_name = lookup_kobold_male_name(d1000())
-        elif character.gender =="female":
+        elif character.gender == "female":
             character.character_name = lookup_kobold_female_name(d1000())
-    
+
     elif character.race == "Ogre":
         prefix = base_ogre_male_nickname_prefix_table[d100()]
         suffix = base_ogre_male_nickname_suffix_table[d100()]
         character.character_name = prefix + suffix
-    
+
     elif character.race == "Cliff Ogre":
         prefix = cliff_ogre_male_nickname_prefix_table[d100()]
         suffix = cliff_ogre_male_nickname_suffix_table[d100()]
         character.character_name = prefix + suffix
-    
+
     elif character.race == "Gruagach Ogre":
         prefix = gruagach_male_nickname_prefix_table[d100()]
         suffix = gruagach_male_nickname_suffix_table[d100()]
         character.character_name = prefix + suffix
-    
+
     elif character.race == "Kinder-Fresser Ogre":
         prefix = kinder_fresser_male_nickname_prefix_table[d100()]
         suffix = kinder_fresser_male_nickname_suffix_table[d100()]
         character.character_name = prefix + suffix
-    
+
     elif character.race in ["Borbytingarna Troll", "Hill Troll"]:
         prefix = borb_hill_troll_male_nickname_prefix_table[d100()]
         suffix = borb_hill_troll_male_nickname_suffix_table[d100()]
@@ -129,6 +131,7 @@ def generate_name(character: FatalModel):
 
     return character
 
+
 def generate_birth(character: FatalModel):
     character.birthday = f"{d13()} / {d12() + d20() -1} / {5100 - character.age}"
 
@@ -136,12 +139,12 @@ def generate_birth(character: FatalModel):
     social_class_roll = d100()
     if status_roll < 21:
         character.birth_status = "Illigitimate (bastard)"
-        social_class_roll  = social_class_roll - 2 if social_class_roll -2 >= 1 else 1
+        social_class_roll = social_class_roll - 2 if social_class_roll - 2 >= 1 else 1
     else:
         character.birth_status = "Legitimate"
 
     if character.race == "Anakim":
-        social_class_roll  = social_class_roll - 20 if social_class_roll -20 >= 1 else 1
+        social_class_roll = social_class_roll - 20 if social_class_roll - 20 >= 1 else 1
 
     if character.race not in ["Borbytingarna Troll", "Hill Troll"]:
         social_values = lookup_race_social_class(character.race, social_class_roll)
@@ -152,51 +155,73 @@ def generate_birth(character: FatalModel):
     if character.social_class == "Slave":
         while character.master_social_class is None:
             master_class_roll = d100()
-            master_class = lookup_race_social_class(character.race, master_class_roll)[0]
+            master_class = lookup_race_social_class(character.race, master_class_roll)[
+                0
+            ]
             if master_class != "Slave":
                 character.master_social_class = master_class
         master_occupation_roll = d1000()
-        character.master_occupation = lookup_social_status_occupation(character.master_social_class, master_occupation_roll)
+        character.master_occupation = lookup_social_status_occupation(
+            character.master_social_class, master_occupation_roll
+        )
 
     birthplace_roll = d100()
-        
+
     if character.race in ["Borbytingarna Troll", "Hill Troll"]:
         character.birthplace = "Nature"
-    elif character.race in ["Ogre", "Cliff Ogre", "Gruagach Ogre", "Kinder-fresser Ogre"] and character.social_class in ["Slave", "Peasant"]:
+    elif character.race in [
+        "Ogre",
+        "Cliff Ogre",
+        "Gruagach Ogre",
+        "Kinder-fresser Ogre",
+    ] and character.social_class in ["Slave", "Peasant"]:
         if birthplace_roll < 91:
-            character.birthplace = 'Hamlet'
+            character.birthplace = "Hamlet"
         else:
             character.birthplace = "Village"
     else:
-        character.birthplace = lookup_social_status_birthplace(character.social_class, birthplace_roll)
-    
+        character.birthplace = lookup_social_status_birthplace(
+            character.social_class, birthplace_roll
+        )
+
     sibling_roll = d100()
 
     if character.race == "Anakim":
         sibling_roll = 1
     elif character.race == "Bugbear":
         sibling_roll -= 10
-    elif character.race in ["Black Dwarf", "Brown Dwarf", "White Dwarf", "Dark Elf", "Light Elf"]:
+    elif character.race in [
+        "Black Dwarf",
+        "Brown Dwarf",
+        "White Dwarf",
+        "Dark Elf",
+        "Light Elf",
+    ]:
         sibling_roll -= 25
     elif character.race == "Kobold":
         sibling_roll += 5
-    elif character.race in ["Ogre", "Cliff Ogre", "Gruagach Ogre", "Kinder-fresser Ogre"]:
+    elif character.race in [
+        "Ogre",
+        "Cliff Ogre",
+        "Gruagach Ogre",
+        "Kinder-fresser Ogre",
+    ]:
         sibling_roll -= 20
     elif character.race in ["Borbytingarna Troll", "Hill Troll", "Subterranean Troll"]:
         sibling_roll -= 15
-    
+
     if sibling_roll < 1:
         sibling_roll = 1
     if sibling_roll > 100:
         sibling_roll = 100
-    
+
     character.siblings = sibling_table[sibling_roll]
     total_siblings = character.siblings[0] + character.siblings[1]
 
     if total_siblings == 0:
         character.birth_rank = 1
     else:
-        character.birth_rank = random.randint(1, total_siblings+1)
+        character.birth_rank = random.randint(1, total_siblings + 1)
 
     marriage_roll = None
     while not marriage_roll:
@@ -209,6 +234,7 @@ def generate_birth(character: FatalModel):
 
     return character
 
+
 def generate_occupation(character: FatalModel):
     tries = 0
     while character.occupation is None:
@@ -217,7 +243,9 @@ def generate_occupation(character: FatalModel):
         else:
             occupation_roll = d1000()
             if character.social_class and character.social_class != "Slave":
-                occupation = lookup_social_status_occupation(character.social_class, occupation_roll)
+                occupation = lookup_social_status_occupation(
+                    character.social_class, occupation_roll
+                )
             elif character.social_class and character.social_class == "Slave":
                 slave_roll = d100()
                 occupation = lookup_slave_occupation(character.gender, slave_roll)
@@ -235,31 +263,36 @@ def generate_occupation(character: FatalModel):
                         else:
                             passed = False
                 else:
-                    if req[1] == 'not':
+                    if req[1] == "not":
                         if getattr(character, req[0]) in req[2]:
                             passed = False
 
-                    elif req[1] == 'in':
+                    elif req[1] == "in":
                         if getattr(character, req[0]) not in req[2]:
                             passed = False
-                    elif req[1] == 'weight':
+                    elif req[1] == "weight":
                         if not getattr(character, req[0]) >= character.weight:
                             passed = False
                     else:
                         if getattr(character, req[0]) != req[1]:
                             passed = False
-            
+
             if passed == True and sub_abilities_failed == 0:
                 character.occupation = occupation
             elif passed == True and num_sub_abilities_failed == 1:
                 character = reroll_subability(character, sub_abilities_failed[0][0])
-                if getattr(character, sub_abilities_failed[0][0]) >= sub_abilities_failed[0][1]:
+                if (
+                    getattr(character, sub_abilities_failed[0][0])
+                    >= sub_abilities_failed[0][1]
+                ):
                     character.occupation = occupation
         tries += 1
 
     requirements = requirements = lookup_occupation_requirements(character.occupation)
     if character.race not in ["Dark Elf", "Light Elf"]:
-        character.occupation_level = floor(sqrt(character.age - age_started_working[character.race]))
+        character.occupation_level = floor(
+            sqrt(character.age - age_started_working[character.race])
+        )
     else:
         working_age = floor(character.elf_lifespan * 0.16)
         character.occupation_level = floor(sqrt(character.age - working_age))
@@ -267,7 +300,7 @@ def generate_occupation(character: FatalModel):
     for skill_bonus in requirements[1]:
         if skill_bonus[0] not in ["weapon", "armor"]:
             skill = getattr(character, skill_bonus[0])
-            skill.points_invested  = skill.points_invested + skill_bonus[1]
+            skill.points_invested = skill.points_invested + skill_bonus[1]
             setattr(character, skill_bonus[0], skill)
         elif skill_bonus[0] == "weapon":
             for i in range(skill_bonus[1]):
@@ -286,21 +319,35 @@ def generate_occupation(character: FatalModel):
             character.left_items.append(item_m)
         elif item_location == 2:
             character.right_items.append(item_m)
-        elif item_location ==3:
+        elif item_location == 3:
             character.front_back_items.append(item_m)
 
     character.magic_points = requirements[3] * character.occupation_level
 
     return character
 
+
 def generate_skills(character: FatalModel):
-    if character.race in ['Dark Elf', 'Light Elf']:
+    if character.race in ["Dark Elf", "Light Elf"]:
         lifespan_list = [
-        ("Infant", 0, floor(character.elf_lifespan * 0.05)),
-        ("Child", floor(character.elf_lifespan * 0.05) + 1, floor(character.elf_lifespan * 0.15)),
-        ("Puberty", floor(character.elf_lifespan * 0.15)+ 1, floor(character.elf_lifespan * .25)),
-        ("Young Adult",floor(character.elf_lifespan * .25) + 1, floor(character.elf_lifespan * 0.4))]
-        working_age = floor(character.elf_lifespan * 0.15)+ 1
+            ("Infant", 0, floor(character.elf_lifespan * 0.05)),
+            (
+                "Child",
+                floor(character.elf_lifespan * 0.05) + 1,
+                floor(character.elf_lifespan * 0.15),
+            ),
+            (
+                "Puberty",
+                floor(character.elf_lifespan * 0.15) + 1,
+                floor(character.elf_lifespan * 0.25),
+            ),
+            (
+                "Young Adult",
+                floor(character.elf_lifespan * 0.25) + 1,
+                floor(character.elf_lifespan * 0.4),
+            ),
+        ]
+        working_age = floor(character.elf_lifespan * 0.15) + 1
     else:
         lifespan_list = lifespan_table[character.race]
         working_age = age_started_working[character.race]
@@ -353,6 +400,7 @@ def generate_skills(character: FatalModel):
 
     return character
 
+
 def calculate_skills(character: FatalModel):
     for name, attribute in vars(character).items():
         if isinstance(attribute, SkillModel):
@@ -364,8 +412,14 @@ def calculate_skills(character: FatalModel):
                 skill_modifier = floor(skill_modifier / len(rel_abilities))
             attribute.skill_modifier = skill_modifier
             if attribute.points_invested >= 5:
-                attribute.total_modifier = attribute.skill_modifier + attribute.points_invested
+                attribute.total_modifier = (
+                    attribute.skill_modifier + attribute.points_invested
+                )
             else:
-                attribute.total_modifier = attribute.skill_modifier + attribute.points_invested - attribute.learning_curve
+                attribute.total_modifier = (
+                    attribute.skill_modifier
+                    + attribute.points_invested
+                    - attribute.learning_curve
+                )
             setattr(character, name, attribute)
     return character

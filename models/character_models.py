@@ -42,10 +42,10 @@ class WeaponModel(BaseModel):
     skill_modifier: int = 0
     breadth: int = 0
     weapon_type: str = ""
-    size: str = ''
+    size: str = ""
     weight: float = 0
     weight_distribution: float = 0
-    fulcrum_range: str = ''
+    fulcrum_range: str = ""
     weapon_range: float = 0
     delivery_penalty: int = 0
     damage: int = 0
@@ -56,7 +56,7 @@ class WeaponModel(BaseModel):
 
 class ArmorModel(BaseModel):
     armor: str = ""
-    body_locations: list[str]= []
+    body_locations: list[str] = []
     armor_type: str = ""
     armor_bonus: int = 0
     ip: int = 0
@@ -74,24 +74,25 @@ class ArmorModel(BaseModel):
 
 class SpellModel(BaseModel):
     spell_name: str = ""
-    spell_type: str = ''
+    spell_type: str = ""
     magic_points: int = 0
     discipline: str = ""
     level: int = 0
-    spell_range: str = ''
-    duration: str = ''
+    spell_range: str = ""
+    duration: str = ""
     area: str = ""
     effect: str = ""
     chant: str = ""
     skill_points_invested: int = 0
     ingredients: List[str] = None
-    ritual: str = ''
+    ritual: str = ""
     pages_in_spellbook: int = 0
     ingredients_stored_where: str = ""
 
 
 class FatalModel(BaseModel):
     """Major Laterals"""
+
     character_name: str = ""
     gender: str = ""
     race: str = ""
@@ -101,31 +102,31 @@ class FatalModel(BaseModel):
     homeland: str = ""
     level: int = 0
     religion: str = ""
-    height: int = 0 # in inches
-    weight: int = 0 # in pounds
-    siblings: Tuple[int, int] = (0,0)
+    height: int = 0  # in inches
+    weight: int = 0  # in pounds
+    siblings: Tuple[int, int] = (0, 0)
     social_class: str = None
     master_social_class: str = None
     master_occupation: str = None
     literacy: str = ""
     age: int = 0
-    stage_of_life: str = ''
+    stage_of_life: str = ""
     eyes: str = ""
     skin_color: str = ""
     birth_rank: str = ""
     sexuality: str = ""
     debauchery_value: int = 0
-    debauchery: str = ''
+    debauchery: str = ""
     marital_status: str = ""
     birth_status: str = ""
     hair_color: str = ""
     hair_thickness: str = ""
     facial_feature: str = ""
     birthplace: str = ""
-    hair_length: str = ''
+    hair_length: str = ""
     hair_type: str = ""
     birthday: str = ""
-    vision: str = ''
+    vision: str = ""
     most_attractive_feature: str = ""
     most_repulsive_feature: str = ""
     breadth: int = 0
@@ -203,13 +204,13 @@ class FatalModel(BaseModel):
     analytic_modifier: int = 0
     spatial: int = 0
     spatial_modifier: int = 0
-    unfamiliar_object_assembly: int = 0 # number of pieces
+    unfamiliar_object_assembly: int = 0  # number of pieces
 
     wisdom: int = 0
     wisdom_modifier: int = 0
     drive: int = 0
     drive_modifier: int = 0
-    unconscioness: str = ''
+    unconscioness: str = ""
     hours_resting: int = 0
     intuition: int = 0
     intuition_modifier: int = 0
@@ -246,14 +247,12 @@ class FatalModel(BaseModel):
     unconscious: int = 0
     piety_points: int = 0
 
-    
-
     """Disposition and Temperment"""
 
     ethical_points: int = 0
     moral_points: int = 0
-    ethicality: str = ''
-    morality: str = ''
+    ethicality: str = ""
+    morality: str = ""
     disposition: str = ""
 
     sanguine: int = 0
@@ -275,20 +274,20 @@ class FatalModel(BaseModel):
     horn_length: int = 0
     manhood_length: int = 0
     manhood_circumference: int = 0
-    anal_circumference_potential: str = ''
-    anal_depth_potential: float = ''
+    anal_circumference_potential: str = ""
+    anal_depth_potential: float = ""
     vaginal_circumference_potential: int = 0
     vaginal_depth_potential: int = 0
     areola_diameter: float = 0
-    areola_hue: str = ''
+    areola_hue: str = ""
     nipple_length: float = 0
-    cup_size: str = ''
+    cup_size: str = ""
     tongue_size: float = 0
     hymen_resistance: int = 0
     base_odds_of_orgasm: int = 0
     areola_hue: str = ""
-    foot_size: str = ''
-    fist_circumference: str = ''
+    foot_size: str = ""
+    fist_circumference: str = ""
     head_circumference: float = 0
     handedness: str = ""
     is_pregnant: bool = False
@@ -349,222 +348,304 @@ class FatalModel(BaseModel):
     num_skill_rerolls: int = 0
 
     """Skills"""
-    acting_drama: SkillModel = SkillModel(related_abilities = ['charisma', 'intelligence'])
-    agriculture: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    aim: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'], learning_curve=13)
-    ambidexterity: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    anatomy: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    animal_conditioning: SkillModel = SkillModel(related_abilities = ['drive', 'intuition'])
-    animal_handling: SkillModel = SkillModel(related_abilities = ['intuition'])
-    appraise: SkillModel = SkillModel(related_abilities = ['analytic'])
-    architecture: SkillModel = SkillModel(related_abilities = ['math', 'spatial'], learning_curve=21)
-    armor_general_type: SkillModel = SkillModel(related_abilities = ['agility'])
-    armor_specific: SkillModel = SkillModel(related_abilities = ['agility'])
-    armorsmithing: SkillModel = SkillModel(related_abilities = ['spatial'], learning_curve=17)
-    balance: SkillModel = SkillModel(related_abilities = ['agility'])
-    basketweaving: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'common_sense'])
-    blacksmithing: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
-    blindfighting: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'reaction_speed', 'intuition'])
-    bookbinding: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    brass_smithing: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
-    brawling_skill: SkillModel = SkillModel(related_abilities = ['agility'])
-    brewing: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    brickmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    candlemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    carpentry: SkillModel = SkillModel(related_abilities = ['spatial'])
-    cartography: SkillModel = SkillModel(related_abilities = ['spatial'])
-    catching: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    charioteering: SkillModel = SkillModel(related_abilities = ['dexterity'])
-    chemistry: SkillModel = SkillModel(related_abilities = ['math', 'analytic', 'intuition'])
-    cleaning: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    climb: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'agility'])
-    clockmaking: SkillModel = SkillModel(related_abilities = ['spatial'])
-    cobbling: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    comedy_buffoonery: SkillModel = SkillModel(related_abilities = ['charisma'])
-    comedy_physical: SkillModel = SkillModel(related_abilities = ['charisma', 'agility'])
-    comedy_pun: SkillModel = SkillModel(related_abilities = ['charisma'])
-    constellations: SkillModel = SkillModel(related_abilities = ['reflection', 'spatial'])
-    contortion: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'agility'])
-    cooking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    coppersmithing: SkillModel = SkillModel(related_abilities = ['spatial', 'strength'])
-    cosmetics: SkillModel = SkillModel(related_abilities = ['spatial', 'intelligence', 'intuition'])
-    cosmos_general_planes: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    cosmos_specific_plane: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    dance: SkillModel = SkillModel(related_abilities = ['kinetic', 'agility'])
-    delousing: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    diagnosing: SkillModel = SkillModel(related_abilities = ['intelligence', 'wisdom'])
-    direction_sense: SkillModel = SkillModel(related_abilities = ['intuition'])
-    disarm: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'agility'])
-    disguise: SkillModel = SkillModel(related_abilities = ['charisma', 'common_sense'])
-    dismemberment: SkillModel = SkillModel(related_abilities = [])
-    divination_alectromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_anthropomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_aspidomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_astrology: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_austromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_axinomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_belomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_ceraunoscopy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_chiromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_cleromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_crystalomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_dririmancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_gastromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_gyromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_hydromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_libanomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_lithomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_lunomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_necromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_numerology: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_omphalomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_oneiromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_onomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_oomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_ornithomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_pyromancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_scatomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_sortilege: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_stichomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_urimancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    divination_xenomancy: SkillModel = SkillModel(related_abilities = ['intuition'])
-    dying: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    enameling: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    engraving: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    etiquette: SkillModel = SkillModel(related_abilities = ['common_sense', 'intuition', 'reflection'])
-    fishing: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    fletching: SkillModel = SkillModel(related_abilities = ['spatial'])
-    foresting: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    forgery: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    gambling: SkillModel = SkillModel(related_abilities = ['common_sense', 'math'])
-    gemcutting: SkillModel = SkillModel(related_abilities = ['spatial'], learning_curve=14)
-    genealogy: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    girdlemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    glassblowing: SkillModel = SkillModel(related_abilities = ['spatial'], learning_curve=14)
-    glovemaking: SkillModel = SkillModel(related_abilities = ['spatial'])
-    goldsmithing: SkillModel = SkillModel(related_abilities = ['spatial'])
-    grooming: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    haggling: SkillModel = SkillModel(related_abilities = ['rhetorical', 'intuition'])
-    hairstyling: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'spatial'])
-    hatmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    heraldry: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    herbalism: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    hewing: SkillModel = SkillModel(related_abilities = ['strength'])
-    hide: SkillModel = SkillModel(related_abilities = ['agility', 'common_sense'])
-    history_cultural: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    history_legendary: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    history_local: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    history_military: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    hunting: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    hurl: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    impaling: SkillModel = SkillModel(related_abilities = [])
-    inkmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    intimidation: SkillModel = SkillModel(related_abilities = ['physique', 'charisma'])
-    juggling: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'agility'], learning_curve=13)
-    jump: SkillModel = SkillModel(related_abilities = ['physical_fitness'])
-    language_read_write: SkillModel = SkillModel(related_abilities = ['language'], learning_curve=24)
-    language_speak: SkillModel = SkillModel(related_abilities = ['language'], learning_curve=21)
-    law: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    locksmithing: SkillModel = SkillModel(related_abilities = ['spatial'])
-    lock_picking: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    logic: SkillModel = SkillModel(related_abilities = ['analytic'])
-    mangling: SkillModel = SkillModel(related_abilities = [])
-    massage: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'kinetic'])
-    math_algebra : SkillModel = SkillModel(related_abilities = ['math'])
-    math_fundamental : SkillModel = SkillModel(related_abilities = ['math'])
-    math_geometry : SkillModel = SkillModel(related_abilities = ['math'])
-    math_trigonometry : SkillModel = SkillModel(related_abilities = ['math'])
-    milking: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'common_sense'])
-    milling: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    mining: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    minting: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    mountaineering: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'strength', 'agility'])
-    mounted_archery: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'agility'])
-    music_counterpoint: SkillModel = SkillModel(related_abilities = ['analytic', 'math'])
-    music_theory: SkillModel = SkillModel(related_abilities = ['math'])
-    musical_instrument: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'spatial'], learning_curve=21)
-    nature_animals: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_beasts: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_birds: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_fish: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_geography: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_humanoids: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_minerals: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_mycology: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_plants: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    nature_trees: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    painting: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'spatial'], learning_curve=14)
-    papermaking: SkillModel = SkillModel(related_abilities = ['spatial'])
-    parry: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'agility'], learning_curve=13)
-    perfumemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    persuasion: SkillModel = SkillModel(related_abilities = ['charisma'])
-    pewtersmithing: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    philosophy: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    pick_pocket: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    pottery: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    pursemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    read_lips: SkillModel = SkillModel(related_abilities = ['intuition'])
-    religion_cultural: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    religion_specific: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    remember_detail: SkillModel = SkillModel(related_abilities = ['reflection'])
-    research_library: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    riding: SkillModel = SkillModel(related_abilities = ['agility'])
-    ritual_complex: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'intelligence'])
-    ropemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    rope_use: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    saddlemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    sailing: SkillModel = SkillModel(related_abilities = ['intelligence'], learning_curve=13)
-    sailmaking: SkillModel = SkillModel(related_abilities = ['spatial'])
-    sculpture: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'intuition'], learning_curve=14)
-    search: SkillModel = SkillModel(related_abilities = ['intuition', 'common_sense'])
-    seduction: SkillModel = SkillModel(related_abilities = ['bodily_attractiveness', 'charisma'])
-    sexual_adeptness: SkillModel = SkillModel(related_abilities = ['bodily_attractiveness', 'facial', 'kinetic'])
-    sheathmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    shipwright: SkillModel = SkillModel(related_abilities = ['spatial'], learning_curve=14)
-    sight: SkillModel = SkillModel(related_abilities = [])
-    silence: SkillModel = SkillModel(related_abilities = ['agility', 'common_sense'])
-    silversmithing: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
-    skinning: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    smell: SkillModel = SkillModel(related_abilities = [])
-    soapmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    sound: SkillModel = SkillModel(related_abilities = [])
-    spellcasting_combat: SkillModel = SkillModel(related_abilities = ['drive'])
-    spellcasting_familiarity: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    spellcasting_specific: SkillModel = SkillModel(related_abilities = [])
-    spitting: SkillModel = SkillModel(related_abilities = ['ennunciation'])
-    sprint_skill: SkillModel = SkillModel(related_abilities = ['physical_fitness'])
-    stonemasonry: SkillModel = SkillModel(related_abilities = ['strength', 'spatial'])
-    storytelling: SkillModel = SkillModel(related_abilities = ['charisma'])
-    surgery: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'intelligence'])
-    swim: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'strength'])
-    symbology: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    tailoring: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'spatial'])
-    tanning: SkillModel = SkillModel(related_abilities = ['common_sense'], learning_curve=13)
-    taste: SkillModel = SkillModel(related_abilities = [])
-    teaching: SkillModel = SkillModel(related_abilities = ['intelligence', 'intuition', 'common_sense'])
-    thatching: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    tilemaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    tinkering: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    touch: SkillModel = SkillModel(related_abilities = [])
-    toxicology: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    tracking: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    transcribing: SkillModel = SkillModel(related_abilities = ['language'])
-    trapping: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    trickery: SkillModel = SkillModel(related_abilities = ['charisma'])
-    tumble: SkillModel = SkillModel(related_abilities = ['agility'])
-    urinating: SkillModel = SkillModel(related_abilities = ['health', 'hand_eye_coordination'])
-    ventriloquism: SkillModel = SkillModel(related_abilities = ['intelligence', 'ennunciation'])
-    wainwrighting: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    weapon_general: SkillModel = SkillModel(related_abilities = [], learning_curve=14)
-    weapon_specific: SkillModel = SkillModel(related_abilities = [], learning_curve=13)
-    weapon_mastery: SkillModel = SkillModel(related_abilities = [])
-    weapon_trick: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
-    weaponsmithing: SkillModel = SkillModel(related_abilities = ['spatial'], learning_curve=16)
-    weather_prediction: SkillModel = SkillModel(related_abilities = ['common_sense', 'reflection'])
-    weaving: SkillModel = SkillModel(related_abilities = ['common_sense'], learning_curve=16)
-    wheelwrighting: SkillModel = SkillModel(related_abilities = ['spatial'])
-    wilderness_lore: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    wrestling: SkillModel = SkillModel(related_abilities = ['strength', 'agility'])
+    acting_drama: SkillModel = SkillModel(
+        related_abilities=["charisma", "intelligence"]
+    )
+    agriculture: SkillModel = SkillModel(related_abilities=["common_sense"])
+    aim: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination"], learning_curve=13
+    )
+    ambidexterity: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    anatomy: SkillModel = SkillModel(related_abilities=["intelligence"])
+    animal_conditioning: SkillModel = SkillModel(
+        related_abilities=["drive", "intuition"]
+    )
+    animal_handling: SkillModel = SkillModel(related_abilities=["intuition"])
+    appraise: SkillModel = SkillModel(related_abilities=["analytic"])
+    architecture: SkillModel = SkillModel(
+        related_abilities=["math", "spatial"], learning_curve=21
+    )
+    armor_general_type: SkillModel = SkillModel(related_abilities=["agility"])
+    armor_specific: SkillModel = SkillModel(related_abilities=["agility"])
+    armorsmithing: SkillModel = SkillModel(
+        related_abilities=["spatial"], learning_curve=17
+    )
+    balance: SkillModel = SkillModel(related_abilities=["agility"])
+    basketweaving: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "common_sense"]
+    )
+    blacksmithing: SkillModel = SkillModel(related_abilities=["strength", "spatial"])
+    blindfighting: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "reaction_speed", "intuition"]
+    )
+    bookbinding: SkillModel = SkillModel(related_abilities=["common_sense"])
+    brass_smithing: SkillModel = SkillModel(related_abilities=["strength", "spatial"])
+    brawling_skill: SkillModel = SkillModel(related_abilities=["agility"])
+    brewing: SkillModel = SkillModel(related_abilities=["common_sense"])
+    brickmaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    candlemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    carpentry: SkillModel = SkillModel(related_abilities=["spatial"])
+    cartography: SkillModel = SkillModel(related_abilities=["spatial"])
+    catching: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    charioteering: SkillModel = SkillModel(related_abilities=["dexterity"])
+    chemistry: SkillModel = SkillModel(
+        related_abilities=["math", "analytic", "intuition"]
+    )
+    cleaning: SkillModel = SkillModel(related_abilities=["common_sense"])
+    climb: SkillModel = SkillModel(related_abilities=["physical_fitness", "agility"])
+    clockmaking: SkillModel = SkillModel(related_abilities=["spatial"])
+    cobbling: SkillModel = SkillModel(related_abilities=["common_sense"])
+    comedy_buffoonery: SkillModel = SkillModel(related_abilities=["charisma"])
+    comedy_physical: SkillModel = SkillModel(related_abilities=["charisma", "agility"])
+    comedy_pun: SkillModel = SkillModel(related_abilities=["charisma"])
+    constellations: SkillModel = SkillModel(related_abilities=["reflection", "spatial"])
+    contortion: SkillModel = SkillModel(
+        related_abilities=["physical_fitness", "agility"]
+    )
+    cooking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    coppersmithing: SkillModel = SkillModel(related_abilities=["spatial", "strength"])
+    cosmetics: SkillModel = SkillModel(
+        related_abilities=["spatial", "intelligence", "intuition"]
+    )
+    cosmos_general_planes: SkillModel = SkillModel(related_abilities=["intelligence"])
+    cosmos_specific_plane: SkillModel = SkillModel(related_abilities=["intelligence"])
+    dance: SkillModel = SkillModel(related_abilities=["kinetic", "agility"])
+    delousing: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    diagnosing: SkillModel = SkillModel(related_abilities=["intelligence", "wisdom"])
+    direction_sense: SkillModel = SkillModel(related_abilities=["intuition"])
+    disarm: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "agility"]
+    )
+    disguise: SkillModel = SkillModel(related_abilities=["charisma", "common_sense"])
+    dismemberment: SkillModel = SkillModel(related_abilities=[])
+    divination_alectromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_anthropomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_aspidomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_astrology: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_austromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_axinomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_belomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_ceraunoscopy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_chiromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_cleromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_crystalomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_dririmancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_gastromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_gyromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_hydromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_libanomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_lithomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_lunomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_necromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_numerology: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_omphalomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_oneiromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_onomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_oomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_ornithomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_pyromancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_scatomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_sortilege: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_stichomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_urimancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    divination_xenomancy: SkillModel = SkillModel(related_abilities=["intuition"])
+    dying: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    enameling: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    engraving: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    etiquette: SkillModel = SkillModel(
+        related_abilities=["common_sense", "intuition", "reflection"]
+    )
+    fishing: SkillModel = SkillModel(related_abilities=["common_sense"])
+    fletching: SkillModel = SkillModel(related_abilities=["spatial"])
+    foresting: SkillModel = SkillModel(related_abilities=["common_sense"])
+    forgery: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    gambling: SkillModel = SkillModel(related_abilities=["common_sense", "math"])
+    gemcutting: SkillModel = SkillModel(
+        related_abilities=["spatial"], learning_curve=14
+    )
+    genealogy: SkillModel = SkillModel(related_abilities=["common_sense"])
+    girdlemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    glassblowing: SkillModel = SkillModel(
+        related_abilities=["spatial"], learning_curve=14
+    )
+    glovemaking: SkillModel = SkillModel(related_abilities=["spatial"])
+    goldsmithing: SkillModel = SkillModel(related_abilities=["spatial"])
+    grooming: SkillModel = SkillModel(related_abilities=["common_sense"])
+    haggling: SkillModel = SkillModel(related_abilities=["rhetorical", "intuition"])
+    hairstyling: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "spatial"]
+    )
+    hatmaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    heraldry: SkillModel = SkillModel(related_abilities=["common_sense"])
+    herbalism: SkillModel = SkillModel(related_abilities=["intelligence"])
+    hewing: SkillModel = SkillModel(related_abilities=["strength"])
+    hide: SkillModel = SkillModel(related_abilities=["agility", "common_sense"])
+    history_cultural: SkillModel = SkillModel(related_abilities=["intelligence"])
+    history_legendary: SkillModel = SkillModel(related_abilities=["intelligence"])
+    history_local: SkillModel = SkillModel(related_abilities=["intelligence"])
+    history_military: SkillModel = SkillModel(related_abilities=["intelligence"])
+    hunting: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    hurl: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    impaling: SkillModel = SkillModel(related_abilities=[])
+    inkmaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    intimidation: SkillModel = SkillModel(related_abilities=["physique", "charisma"])
+    juggling: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "agility"], learning_curve=13
+    )
+    jump: SkillModel = SkillModel(related_abilities=["physical_fitness"])
+    language_read_write: SkillModel = SkillModel(
+        related_abilities=["language"], learning_curve=24
+    )
+    language_speak: SkillModel = SkillModel(
+        related_abilities=["language"], learning_curve=21
+    )
+    law: SkillModel = SkillModel(related_abilities=["intelligence"])
+    locksmithing: SkillModel = SkillModel(related_abilities=["spatial"])
+    lock_picking: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    logic: SkillModel = SkillModel(related_abilities=["analytic"])
+    mangling: SkillModel = SkillModel(related_abilities=[])
+    massage: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "kinetic"]
+    )
+    math_algebra: SkillModel = SkillModel(related_abilities=["math"])
+    math_fundamental: SkillModel = SkillModel(related_abilities=["math"])
+    math_geometry: SkillModel = SkillModel(related_abilities=["math"])
+    math_trigonometry: SkillModel = SkillModel(related_abilities=["math"])
+    milking: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "common_sense"]
+    )
+    milling: SkillModel = SkillModel(related_abilities=["common_sense"])
+    mining: SkillModel = SkillModel(related_abilities=["common_sense"])
+    minting: SkillModel = SkillModel(related_abilities=["common_sense"])
+    mountaineering: SkillModel = SkillModel(
+        related_abilities=["physical_fitness", "strength", "agility"]
+    )
+    mounted_archery: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "agility"]
+    )
+    music_counterpoint: SkillModel = SkillModel(related_abilities=["analytic", "math"])
+    music_theory: SkillModel = SkillModel(related_abilities=["math"])
+    musical_instrument: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "spatial"], learning_curve=21
+    )
+    nature_animals: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_beasts: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_birds: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_fish: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_geography: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_humanoids: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_minerals: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_mycology: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_plants: SkillModel = SkillModel(related_abilities=["intelligence"])
+    nature_trees: SkillModel = SkillModel(related_abilities=["intelligence"])
+    painting: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "spatial"], learning_curve=14
+    )
+    papermaking: SkillModel = SkillModel(related_abilities=["spatial"])
+    parry: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "agility"], learning_curve=13
+    )
+    perfumemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    persuasion: SkillModel = SkillModel(related_abilities=["charisma"])
+    pewtersmithing: SkillModel = SkillModel(related_abilities=["common_sense"])
+    philosophy: SkillModel = SkillModel(related_abilities=["intelligence"])
+    pick_pocket: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    pottery: SkillModel = SkillModel(related_abilities=["common_sense"])
+    pursemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    read_lips: SkillModel = SkillModel(related_abilities=["intuition"])
+    religion_cultural: SkillModel = SkillModel(related_abilities=["intelligence"])
+    religion_specific: SkillModel = SkillModel(related_abilities=["intelligence"])
+    remember_detail: SkillModel = SkillModel(related_abilities=["reflection"])
+    research_library: SkillModel = SkillModel(related_abilities=["intelligence"])
+    riding: SkillModel = SkillModel(related_abilities=["agility"])
+    ritual_complex: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "intelligence"]
+    )
+    ropemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    rope_use: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    saddlemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    sailing: SkillModel = SkillModel(
+        related_abilities=["intelligence"], learning_curve=13
+    )
+    sailmaking: SkillModel = SkillModel(related_abilities=["spatial"])
+    sculpture: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "intuition"], learning_curve=14
+    )
+    search: SkillModel = SkillModel(related_abilities=["intuition", "common_sense"])
+    seduction: SkillModel = SkillModel(
+        related_abilities=["bodily_attractiveness", "charisma"]
+    )
+    sexual_adeptness: SkillModel = SkillModel(
+        related_abilities=["bodily_attractiveness", "facial", "kinetic"]
+    )
+    sheathmaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    shipwright: SkillModel = SkillModel(
+        related_abilities=["spatial"], learning_curve=14
+    )
+    sight: SkillModel = SkillModel(related_abilities=[])
+    silence: SkillModel = SkillModel(related_abilities=["agility", "common_sense"])
+    silversmithing: SkillModel = SkillModel(related_abilities=["strength", "spatial"])
+    skinning: SkillModel = SkillModel(related_abilities=["common_sense"])
+    smell: SkillModel = SkillModel(related_abilities=[])
+    soapmaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    sound: SkillModel = SkillModel(related_abilities=[])
+    spellcasting_combat: SkillModel = SkillModel(related_abilities=["drive"])
+    spellcasting_familiarity: SkillModel = SkillModel(
+        related_abilities=["intelligence"]
+    )
+    spellcasting_specific: SkillModel = SkillModel(related_abilities=[])
+    spitting: SkillModel = SkillModel(related_abilities=["ennunciation"])
+    sprint_skill: SkillModel = SkillModel(related_abilities=["physical_fitness"])
+    stonemasonry: SkillModel = SkillModel(related_abilities=["strength", "spatial"])
+    storytelling: SkillModel = SkillModel(related_abilities=["charisma"])
+    surgery: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "intelligence"]
+    )
+    swim: SkillModel = SkillModel(related_abilities=["physical_fitness", "strength"])
+    symbology: SkillModel = SkillModel(related_abilities=["intelligence"])
+    tailoring: SkillModel = SkillModel(
+        related_abilities=["hand_eye_coordination", "spatial"]
+    )
+    tanning: SkillModel = SkillModel(
+        related_abilities=["common_sense"], learning_curve=13
+    )
+    taste: SkillModel = SkillModel(related_abilities=[])
+    teaching: SkillModel = SkillModel(
+        related_abilities=["intelligence", "intuition", "common_sense"]
+    )
+    thatching: SkillModel = SkillModel(related_abilities=["common_sense"])
+    tilemaking: SkillModel = SkillModel(related_abilities=["common_sense"])
+    tinkering: SkillModel = SkillModel(related_abilities=["common_sense"])
+    touch: SkillModel = SkillModel(related_abilities=[])
+    toxicology: SkillModel = SkillModel(related_abilities=["intelligence"])
+    tracking: SkillModel = SkillModel(related_abilities=["intelligence"])
+    transcribing: SkillModel = SkillModel(related_abilities=["language"])
+    trapping: SkillModel = SkillModel(related_abilities=["common_sense"])
+    trickery: SkillModel = SkillModel(related_abilities=["charisma"])
+    tumble: SkillModel = SkillModel(related_abilities=["agility"])
+    urinating: SkillModel = SkillModel(
+        related_abilities=["health", "hand_eye_coordination"]
+    )
+    ventriloquism: SkillModel = SkillModel(
+        related_abilities=["intelligence", "ennunciation"]
+    )
+    wainwrighting: SkillModel = SkillModel(related_abilities=["common_sense"])
+    weapon_general: SkillModel = SkillModel(related_abilities=[], learning_curve=14)
+    weapon_specific: SkillModel = SkillModel(related_abilities=[], learning_curve=13)
+    weapon_mastery: SkillModel = SkillModel(related_abilities=[])
+    weapon_trick: SkillModel = SkillModel(related_abilities=["hand_eye_coordination"])
+    weaponsmithing: SkillModel = SkillModel(
+        related_abilities=["spatial"], learning_curve=16
+    )
+    weather_prediction: SkillModel = SkillModel(
+        related_abilities=["common_sense", "reflection"]
+    )
+    weaving: SkillModel = SkillModel(
+        related_abilities=["common_sense"], learning_curve=16
+    )
+    wheelwrighting: SkillModel = SkillModel(related_abilities=["spatial"])
+    wilderness_lore: SkillModel = SkillModel(related_abilities=["intelligence"])
+    wrestling: SkillModel = SkillModel(related_abilities=["strength", "agility"])
 
     """Body Parts"""
     head: BodyModel = BodyModel()

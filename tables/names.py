@@ -158,7 +158,7 @@ anakim_human_male_first_name_table = {
 def lookup_anakim_human_male_first_name(roll: int) -> str:
     for roll_key, name in anakim_human_male_first_name_table.items():
         if "-" in roll_key:
-            low, high = (int(part) for part in roll_key.split('-', 1))
+            low, high = (int(part) for part in roll_key.split("-", 1))
             if low <= roll <= high:
                 return name
         elif roll == int(roll_key):
@@ -949,7 +949,7 @@ dwarven_male_name_table = {
     93: "Wikerus",
     94: "Wilhelmus",
     95: "Wintherus",
-    96: "Wortwinus"
+    96: "Wortwinus",
 }
 
 
@@ -1291,6 +1291,7 @@ elven_female_name_table = {
     100: "Torctgyd",
 }
 
+
 def lookup_elven_male_name(roll: int) -> str:
     match = None
     for roll_key, name in elven_male_name_table.items():
@@ -1530,6 +1531,7 @@ kobold_female_name_table = {
     "964-972": "Yayuk",
     "973-1000": "Yustiani",
 }
+
 
 def lookup_kobold_male_name(roll: int) -> str:
     match = None
@@ -2982,6 +2984,7 @@ subterranean_troll_female_name_table = {
     "991-1000": "Xuthe",
 }
 
+
 def lookup_subterranean_troll_male_name(roll: int) -> str:
     match = None
     for roll_key, name in subterranean_troll_male_name_table.items():
@@ -3008,4 +3011,3 @@ def lookup_subterranean_troll_female_name(roll: int) -> str:
     if match is None:
         raise KeyError(f"No Subterranean Troll female name for roll {roll}")
     return match
-

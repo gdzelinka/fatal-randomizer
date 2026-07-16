@@ -2,18 +2,20 @@ from models.character_models import FatalModel
 from dice import d100
 from math import floor
 
+
 def add_gender(character: FatalModel):
     gender_roll = d100()
 
     if character.race in ["Anakim", "Ogre", "Troll"]:
         gender_roll = gender_roll + 10
-    
+
     if gender_roll < 53:
         character.gender = "female"
     else:
         character.gender = "male"
-    
+
     return character
+
 
 def add_gender_modifiers(character: FatalModel):
     if "Hermaphrodite" in character.traits:
@@ -48,5 +50,5 @@ def add_gender_modifiers(character: FatalModel):
 
         character.sanguine = character.sanguine + 2
         character.choleric = character.choleric - 2
-    
+
     return character

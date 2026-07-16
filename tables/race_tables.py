@@ -1,7 +1,12 @@
 import random
 from models.character_models import FatalModel
 from dice import d8, d10, d20, d100
-from tables.race_traits import anakim_traits, elf_lifespan, ogre_occupation, racial_hatred
+from tables.race_traits import (
+    anakim_traits,
+    elf_lifespan,
+    ogre_occupation,
+    racial_hatred,
+)
 
 race_dict = {
     "Anakim": 1,
@@ -15,11 +20,11 @@ race_dict = {
     "Kobold": 20,
     "Ogre": 6,
     "Cliff Ogre": 2,
-    "Gruagach Ogre": 3, 
+    "Gruagach Ogre": 3,
     "Kinder-fresser Ogre": 1,
     "Borbytingarna Troll": 2,
     "Hill Troll": 3,
-    "Subterranean Troll": 10
+    "Subterranean Troll": 10,
 }
 
 
@@ -34,6 +39,7 @@ def set_nested_attr(obj, path, value):
     # set the final attribute
     value = value + getattr(target, parts[-1])
     setattr(target, parts[-1], value)
+
 
 def handle_anakim_traits(character):
     number_of_traits = d10()
@@ -50,7 +56,9 @@ def handle_anakim_traits(character):
                     set_nested_attr(character, key, value)
                 else:
                     if isinstance(value[0], str):
-                        setattr(character, key, getattr(character, key).append(value[0]))
+                        setattr(
+                            character, key, getattr(character, key).append(value[0])
+                        )
                     elif isinstance(value[0], list):
                         condition_list = value[0]
                         pass_fail = False
@@ -58,19 +66,37 @@ def handle_anakim_traits(character):
                         for condition in condition_list[1:]:
                             check = condition[1]
                             if condition[0] == "bool":
-                                if and_or == "OR" and getattr(character, check) == condition[2]:
+                                if (
+                                    and_or == "OR"
+                                    and getattr(character, check) == condition[2]
+                                ):
                                     pass_fail = True
-                                elif and_or == "AND" and getattr(character, check) != condition[2]:
+                                elif (
+                                    and_or == "AND"
+                                    and getattr(character, check) != condition[2]
+                                ):
                                     pass_fail = False
                             elif condition[0] == "less than":
-                                if and_or == "OR" and getattr(character, check) < condition[2]:
+                                if (
+                                    and_or == "OR"
+                                    and getattr(character, check) < condition[2]
+                                ):
                                     pass_fail = True
-                                elif and_or == "AND" and getattr(character, check) >= condition[2]:
+                                elif (
+                                    and_or == "AND"
+                                    and getattr(character, check) >= condition[2]
+                                ):
                                     pass_fail = False
                             elif condition[0] == "greater than":
-                                if and_or == "OR" and getattr(character, check) >= condition[2]:
+                                if (
+                                    and_or == "OR"
+                                    and getattr(character, check) >= condition[2]
+                                ):
                                     pass_fail = True
-                                elif and_or == "AND" and getattr(character, check) < condition[2]:
+                                elif (
+                                    and_or == "AND"
+                                    and getattr(character, check) < condition[2]
+                                ):
                                     pass_fail = False
                         if pass_fail:
                             set_nested_attr(character, key, value[1])
@@ -80,12 +106,11 @@ def handle_anakim_traits(character):
 def add_race(character: FatalModel):
     # Race
     character.race = random.choices(
-        population=list(race_dict.keys()),
-        weights=list(race_dict.values()),
-        k=1
+        population=list(race_dict.keys()), weights=list(race_dict.values()), k=1
     )[0]
 
     return character
+
 
 def individual_racial_hatred(societal_hatred: int):
     racism_roll = d10() + d10() + d10()
@@ -158,10 +183,16 @@ def add_racism(character: FatalModel):
     character.opinion_on_ogre = individual_racial_hatred(default_racism[9])
     character.opinion_on_cliff_ogre = individual_racial_hatred(default_racism[10])
     character.opinion_on_gruagach_ogre = individual_racial_hatred(default_racism[11])
-    character.opinion_on_kinder_fresser_ogre = individual_racial_hatred(default_racism[12])
-    character.opinion_on_borbytingarna_troll = individual_racial_hatred(default_racism[13])
+    character.opinion_on_kinder_fresser_ogre = individual_racial_hatred(
+        default_racism[12]
+    )
+    character.opinion_on_borbytingarna_troll = individual_racial_hatred(
+        default_racism[13]
+    )
     character.opinion_on_hill_troll = individual_racial_hatred(default_racism[14])
-    character.opinion_on_subterranean_troll = individual_racial_hatred(default_racism[15])
+    character.opinion_on_subterranean_troll = individual_racial_hatred(
+        default_racism[15]
+    )
 
     return character
 
@@ -196,12 +227,20 @@ def add_race_modifiers(character: FatalModel):
             character.languages_spoken.append("Sapian")
             character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 3
-        character.intimidation.points_invested = character.intimidation.points_invested + 5
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 3
+        )
+        character.intimidation.points_invested = (
+            character.intimidation.points_invested + 5
+        )
         character.mangling.points_invested = character.mangling.points_invested + 3
-        character.sexual_adeptness.points_invested = character.sexual_adeptness.points_invested + 5
+        character.sexual_adeptness.points_invested = (
+            character.sexual_adeptness.points_invested + 5
+        )
         character.trickery.points_invested = character.trickery.points_invested + 3
-        character.weapon_specific.points_invested = character.weapon_specific.points_invested + 5
+        character.weapon_specific.points_invested = (
+            character.weapon_specific.points_invested + 5
+        )
         character.wrestling.points_invested = character.wrestling.points_invested + 5
 
         character = handle_anakim_traits(character)
@@ -233,17 +272,25 @@ def add_race_modifiers(character: FatalModel):
             character.languages_spoken.append("Kobold")
             character.number_of_languages = character.number_of_languages + 1
 
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 3
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 3
+        )
         character.delousing.points_invested = character.delousing.points_invested + 5
-        character.divination_anthropomancy.points_invested = character.divination_anthropomancy.points_invested + 3
-        character.divination_dririmancy.points_invested = character.divination_dririmancy.points_invested + 3
+        character.divination_anthropomancy.points_invested = (
+            character.divination_anthropomancy.points_invested + 3
+        )
+        character.divination_dririmancy.points_invested = (
+            character.divination_dririmancy.points_invested + 3
+        )
         character.law.points_invested = character.law.points_invested + 3
         character.sailing.points_invested = character.sailing.points_invested + 3
         character.search.points_invested = character.search.points_invested + 3
         character.shipwright.points_invested = character.shipwright.points_invested + 3
         character.surgery.points_invested = character.surgery.points_invested + 3
         character.tracking.points_invested = character.tracking.points_invested + 3
-        character.weapon_specific.points_invested = character.weapon_specific.points_invested + 5
+        character.weapon_specific.points_invested = (
+            character.weapon_specific.points_invested + 5
+        )
         character.wrestling.points_invested = character.wrestling.points_invested + 3
 
     elif character.race == "Black Dwarf":
@@ -270,25 +317,53 @@ def add_race_modifiers(character: FatalModel):
             character.number_of_languages = character.number_of_languages + 1
 
         character.appraise.points_invested = character.appraise.points_invested + 3
-        character.architecture.points_invested = character.architecture.points_invested + 5
-        character.armorsmithing.points_invested = character.armorsmithing.points_invested + 3
-        character.blacksmithing.points_invested = character.blacksmithing.points_invested + 8
-        character.brass_smithing.points_invested = character.brass_smithing.points_invested + 3
+        character.architecture.points_invested = (
+            character.architecture.points_invested + 5
+        )
+        character.armorsmithing.points_invested = (
+            character.armorsmithing.points_invested + 3
+        )
+        character.blacksmithing.points_invested = (
+            character.blacksmithing.points_invested + 8
+        )
+        character.brass_smithing.points_invested = (
+            character.brass_smithing.points_invested + 3
+        )
         character.climb.points_invested = character.climb.points_invested + 8
-        character.coppersmithing.points_invested = character.coppersmithing.points_invested + 3
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 3
-        character.divination_axinomancy.points_invested = character.divination_axinomancy.points_invested + 3
-        character.divination_cleromancy.points_invested = character.divination_cleromancy.points_invested + 3
+        character.coppersmithing.points_invested = (
+            character.coppersmithing.points_invested + 3
+        )
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 3
+        )
+        character.divination_axinomancy.points_invested = (
+            character.divination_axinomancy.points_invested + 3
+        )
+        character.divination_cleromancy.points_invested = (
+            character.divination_cleromancy.points_invested + 3
+        )
         character.gambling.points_invested = character.gambling.points_invested + 3
         character.gemcutting.points_invested = character.gemcutting.points_invested + 5
-        character.goldsmithing.points_invested = character.goldsmithing.points_invested + 3
+        character.goldsmithing.points_invested = (
+            character.goldsmithing.points_invested + 3
+        )
         character.mining.points_invested = character.mining.points_invested + 3
-        character.mountaineering.points_invested = character.mountaineering.points_invested + 3
-        character.pewtersmithing.points_invested = character.pewtersmithing.points_invested + 3
-        character.silversmithing.points_invested = character.silversmithing.points_invested + 3
-        character.stonemasonry.points_invested = character.stonemasonry.points_invested + 3
+        character.mountaineering.points_invested = (
+            character.mountaineering.points_invested + 3
+        )
+        character.pewtersmithing.points_invested = (
+            character.pewtersmithing.points_invested + 3
+        )
+        character.silversmithing.points_invested = (
+            character.silversmithing.points_invested + 3
+        )
+        character.stonemasonry.points_invested = (
+            character.stonemasonry.points_invested + 3
+        )
         character.trickery.points_invested = character.trickery.points_invested + 5
-        character.weaponsmithing.points_invested = character.weaponsmithing.points_invested + 3
+        character.weaponsmithing.points_invested = (
+            character.weaponsmithing.points_invested + 3
+        )
 
     elif character.race == "Brown Dwarf":
         character.physical_fitness = character.physical_fitness - 10
@@ -313,24 +388,50 @@ def add_race_modifiers(character: FatalModel):
             character.number_of_languages = character.number_of_languages + 1
 
         character.appraise.points_invested = character.appraise.points_invested + 3
-        character.architecture.points_invested = character.architecture.points_invested + 5
-        character.armorsmithing.points_invested = character.armorsmithing.points_invested + 3
-        character.blacksmithing.points_invested = character.blacksmithing.points_invested + 8
-        character.brass_smithing.points_invested = character.brass_smithing.points_invested + 3
+        character.architecture.points_invested = (
+            character.architecture.points_invested + 5
+        )
+        character.armorsmithing.points_invested = (
+            character.armorsmithing.points_invested + 3
+        )
+        character.blacksmithing.points_invested = (
+            character.blacksmithing.points_invested + 8
+        )
+        character.brass_smithing.points_invested = (
+            character.brass_smithing.points_invested + 3
+        )
         character.cleaning.points_invested = character.cleaning.points_invested + 8
         character.climb.points_invested = character.climb.points_invested + 8
-        character.coppersmithing.points_invested = character.coppersmithing.points_invested + 3
+        character.coppersmithing.points_invested = (
+            character.coppersmithing.points_invested + 3
+        )
         character.dance.points_invested = character.dance.points_invested + 3
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 3
-        character.divination_axinomancy.points_invested = character.divination_axinomancy.points_invested + 3
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 3
+        )
+        character.divination_axinomancy.points_invested = (
+            character.divination_axinomancy.points_invested + 3
+        )
         character.gemcutting.points_invested = character.gemcutting.points_invested + 5
-        character.goldsmithing.points_invested = character.goldsmithing.points_invested + 3
+        character.goldsmithing.points_invested = (
+            character.goldsmithing.points_invested + 3
+        )
         character.mining.points_invested = character.mining.points_invested + 3
-        character.mountaineering.points_invested = character.mountaineering.points_invested + 3
-        character.pewtersmithing.points_invested = character.pewtersmithing.points_invested + 3
-        character.silversmithing.points_invested = character.silversmithing.points_invested + 3
-        character.stonemasonry.points_invested = character.stonemasonry.points_invested + 3
-        character.weaponsmithing.points_invested = character.weaponsmithing.points_invested + 3
+        character.mountaineering.points_invested = (
+            character.mountaineering.points_invested + 3
+        )
+        character.pewtersmithing.points_invested = (
+            character.pewtersmithing.points_invested + 3
+        )
+        character.silversmithing.points_invested = (
+            character.silversmithing.points_invested + 3
+        )
+        character.stonemasonry.points_invested = (
+            character.stonemasonry.points_invested + 3
+        )
+        character.weaponsmithing.points_invested = (
+            character.weaponsmithing.points_invested + 3
+        )
 
     elif character.race == "White Dwarf":
         character.physical_fitness = character.physical_fitness - 10
@@ -358,26 +459,52 @@ def add_race_modifiers(character: FatalModel):
             character.number_of_languages = character.number_of_languages + 1
 
         character.appraise.points_invested = character.appraise.points_invested + 3
-        character.architecture.points_invested = character.architecture.points_invested + 5
-        character.armorsmithing.points_invested = character.armorsmithing.points_invested + 3
-        character.blacksmithing.points_invested = character.blacksmithing.points_invested + 8
-        character.brass_smithing.points_invested = character.brass_smithing.points_invested + 3
+        character.architecture.points_invested = (
+            character.architecture.points_invested + 5
+        )
+        character.armorsmithing.points_invested = (
+            character.armorsmithing.points_invested + 3
+        )
+        character.blacksmithing.points_invested = (
+            character.blacksmithing.points_invested + 8
+        )
+        character.brass_smithing.points_invested = (
+            character.brass_smithing.points_invested + 3
+        )
         character.climb.points_invested = character.climb.points_invested + 8
-        character.coppersmithing.points_invested = character.coppersmithing.points_invested + 3
+        character.coppersmithing.points_invested = (
+            character.coppersmithing.points_invested + 3
+        )
         character.dance.points_invested = character.dance.points_invested + 3
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 3
-        character.divination_axinomancy.points_invested = character.divination_axinomancy.points_invested + 3
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 3
+        )
+        character.divination_axinomancy.points_invested = (
+            character.divination_axinomancy.points_invested + 3
+        )
         character.gemcutting.points_invested = character.gemcutting.points_invested + 5
-        character.goldsmithing.points_invested = character.goldsmithing.points_invested + 3
+        character.goldsmithing.points_invested = (
+            character.goldsmithing.points_invested + 3
+        )
         character.mining.points_invested = character.mining.points_invested + 3
-        character.mountaineering.points_invested = character.mountaineering.points_invested + 3
-        character.pewtersmithing.points_invested = character.pewtersmithing.points_invested + 3
-        character.silversmithing.points_invested = character.silversmithing.points_invested + 3
-        character.stonemasonry.points_invested = character.stonemasonry.points_invested + 3
-        character.weaponsmithing.points_invested = character.weaponsmithing.points_invested + 3
+        character.mountaineering.points_invested = (
+            character.mountaineering.points_invested + 3
+        )
+        character.pewtersmithing.points_invested = (
+            character.pewtersmithing.points_invested + 3
+        )
+        character.silversmithing.points_invested = (
+            character.silversmithing.points_invested + 3
+        )
+        character.stonemasonry.points_invested = (
+            character.stonemasonry.points_invested + 3
+        )
+        character.weaponsmithing.points_invested = (
+            character.weaponsmithing.points_invested + 3
+        )
 
     elif character.race == "Dark Elf":
-        character.elf_lifespan = elf_lifespan[d8()+1]
+        character.elf_lifespan = elf_lifespan[d8() + 1]
 
         character.physical_fitness = character.physical_fitness + 5
         character.strength = character.strength - 60
@@ -411,16 +538,22 @@ def add_race_modifiers(character: FatalModel):
         character.dance.points_invested = character.dance.points_invested + 3
         character.etiquette.points_invested = character.etiquette.points_invested + 3
         character.herbalism.points_invested = character.herbalism.points_invested + 3
-        character.musical_instrument.points_invested = character.musical_instrument.points_invested + 3
-        character.nature_plants.points_invested = character.nature_plants.points_invested + 3
-        character.nature_trees.points_invested = character.nature_trees.points_invested + 3
+        character.musical_instrument.points_invested = (
+            character.musical_instrument.points_invested + 3
+        )
+        character.nature_plants.points_invested = (
+            character.nature_plants.points_invested + 3
+        )
+        character.nature_trees.points_invested = (
+            character.nature_trees.points_invested + 3
+        )
         character.smell.points_invested = character.smell.points_invested + 3
         character.tracking.points_invested = character.tracking.points_invested + 3
         character.trickery.points_invested = character.trickery.points_invested + 3
         character.tumble.points_invested = character.tumble.points_invested + 3
 
     elif character.race == "Light Elf":
-        character.elf_lifespan = elf_lifespan[d8()+1]
+        character.elf_lifespan = elf_lifespan[d8() + 1]
 
         character.physical_fitness = character.physical_fitness + 5
         character.strength = character.strength - 60
@@ -453,9 +586,15 @@ def add_race_modifiers(character: FatalModel):
         character.dance.points_invested = character.dance.points_invested + 3
         character.etiquette.points_invested = character.etiquette.points_invested + 3
         character.herbalism.points_invested = character.herbalism.points_invested + 3
-        character.musical_instrument.points_invested = character.musical_instrument.points_invested + 3
-        character.nature_plants.points_invested = character.nature_plants.points_invested + 3
-        character.nature_trees.points_invested = character.nature_trees.points_invested + 3
+        character.musical_instrument.points_invested = (
+            character.musical_instrument.points_invested + 3
+        )
+        character.nature_plants.points_invested = (
+            character.nature_plants.points_invested + 3
+        )
+        character.nature_trees.points_invested = (
+            character.nature_trees.points_invested + 3
+        )
         character.smell.points_invested = character.smell.points_invested + 3
         character.tracking.points_invested = character.tracking.points_invested + 3
         character.tumble.points_invested = character.tumble.points_invested + 3
@@ -495,10 +634,14 @@ def add_race_modifiers(character: FatalModel):
             character.languages_spoken.append("Kobold")
             character.number_of_languages = character.number_of_languages + 1
 
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 3
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 3
+        )
         character.mining.points_invested = character.mining.points_invested + 3
         character.trickery.points_invested = character.trickery.points_invested + 3
-        character.weapon_specific.points_invested = character.weapon_specific.points_invested + 5
+        character.weapon_specific.points_invested = (
+            character.weapon_specific.points_invested + 5
+        )
 
     elif character.race == "Ogre":
         character.physical_fitness = character.physical_fitness - 18
@@ -528,17 +671,22 @@ def add_race_modifiers(character: FatalModel):
         character.choleric = character.choleric + 25
         character.phlegmatic = character.phlegmatic + 25
 
-        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+        if (
+            character.intelligence_range >= 3
+            and character.number_of_languages < character.max_num_of_languages
+        ):
             character.languages_spoken.append("Cigan")
             character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
             weights=list(ogre_occupation.values()),
-            k=1
+            k=1,
         )[0]
 
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
         character.mangling.points_invested = character.mangling.points_invested + 5
         character.wrestling.points_invested = character.wrestling.points_invested + 3
 
@@ -569,17 +717,22 @@ def add_race_modifiers(character: FatalModel):
         character.melancholic = character.melancholic + 25
         character.phlegmatic = character.phlegmatic - 25
 
-        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+        if (
+            character.intelligence_range >= 3
+            and character.number_of_languages < character.max_num_of_languages
+        ):
             character.languages_spoken.append("Cigan")
             character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
             weights=list(ogre_occupation.values()),
-            k=1
+            k=1,
         )[0]
 
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
         character.climb.points_invested = character.climb.points_invested + 8
         character.hurl.points_invested = character.hurl.points_invested + 5
         character.mangling.points_invested = character.mangling.points_invested + 5
@@ -613,17 +766,22 @@ def add_race_modifiers(character: FatalModel):
         character.melancholic = character.melancholic - 25
         character.phlegmatic = character.phlegmatic + 25
 
-        if character.intelligence_range >= 3 and character.number_of_languages < character.max_num_of_languages:
+        if (
+            character.intelligence_range >= 3
+            and character.number_of_languages < character.max_num_of_languages
+        ):
             character.languages_spoken.append("Gruagan")
             character.number_of_languages = character.number_of_languages + 1
 
         character.occupation = random.choices(
             population=list(ogre_occupation.keys()),
             weights=list(ogre_occupation.values()),
-            k=1
+            k=1,
         )[0]
 
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
         character.mangling.points_invested = character.mangling.points_invested + 5
         character.smell.points_invested = character.smell.points_invested - 5
         character.wrestling.points_invested = character.wrestling.points_invested + 3
@@ -694,9 +852,15 @@ def add_race_modifiers(character: FatalModel):
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.points_invested = character.blindfighting.points_invested + 5
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 5
+        character.blindfighting.points_invested = (
+            character.blindfighting.points_invested + 5
+        )
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 5
+        )
         character.disarm.points_invested = character.disarm.points_invested + 3
         character.mangling.points_invested = character.mangling.points_invested + 5
         character.wrestling.points_invested = character.wrestling.points_invested + 5
@@ -727,19 +891,27 @@ def add_race_modifiers(character: FatalModel):
             ["Bandit", "Berserker", "Gladiator", "Slave"]
         )
 
-        character.blindfighting.points_invested = character.blindfighting.points_invested + 5
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
+        character.blindfighting.points_invested = (
+            character.blindfighting.points_invested + 5
+        )
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
         character.climb.points_invested = character.climb.points_invested + 5
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 3
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 3
+        )
         character.mangling.points_invested = character.mangling.points_invested + 5
         character.taste.points_invested = character.taste.points_invested + 3
-        character.weapon_specific.points_invested = character.weapon_specific.points_invested + 5
+        character.weapon_specific.points_invested = (
+            character.weapon_specific.points_invested + 5
+        )
         character.wrestling.points_invested = character.wrestling.points_invested + 3
 
     elif character.race == "Subterranean Troll":
         character.physical_fitness = character.physical_fitness + 5
         character.strength = character.strength + 100
-        if character.gender == 'male':
+        if character.gender == "male":
             character.bodily_attractiveness = character.bodily_attractiveness - 50
             character.facial = character.facial - 40
         character.kinetic = character.kinetic - 40
@@ -759,9 +931,15 @@ def add_race_modifiers(character: FatalModel):
         character.sanguine = character.sanguine - 25
         character.choleric = character.choleric + 25
 
-        character.blindfighting.points_invested = character.blindfighting.points_invested + 5
-        character.brawling_skill.points_invested = character.brawling_skill.points_invested + 5
-        character.direction_sense.points_invested = character.direction_sense.points_invested + 5
+        character.blindfighting.points_invested = (
+            character.blindfighting.points_invested + 5
+        )
+        character.brawling_skill.points_invested = (
+            character.brawling_skill.points_invested + 5
+        )
+        character.direction_sense.points_invested = (
+            character.direction_sense.points_invested + 5
+        )
         character.mangling.points_invested = character.mangling.points_invested + 5
         character.sound.points_invested = character.sound.points_invested + 3
         character.trickery.points_invested = character.trickery.points_invested + 3

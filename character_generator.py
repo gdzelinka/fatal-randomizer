@@ -1,11 +1,16 @@
 from models.character_models import FatalModel
 from tables.race_tables import add_race, add_race_modifiers
 from tables.gender_tables import add_gender, add_gender_modifiers
-from tables.abilities import calculate_main_abilities, calculate_sub_abilities, apply_subability_modifiers
+from tables.abilities import (
+    calculate_main_abilities,
+    calculate_sub_abilities,
+    apply_subability_modifiers,
+)
 from tables.disposition import add_mind
 from tables.body import add_body, generate_bpp
 from tables.society import add_society, calculate_skills
 from tables.equipment import add_equipment
+
 
 def generate_character():
     character = FatalModel(player_name="Abomination")
@@ -34,10 +39,12 @@ def generate_character():
 
     return character
 
+
 def main():
     character = generate_character()
 
     print(character)
+
 
 if __name__ == "__main__":
     main()
