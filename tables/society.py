@@ -4,6 +4,7 @@ from models.character_models import FatalModel, ItemModel, SkillModel
 from dice import d3, d12, d13, d20, d96, d100, d1000
 from tables.body_tables import lifespan_table
 from tables.weapons import weapons_table, update_weapon
+from tables.armors import armors_table
 from tables.abilities import reroll_subability
 from tables.ability_tables import sub_abilities
 from tables.occupation_tables import lookup_occupation_requirements, age_started_working
@@ -264,15 +265,19 @@ def generate_occupation(character: FatalModel):
         character.occupation_level = floor(sqrt(character.age - working_age))
 
     for skill_bonus in requirements[1]:
-        if skill_bonus[0] != "weapon":
+        if skill_bonus[0] not in ["weapon", "armor"]:
             skill = getattr(character, skill_bonus[0])
             skill.points_invested  = skill.points_invested + skill_bonus[1]
             setattr(character, skill_bonus[0], skill)
-        else:
+        elif skill_bonus[0] == "weapon":
             for i in range(skill_bonus[1]):
                 _, weapon = random.choice(list(weapons_table.values()))
                 weapon = update_weapon(character, weapon)
                 character.weapons.append(weapon)
+        elif skill_bonus[0] == "armor":
+            for i in range(skill_bonus[1]):
+                _, armor = random.choice(list(armors_table.values()))
+                character.armors.append(armor)
 
     for item in requirements[2]:
         item_m = ItemModel(item_name=item)
@@ -294,29 +299,29 @@ def generate_skills(character: FatalModel):
         ("Infant", 0, floor(character.elf_lifespan * 0.05)),
         ("Child", floor(character.elf_lifespan * 0.05) + 1, floor(character.elf_lifespan * 0.15)),
         ("Puberty", floor(character.elf_lifespan * 0.15)+ 1, floor(character.elf_lifespan * .25)),
-        ("Young Adulthood",floor(character.elf_lifespan * .25) + 1, floor(character.elf_lifespan * 0.4))]
+        ("Young Adult",floor(character.elf_lifespan * .25) + 1, floor(character.elf_lifespan * 0.4))]
         working_age = floor(character.elf_lifespan * 0.15)+ 1
     else:
         lifespan_list = lifespan_table[character.race]
         working_age = age_started_working[character.race]
 
+    occupation_skills_list = []
     if character.occupation:
         occupation_skills = lookup_occupation_requirements(character.occupation)[1]
-        occupation_skills_list = []
         for occ in occupation_skills:
-            occupation_skills_list.append(occ[0])
+            if occ[0] != "weapon":
+                occupation_skills_list.append(occ[0])
     for age in range(character.age):
         for age_range in lifespan_list:
             if age_range[1] <= age <= age_range[2]:
                 stage_of_life = age_range[0]
-        
         sp = skill_points_table[character.race][stage_of_life]
         working_skills = 0
         if age >= working_age and len(occupation_skills_list) >= 1:
             working_skills = floor(float(f"0.{d100():02d}") * sp)
-            freetime_skills = sp - working_skills
+            freetime_skills = int(sp - working_skills)
         else:
-            freetime_skills = sp
+            freetime_skills = int(sp)
         for point in range(working_skills):
             skill_to_receive_points = random.choice(occupation_skills_list)
             skill = getattr(character, skill_to_receive_points)
@@ -340,6 +345,8 @@ def generate_skills(character: FatalModel):
                                 passed = False
                     if passed:
                         skill_to_receive_points = skill_check
+                else:
+                    skill_to_receive_points = skill_check
             skill = getattr(character, skill_to_receive_points)
             skill.points_invested += 1
             setattr(character, skill_to_receive_points, skill)

@@ -21,7 +21,7 @@ class BodyModel(BaseModel):
 class ItemModel(BaseModel):
     item_name: str = ""
     location: str = ""
-    weight: int = 0
+    weight: float = 0
 
 
 class HenchModel(BaseModel):
@@ -171,7 +171,7 @@ class FatalModel(BaseModel):
     average_speech_rate: int = 0
 
     dexterity: int = 0
-    dexterity_modifer: int = 0
+    dexterity_modifier: int = 0
     hand_eye_coordination: int = 0
     hand_eye_coordination_modifier: int = 0
     finger_movement_precision: int = 0
@@ -354,7 +354,7 @@ class FatalModel(BaseModel):
     aim: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'], learning_curve=13)
     ambidexterity: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
     anatomy: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    animal_conditioning: SkillModel = SkillModel(related_abilities = ['drive', 'inutition'])
+    animal_conditioning: SkillModel = SkillModel(related_abilities = ['drive', 'intuition'])
     animal_handling: SkillModel = SkillModel(related_abilities = ['intuition'])
     appraise: SkillModel = SkillModel(related_abilities = ['analytic'])
     architecture: SkillModel = SkillModel(related_abilities = ['math', 'spatial'], learning_curve=21)
@@ -375,7 +375,7 @@ class FatalModel(BaseModel):
     cartography: SkillModel = SkillModel(related_abilities = ['spatial'])
     catching: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
     charioteering: SkillModel = SkillModel(related_abilities = ['dexterity'])
-    chemistry: SkillModel = SkillModel(related_abilities = ['math', 'analytic' 'intuition'])
+    chemistry: SkillModel = SkillModel(related_abilities = ['math', 'analytic', 'intuition'])
     cleaning: SkillModel = SkillModel(related_abilities = ['common_sense'])
     climb: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'agility'])
     clockmaking: SkillModel = SkillModel(related_abilities = ['spatial'])
@@ -383,14 +383,14 @@ class FatalModel(BaseModel):
     comedy_buffoonery: SkillModel = SkillModel(related_abilities = ['charisma'])
     comedy_physical: SkillModel = SkillModel(related_abilities = ['charisma', 'agility'])
     comedy_pun: SkillModel = SkillModel(related_abilities = ['charisma'])
-    constellations: SkillModel = SkillModel(related_abilities = ['reflection', 'spatical'])
+    constellations: SkillModel = SkillModel(related_abilities = ['reflection', 'spatial'])
     contortion: SkillModel = SkillModel(related_abilities = ['physical_fitness', 'agility'])
     cooking: SkillModel = SkillModel(related_abilities = ['common_sense'])
     coppersmithing: SkillModel = SkillModel(related_abilities = ['spatial', 'strength'])
-    cosmetics: SkillModel = SkillModel(related_abilities = ['spatial_intelligence', 'intuition'])
+    cosmetics: SkillModel = SkillModel(related_abilities = ['spatial', 'intelligence', 'intuition'])
     cosmos_general_planes: SkillModel = SkillModel(related_abilities = ['intelligence'])
     cosmos_specific_plane: SkillModel = SkillModel(related_abilities = ['intelligence'])
-    dance: SkillModel = SkillModel(related_abilities = ['kinetic_charisma', 'agility'])
+    dance: SkillModel = SkillModel(related_abilities = ['kinetic', 'agility'])
     delousing: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
     diagnosing: SkillModel = SkillModel(related_abilities = ['intelligence', 'wisdom'])
     direction_sense: SkillModel = SkillModel(related_abilities = ['intuition'])
@@ -444,7 +444,7 @@ class FatalModel(BaseModel):
     glovemaking: SkillModel = SkillModel(related_abilities = ['spatial'])
     goldsmithing: SkillModel = SkillModel(related_abilities = ['spatial'])
     grooming: SkillModel = SkillModel(related_abilities = ['common_sense'])
-    haggling: SkillModel = SkillModel(related_abilities = ['rhetorical_charisma', 'ituition'])
+    haggling: SkillModel = SkillModel(related_abilities = ['rhetorical', 'intuition'])
     hairstyling: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'spatial'])
     hatmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
     heraldry: SkillModel = SkillModel(related_abilities = ['common_sense'])
@@ -469,7 +469,7 @@ class FatalModel(BaseModel):
     lock_picking: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination'])
     logic: SkillModel = SkillModel(related_abilities = ['analytic'])
     mangling: SkillModel = SkillModel(related_abilities = [])
-    massage: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'kinetic_charisma'])
+    massage: SkillModel = SkillModel(related_abilities = ['hand_eye_coordination', 'kinetic'])
     math_algebra : SkillModel = SkillModel(related_abilities = ['math'])
     math_fundamental : SkillModel = SkillModel(related_abilities = ['math'])
     math_geometry : SkillModel = SkillModel(related_abilities = ['math'])
@@ -529,7 +529,7 @@ class FatalModel(BaseModel):
     soapmaking: SkillModel = SkillModel(related_abilities = ['common_sense'])
     sound: SkillModel = SkillModel(related_abilities = [])
     spellcasting_combat: SkillModel = SkillModel(related_abilities = ['drive'])
-    spellcasting_famiarity: SkillModel = SkillModel(related_abilities = ['intelligence'])
+    spellcasting_familiarity: SkillModel = SkillModel(related_abilities = ['intelligence'])
     spellcasting_specific: SkillModel = SkillModel(related_abilities = [])
     spitting: SkillModel = SkillModel(related_abilities = ['ennunciation'])
     sprint_skill: SkillModel = SkillModel(related_abilities = ['physical_fitness'])

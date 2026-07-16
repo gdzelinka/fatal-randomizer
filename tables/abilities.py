@@ -81,7 +81,7 @@ def calculate_main_abilities(character: FatalModel):
                                 character.ennunciation) / 4)
     if character.dexterity < 1:
         character.dexterity = 1
-    character.dexterity_modifer = skill_modifier[ceil((character.dexterity / 6))]
+    character.dexterity_modifier = skill_modifier[ceil((character.dexterity / 6))]
 
     character.intelligence = floor((character.language + \
                                 character.math + \

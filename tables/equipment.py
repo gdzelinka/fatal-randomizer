@@ -54,16 +54,19 @@ def buy_items(character:FatalModel):
         random_item  = random.choice(list(items_table.keys()))
         if character.silver >= items_table[random_item][0]:
             character.silver = character.silver - items_table[random_item][0]
-            item_pocket = d3()
-            if item_pocket == 1:
-                character.left_items.append(ItemModel(item_name = random_item,
-                                                      weight = items_table[random_item][1]))
-            elif item_pocket == 2:
-                character.right_items.append(ItemModel(item_name = random_item,
-                                                      weight = items_table[random_item][1]))
-            elif item_pocket == 3:
-                character.front_back_items.append(ItemModel(item_name = random_item,
-                                                      weight = items_table[random_item][1]))
+            if items_table[random_item][1] is not None:
+                item_pocket = d3()
+                if item_pocket == 1:
+                    character.left_items.append(ItemModel(item_name = random_item,
+                                                        weight = items_table[random_item][1]))
+                elif item_pocket == 2:
+                    character.right_items.append(ItemModel(item_name = random_item,
+                                                        weight = items_table[random_item][1]))
+                elif item_pocket == 3:
+                    character.front_back_items.append(ItemModel(item_name = random_item,
+                                                        weight = items_table[random_item][1]))
+            else:
+                character.misc_notes += f"has a {random_item}"
     return character
 
 def get_spells(character: FatalModel):

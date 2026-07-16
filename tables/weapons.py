@@ -1357,7 +1357,7 @@ weapons_table = {
     ),
     ),
     'Shield': (
-        None,
+        200,
     WeaponModel(
         weapon='Shield',
         weapon_type='P:SA',

@@ -71,7 +71,7 @@ def generate_age(character: FatalModel):
         character.age = d1000()
         character.stage_of_life = get_stage("Dwarves", character.age)
     if character.race in ["Dark Elf", "Light Elf"]:
-        character.stage_of_life = "Young Adulthood"
+        character.stage_of_life = "Young Adult"
         character.age = random.randint(floor(character.elf_lifespan*0.26),
                                        floor(character.elf_lifespan*.4))
     if character.race == "Human":
@@ -97,6 +97,7 @@ def apply_age_modifiers(character: FatalModel):
         character.height = floor(character.height * 0.2)
         character.weight = floor(character.weight * 0.05)
         hair_length_roll = hair_length_roll - 90
+        feet = character.foot_size.split(' ')[0].split('-')
         character.foot_size = f"{floor(int(feet[0])* 0.2)}-{floor(int(feet[1])*0.2)} inches"
         character.head_circumference = floor(character.head_circumference * 0.55)
         return character

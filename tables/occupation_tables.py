@@ -57,7 +57,6 @@ occupation_requirements_table = {
         ('grooming', 3),
     ],
         [
-        0,
     ],
         0,
     ),
@@ -377,7 +376,7 @@ occupation_requirements_table = {
         ('social_class', 'Serf'),
     ],
         [
-        ('bowyer', 5),
+        #('bowyer', 5), This is a typo in the rules
         ('haggling', 3),
     ],
         [
@@ -2311,7 +2310,7 @@ occupation_requirements_table = {
         ('social_class', 'Serf'),
     ],
         [
-        ('specific', 3),
+        ('weapon', 3),
         ('history_military', 3),
         ('weapon_general', 3),
         ('weapon', 2),
@@ -2479,9 +2478,7 @@ occupation_requirements_table = {
         ('haggling', 3),
         ('tinkering', 5),
     ],
-        [
-        'Any.',
-    ],
+        [],
         0,
     ),
     'Torturer': (
