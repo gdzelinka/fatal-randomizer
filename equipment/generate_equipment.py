@@ -1,8 +1,8 @@
 from models.character_models import FatalModel, ItemModel
-from tables.weapons import weapons_table
-from tables.armors import armors_table
-from tables.item_tables import items_table
-from tables.spells import spells_table, discipline_list, neighboring_disciplines
+from equipment.weapons import weapons_table
+from equipment.armors import armors_table
+from equipment.item_tables import items_table
+from equipment.spells import spells_table, discipline_list, neighboring_disciplines
 from dice import d3, d4, d6
 import random
 from math import floor

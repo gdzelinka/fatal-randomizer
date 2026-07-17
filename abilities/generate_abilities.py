@@ -1,7 +1,7 @@
 from models.character_models import FatalModel
 from dice import d8, d10, d100, d1000
 from math import floor, ceil
-from tables.ability_tables import (
+from abilities.ability_tables import (
     skill_modifier,
     fitness_table,
     strength_table,
@@ -21,8 +21,8 @@ from tables.ability_tables import (
     common_sense_descriptions,
     earliest_memory_at,
 )
-from tables.body_tables import allergies
-from tables.disposition_tables import lookup_mental_illness
+from body.body_tables import allergies
+from disposition.disposition_tables import lookup_mental_illness
 
 
 def ability_dice():

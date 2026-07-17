@@ -1,6 +1,6 @@
 from models.character_models import FatalModel
-from tables.abilities import ability_dice
-from tables.body_tables import (
+from abilities.generate_abilities import ability_dice
+from body.body_tables import (
     lifespan_table,
     average_height,
     average_weight,

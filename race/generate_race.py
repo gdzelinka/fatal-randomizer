@@ -1,31 +1,13 @@
 import random
 from models.character_models import FatalModel
 from dice import d8, d10, d20, d100
-from tables.race_traits import (
+from race.race_tables import (
+    race_dict,
     anakim_traits,
     elf_lifespan,
     ogre_occupation,
-    racial_hatred,
+    racial_hatred
 )
-
-race_dict = {
-    "Anakim": 1,
-    "Bugbear": 15,
-    "Black Dwarf": 3,
-    "Brown Dwarf": 1,
-    "White Dwarf": 1,
-    "Dark Elf": 1,
-    "Light Elf": 1,
-    "Human": 30,
-    "Kobold": 20,
-    "Ogre": 6,
-    "Cliff Ogre": 2,
-    "Gruagach Ogre": 3,
-    "Kinder-fresser Ogre": 1,
-    "Borbytingarna Troll": 2,
-    "Hill Troll": 3,
-    "Subterranean Troll": 10,
-}
 
 
 def set_nested_attr(obj, path, value):

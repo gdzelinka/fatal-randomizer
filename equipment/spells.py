@@ -1,5 +1,5 @@
 from models.character_models import SpellModel
-from tables.ingredients import ingredient_table
+from equipment.ingredients import ingredient_table
 from dice import d4, d10, d100, d1000, d2000
 
 

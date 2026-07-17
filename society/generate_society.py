@@ -2,14 +2,14 @@ import random
 from math import sqrt, floor, ceil
 from models.character_models import FatalModel, ItemModel, SkillModel
 from dice import d3, d12, d13, d20, d96, d100, d1000
-from tables.body_tables import lifespan_table
-from tables.weapons import weapons_table, update_weapon
-from tables.armors import armors_table
-from tables.abilities import reroll_subability
-from tables.ability_tables import sub_abilities
-from tables.occupation_tables import lookup_occupation_requirements, age_started_working
-from tables.skill_tables import skill_prerequisites_table
-from tables.society_tables import (
+from body.body_tables import lifespan_table
+from equipment.weapons import weapons_table, update_weapon
+from equipment.armors import armors_table
+from abilities.generate_abilities import reroll_subability
+from abilities.ability_tables import sub_abilities
+from society.occupation_tables import lookup_occupation_requirements, age_started_working
+from society.skill_tables import skill_prerequisites_table
+from society.society_tables import (
     lookup_race_social_class,
     lookup_social_status_birthplace,
     sibling_table,
@@ -18,7 +18,7 @@ from tables.society_tables import (
     lookup_slave_occupation,
     skill_points_table,
 )
-from tables.names import (
+from society.names import (
     lookup_anakim_human_male_first_name,
     lookup_anakim_human_last_name,
     anakim_human_female_first_name_table,

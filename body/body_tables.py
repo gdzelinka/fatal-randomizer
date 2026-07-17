@@ -221,24 +221,6 @@ average_height = {
     },
 }
 
-average_weight = {
-    "Anakim": {"male": 400, "female": 200},
-    "Bugbear": {"male": 300, "female": 250},
-    "Black Dwarf": {"male": 100, "female": 90},
-    "Brown Dwarf": {"male": 100, "female": 90},
-    "White Dwarf": {"male": 100, "female": 90},
-    "Dark Elf": {"male": 60, "female": 55},
-    "Light Elf": {"male": 60, "female": 55},
-    "Human": {"male": 150, "female": 115},
-    "Kobold": {"male": 80, "female": 70},
-    "Ogre": {"male": 650, "female": 500},
-    "Cliff Ogre": {"male": 650, "female": 500},
-    "Gruagach Ogre": {"male": 650, "female": 500},
-    "Kinder-fresser Ogre": {"male": 650, "female": 500},
-    "Borbytingarna Troll": {"male": 250, "female": 250},
-    "Hill Troll": {"male": 650, "female": 500},
-    "Subterranean Troll": {"male": 250, "female": 250},
-}
 
 average_weight = {
     "Anakim": {"male": 400, "female": 200},
@@ -3955,8 +3937,8 @@ proportion_4 = {
     "Right Foot": 0.01,
     "Lower Left Leg": 0.07,
     "Lower Right Leg": 0.07,
-    "Upper Left Leg": 0.7,
-    "Upper Right Leg": 0.7,
+    "Upper Left Leg": 0.07,
+    "Upper Right Leg": 0.07,
     "Groin": 0.01,
     "Lower Torso": 0.33,
     "Upper Torso": 0.1,

@@ -1,16 +1,16 @@
 from models.character_models import FatalModel
-from tables.race_tables import add_race, add_race_modifiers
-from tables.gender_tables import add_gender, add_gender_modifiers
-from tables.abilities import (
+from race.generate_race import add_race, add_race_modifiers
+from gender.generate_gender import add_gender, add_gender_modifiers
+from abilities.generate_abilities import (
     calculate_main_abilities,
     calculate_sub_abilities,
     apply_subability_modifiers,
 )
-from tables.disposition import add_mind
-from tables.body import add_body, generate_bpp
-from tables.society import add_society, calculate_skills
-from tables.equipment import add_equipment
-
+from disposition.generate_disposition import add_mind
+from body.generate_body import add_body, generate_bpp
+from society.generate_society import add_society, calculate_skills
+from equipment.generate_equipment import add_equipment
+from pretty_print import print_fatal_model
 
 def generate_character():
     character = FatalModel(player_name="Abomination")
@@ -42,8 +42,7 @@ def generate_character():
 
 def main():
     character = generate_character()
-
-    print(character)
+    print_fatal_model(character)
 
 
 if __name__ == "__main__":

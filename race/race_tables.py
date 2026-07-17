@@ -1,5 +1,24 @@
 from dice import d3, d4, d8, d10, d12, d20, d100
 
+race_dict = {
+    "Anakim": 1,
+    "Bugbear": 15,
+    "Black Dwarf": 3,
+    "Brown Dwarf": 1,
+    "White Dwarf": 1,
+    "Dark Elf": 1,
+    "Light Elf": 1,
+    "Human": 30,
+    "Kobold": 20,
+    "Ogre": 6,
+    "Cliff Ogre": 2,
+    "Gruagach Ogre": 3,
+    "Kinder-fresser Ogre": 1,
+    "Borbytingarna Troll": 2,
+    "Hill Troll": 3,
+    "Subterranean Troll": 10,
+}
+
 anakim_traits = {
     1: (
         (

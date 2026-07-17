@@ -1,8 +1,8 @@
 from math import ceil
 from models.character_models import FatalModel
-from tables.body_tables import lifespan_table
-from tables.ability_tables import skill_modifier
-from tables.disposition_tables import (
+from body.body_tables import lifespan_table
+from abilities.ability_tables import skill_modifier
+from disposition.disposition_tables import (
     ethicality_table,
     morality_table,
     male_debauchery_table,
