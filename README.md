@@ -27,14 +27,14 @@ KamSandwich or anyone associated with the Kam Delicatessen is not allowed to use
   
 3. **Install the library**
    ```bash
-   cd your-repo-name
+   cd fatal-randomizer
    pip install .
   
 3. **Enjoy**
    ``` bash
    python src/character_generator.py
 
-## 🏗️ Architecture & Directory Structure
+## Architecture & Directory Structure
 
 ```text
 fatal-randomizer/
@@ -54,7 +54,7 @@ fatal-randomizer/
 ```
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] [Open to suggestions]
 
