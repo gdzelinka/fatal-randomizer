@@ -365,8 +365,8 @@ def _armors_table(armors: list[ArmorModel]) -> Table:
 
 def _sexual_and_rare(character: FatalModel) -> Table:
     col1 = [
-        ("Manhood Length", character.manhood_length),
-        ("Manhood Circumference", character.manhood_circumference),
+        ("Manhood Length", f"{character.manhood_length:.2f}"),
+        ("Manhood Circumference", f"{character.manhood_circumference:.2f}"),
         ("Anal Circumference Potential", character.anal_circumference_potential),
         ("Vaginal Circumference Potential", character.vaginal_circumference_potential),
         ("Vaginal Depth Potential", f"{character.vaginal_depth_potential:.2f}"),
