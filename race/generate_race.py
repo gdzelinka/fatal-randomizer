@@ -486,7 +486,7 @@ def add_race_modifiers(character: FatalModel):
         )
 
     elif character.race == "Dark Elf":
-        character.elf_lifespan = elf_lifespan[d8() + 1]
+        character.elf_lifespan = elf_lifespan[d8()]
 
         character.physical_fitness = character.physical_fitness + 5
         character.strength = character.strength - 60
@@ -535,7 +535,7 @@ def add_race_modifiers(character: FatalModel):
         character.tumble.points_invested = character.tumble.points_invested + 3
 
     elif character.race == "Light Elf":
-        character.elf_lifespan = elf_lifespan[d8() + 1]
+        character.elf_lifespan = elf_lifespan[d8()]
 
         character.physical_fitness = character.physical_fitness + 5
         character.strength = character.strength - 60

@@ -11,7 +11,7 @@ from rich.table import Table
 from rich.text import Text
 
 from models.character_models import ArmorModel, FatalModel, ItemModel, SkillModel, SpellModel, WeaponModel
-
+from race.race_tables import race_dict
 console = Console()
 
 
@@ -34,7 +34,7 @@ def _height(inches: int) -> str:
 def _siblings(siblings: tuple[int, int]) -> str:
     if not siblings or siblings == (0, 0):
         return ""
-    return f"{siblings[0]}/{siblings[1]}"
+    return f"{siblings[0]} brothers and {siblings[1]} sisters"
 
 
 def _skill_name(field: str) -> str:
@@ -134,7 +134,7 @@ def _general_info(character: FatalModel) -> Table:
         [
             ("Most Attractive Feature", character.most_attractive_feature),
             ("Breadth", character.breadth),
-            ("BMI", character.bmi),
+            ("BMI", f"{character.bmi:.2f}"),
         ],
         [
             ("Most Repulsive Feature", character.most_repulsive_feature),
@@ -179,42 +179,48 @@ def _abilities_table(character: FatalModel) -> Table:
     table.add_column("Skill Mod.", justify="right", width=8)
     table.add_column("Derived / Description", ratio=3)
 
-    def ability_row(label: str, score: int, modifier: int, derived: str = "", style: str = "") -> None:
+    def ability_row(label: str, score: int, modifier: int, derived: str = "", style: str = "", end_section=False) -> None:
         table.add_row(
             Text(label, style=style),
             _val(score),
             _val(modifier),
             derived,
+            end_section=end_section
         )
 
     def section(title: str) -> None:
         table.add_row(Text(title, style="bold white on grey37"), "", "", "", end_section=True)
 
     section("PHYSIQUE")
+    ability_row("Physique", character.physique, character.physique_modifier)
     ability_row("Physical Fitness", character.physical_fitness, character.physical_fitness_modifier, f"Sprint: {character.sprint}")
     ability_row("Strength", character.strength, character.strength_modifier, f"Dmg: {character.dmg}  C&J: {character.cj}  Bench: {character.bench}  DL: {character.dl}")
     ability_row("Bodily Attractiveness", character.bodily_attractiveness, character.bodily_attractiveness_modifier)
-    ability_row("Health", character.health, character.health_modifier, f"Int/Vom: {character.int_vom}  All: {character.health_all}  Ill. Im.: {character.im}")
+    ability_row("Health", character.health, character.health_modifier, f"Int/Vom: {character.int_vom}  All: {character.health_all}  Ill. Im.: {character.im}", end_section=True)
 
     section("CHARISMA")
+    ability_row("Charisma", character.charisma, character.charisma_modifier)
     ability_row("Facial", character.facial, character.facial_modifier, character.facial_description)
     ability_row("Vocal", character.vocal, character.vocal_modifier, character.vocal_description)
     ability_row("Kinetic", character.kinetic, character.kinetic_modifier, character.kinetic_description)
-    ability_row("Rhetorical", character.rhetorical, character.rhetorical_modifier, f"Avg Speech Rate: {character.average_speech_rate}")
+    ability_row("Rhetorical", character.rhetorical, character.rhetorical_modifier, f"Avg Speech Rate: {character.average_speech_rate}", end_section=True)
 
     section("DEXTERITY")
+    ability_row("Dexterity", character.dexterity, character.dexterity_modifier)
     ability_row("Hand-Eye Coordination", character.hand_eye_coordination, character.hand_eye_coordination_modifier, f"Finger Movement Precision: {character.finger_movement_precision}")
     ability_row("Agility", character.agility, character.agility_modifier, f"CA Bonus: {character.ca_bonus}  Brawling: {character.brawling}  Stand: {character.stand}")
     ability_row("Reaction Speed", character.reaction_speed, character.reaction_speed_modifier, f"Deep Sleep Recovery: {character.deep_sleep_recovery}")
-    ability_row("Enunciation", character.ennunciation, character.ennunciation_modifier, f"Max Speech Rate: {character.maximum_speech_rate}  Casting: {character.casting}")
+    ability_row("Enunciation", character.ennunciation, character.ennunciation_modifier, f"Max Speech Rate: {character.maximum_speech_rate}  Casting: {character.casting}", end_section=True)
 
     section("INTELLIGENCE")
+    ability_row("Intelligence", character.intelligence, character.intelligence_modifier)
     ability_row("Language", character.language, character.language_modifier, f"#: {character.number_of_languages}/{character.max_num_of_languages}  Vocabulary: {character.vocabulary}")
     ability_row("Math", character.math, character.math_modifier, f"Highest Possible Math: {character.highest_possible_math}")
     ability_row("Analytic", character.analytic, character.analytic_modifier)
-    ability_row("Spatial", character.spatial, character.spatial_modifier, f"Unfamiliar Object Assembly: {character.unfamiliar_object_assembly} pieces")
+    ability_row("Spatial", character.spatial, character.spatial_modifier, f"Unfamiliar Object Assembly: {character.unfamiliar_object_assembly} pieces", end_section=True)
 
     section("WISDOM")
+    ability_row("Wisdom", character.wisdom, character.wisdom_modifier)
     ability_row("Drive", character.drive, character.drive_modifier, f"Unconsciousness: {character.unconscioness}  Hours Resting: {character.hours_resting}")
     ability_row("Intuition", character.intuition, character.intuition_modifier)
     ability_row("Common Sense", character.common_sense, character.common_sense_modifier, f"Likely to: {character.likely_to}")
@@ -230,7 +236,7 @@ def _point_totals(character: FatalModel) -> Table:
     table.add_row("Life Points", _val(character.life_points))
     table.add_row("Magic Points", _val(character.magic_points))
     table.add_row("Unconscious (20% L.P.)", _val(character.unconscious))
-    table.add_row("Piety Points", _val(character.piety_points))
+    table.add_row("Piety Points", f"{character.piety_points:.2f}")
     return Panel(table, title="Point Totals", box=box.SQUARE)
 
 
@@ -255,6 +261,23 @@ def _disposition(character: FatalModel) -> Table:
     ]
     for i in range(max(len(disp), len(temp))):
         table.add_row(disp[i] if i < len(disp) else "", temp[i] if i < len(temp) else "")
+    return table
+
+
+def _racism(character: FatalModel) -> Panel:
+    racial_enum = {
+        1: "Preference for",
+        2: "Acceptance of",
+        3: "Indifference toward",
+        4: "Dislike of",
+        5: "Hatred of"
+    }
+    table = Table(box=box.SQUARE, expand=True, show_header=True, header_style="bold white on grey50")
+    table.add_column("RACISM", ratio=1)
+
+    for race in race_dict.keys():
+        attr_name = f"opinion_on_{race.lower().replace(' ','_').replace('-', '_')}"
+        table.add_row(f"{racial_enum[getattr(character, attr_name)]} {race}")
     return table
 
 
@@ -346,7 +369,7 @@ def _sexual_and_rare(character: FatalModel) -> Table:
         ("Manhood Circumference", character.manhood_circumference),
         ("Anal Circumference Potential", character.anal_circumference_potential),
         ("Vaginal Circumference Potential", character.vaginal_circumference_potential),
-        ("Vaginal Depth Potential", character.vaginal_depth_potential),
+        ("Vaginal Depth Potential", f"{character.vaginal_depth_potential:.2f}"),
     ]
     col2 = [
         ("Areola Diameter", character.areola_diameter),
@@ -359,7 +382,7 @@ def _sexual_and_rare(character: FatalModel) -> Table:
         ("Areola Hue", character.areola_hue),
         ("Foot Size", character.foot_size),
         ("Fist Circumference", character.fist_circumference),
-        ("Head Circumference", character.head_circumference),
+        ("Head Circumference", f"{character.head_circumference:.2f}"),
         ("Handedness", character.handedness),
     ]
     table = Table(box=box.SQUARE, expand=True, show_header=False, padding=(0, 1))
@@ -689,6 +712,7 @@ def print_fatal_model(character: FatalModel, *, file: Any | None = None) -> None
     out.print(_point_totals(character))
     out.print()
     out.print(_disposition(character))
+    out.print(_racism(character))
     out.print(_initiative(character))
     out.print(_weapons_table(character.weapons))
     out.print(_armors_table(character.armors))

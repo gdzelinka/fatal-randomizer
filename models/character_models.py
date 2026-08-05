@@ -130,7 +130,7 @@ class FatalModel(BaseModel):
     most_attractive_feature: str = ""
     most_repulsive_feature: str = ""
     breadth: int = 0
-    bmi: str = ""
+    bmi: float = 0
     appearance: str = ""
     traits: list[str] = []
 

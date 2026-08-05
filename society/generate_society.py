@@ -151,6 +151,8 @@ def generate_birth(character: FatalModel):
         character.social_class = social_values[0]
         character.silver += social_values[1]
         character.literacy = social_values[2]
+        if character.literacy == "Literate":
+            character.languages_read_and_written = character.languages_spoken
 
     if character.social_class == "Slave":
         while character.master_social_class is None:
@@ -356,7 +358,7 @@ def generate_skills(character: FatalModel):
     if character.occupation:
         occupation_skills = lookup_occupation_requirements(character.occupation)[1]
         for occ in occupation_skills:
-            if occ[0] != "weapon":
+            if occ[0] not in ("weapon", "armor"):
                 occupation_skills_list.append(occ[0])
     for age in range(character.age):
         for age_range in lifespan_list:

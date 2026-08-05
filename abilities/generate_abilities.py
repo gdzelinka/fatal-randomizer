@@ -53,6 +53,12 @@ def calculate_sub_abilities(character: FatalModel):
     character.ennunciation = character.original_ennunciation = ability_dice()
 
     character.language = character.original_language = ability_dice()
+
+    # This is jank, but we need to have a baseline number of languages before assigning race
+    language_mod = ceil((character.language / 6))
+    character.language_modifier = skill_modifier[language_mod]
+    character.max_num_of_languages = language_table[language_mod][0]
+
     character.math = character.original_math = ability_dice()
     character.analytic = character.original_analytic = ability_dice()
     character.spatial = character.original_spatial = ability_dice()

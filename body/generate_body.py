@@ -59,6 +59,8 @@ def add_body(character: FatalModel):
 
 
 def get_stage(race: str, age: int) -> str:
+    if age < lifespan_table[race][0][1]:
+        return "Infant"
     for label, lo, hi in lifespan_table[race]:
         if lo <= age <= hi:
             return label
@@ -94,6 +96,9 @@ def generate_age(character: FatalModel):
     if character.race in ["Borbytingarna Troll", "Hill Troll", "Subterranean Troll"]:
         character.age = floor((age_roll / 3) - 40)
         character.stage_of_life = get_stage("Trolls", character.age)
+
+    if character.age < 0:
+        character.age = 0
 
     return character
 
@@ -140,7 +145,7 @@ def apply_age_modifiers(character: FatalModel):
     elif character.stage_of_life == "Middle Age":
         character.height = floor(character.height * 0.99)
         character.weight = floor(character.weight * 1.1)
-        character.hair_color = character.hair_color + "w/ some Gray"
+        character.hair_color = character.hair_color + " w/ some Gray"
 
     elif character.stage_of_life == "Old Age":
         character.height = floor(character.height * 0.98)
@@ -321,6 +326,7 @@ def apply_weight_modifiers(character: FatalModel):
 
 def apply_bmi(character: FatalModel):
     bmi = character.weight / (character.height**2) * 705
+    character.bmi = bmi
     bmi_bounds = bmi_table[character.race][character.gender]
 
     if bmi < bmi_bounds[0][0]:

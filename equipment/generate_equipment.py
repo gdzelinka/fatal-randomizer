@@ -22,7 +22,7 @@ def add_equipment(character: FatalModel):
 
 
 def buy_armor(character: FatalModel):
-    for i in range(10):
+    for i in range(5):
         random_armor = random.choice(list(armors_table.keys()))
         if character.silver >= armors_table[random_armor][0]:
             character.armors.append(armors_table[random_armor][1])
@@ -45,7 +45,7 @@ def apply_armor(character: FatalModel):
 
 
 def buy_weapons(character: FatalModel):
-    for i in range(10):
+    for i in range(5):
         random_weapon = random.choice(list(weapons_table.keys()))
         if character.silver >= weapons_table[random_weapon][0]:
             character.weapons.append(weapons_table[random_weapon][1])
@@ -54,7 +54,7 @@ def buy_weapons(character: FatalModel):
 
 
 def buy_items(character: FatalModel):
-    for i in range(40):
+    for i in range(20):
         random_item = random.choice(list(items_table.keys()))
         if character.silver >= items_table[random_item][0]:
             character.silver = character.silver - items_table[random_item][0]
@@ -79,7 +79,10 @@ def buy_items(character: FatalModel):
                         )
                     )
             else:
-                character.misc_notes += f"has a {random_item}"
+                if character.misc_notes == "":
+                    character.misc_notes = f"Has a {random_item}"
+                else:
+                    character.misc_notes += f"and a {random_item}"
     return character
 
 
