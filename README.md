@@ -9,7 +9,6 @@ But making a character is just too dang hard.
 
 Well that's what this project is all about. Replacing the 600+ dice rolls with one handy-dandy python script.
 
-KamSandwich or anyone associated with the Kam Delicatessen is not allowed to use this repo until he has created his own character with pencil and die. 
 
 ### Key Features
 
